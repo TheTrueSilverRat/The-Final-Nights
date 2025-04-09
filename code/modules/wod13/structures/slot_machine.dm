@@ -4,7 +4,7 @@
 |	  Tgstation port by Miauw	|
 \*******************************/
 
-#define SPIN_PRICE 5
+#define SPIN_PRICE 100
 #define SMALL_PRIZE 400
 #define BIG_PRIZE 1000
 #define JACKPOT 10000
@@ -58,7 +58,7 @@
 	if(!.)
 		return .
 
-	money += round(delta_time / 2) //SPESSH MAJICKS
+	money += (round(delta_time / 2)+5) //SPESSH MAJICKS
 
 /obj/machinery/computer/slot_machine/update_icon_state()
 	if(machine_stat & NOPOWER)
@@ -109,7 +109,7 @@
 		dat = reeltext
 
 	else
-		dat = {"Five dollars to play!<BR>
+		dat = {"100 dollars to play!<BR>
 		<B>Prize Money Available:</B> [money] (jackpot payout is ALWAYS 100%!)<BR>
 		<B>Dollars Remaining:</B> [balance]<BR>
 		[plays] players have tried their luck today, and [jackpots] have won a jackpot!<BR>
