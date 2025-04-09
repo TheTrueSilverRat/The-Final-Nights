@@ -18337,6 +18337,13 @@
 "fpX" = (
 /turf/open/floor/plating/vampgrass,
 /area/vtm/graveyard)
+"fpZ" = (
+/obj/machinery/light/small{
+	pixel_y = 32
+	},
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/rough,
+/area/vtm/sewer/nosferatu_town)
 "fqd" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/sidewalk,
@@ -23563,13 +23570,6 @@
 	},
 /turf/open/floor/plating/vampgrass,
 /area/vtm/interior/cog/caern)
-"gMY" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer/slot_machine,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/interior/laundromat)
 "gMZ" = (
 /obj/structure/vampfence/rich{
 	dir = 4
@@ -33662,6 +33662,10 @@
 	},
 /turf/open/floor/carpet,
 /area/vtm/interior/strip/toreador)
+"jMQ" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/laundromat)
 "jNc" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet,
@@ -43256,10 +43260,6 @@
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/clinic)
-"mGz" = (
-/obj/machinery/computer/slot_machine,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/interior/laundromat)
 "mGB" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern{
@@ -47708,6 +47708,13 @@
 /obj/structure/closet/secure_closet/freezer,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
+"nSo" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/laundromat)
 "nSp" = (
 /obj/structure/pole,
 /mob/living/carbon/human/npc/stripper,
@@ -60698,13 +60705,6 @@
 	},
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/church)
-"rxF" = (
-/obj/machinery/light/small{
-	pixel_y = 32
-	},
-/obj/machinery/computer/slot_machine,
-/turf/open/floor/plating/rough,
-/area/vtm/sewer/nosferatu_town)
 "rxJ" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -94784,7 +94784,7 @@ uuF
 fZO
 hZO
 eZa
-rxF
+fpZ
 sfd
 eir
 sfd
@@ -193107,7 +193107,7 @@ rfe
 rfe
 rfe
 pyy
-mGz
+jMQ
 rGm
 gSG
 gSG
@@ -193363,8 +193363,8 @@ rfe
 rfe
 rfe
 rfe
-rfe
-gMY
+pyy
+nSo
 rGm
 gSG
 gSG
@@ -193873,11 +193873,11 @@ jTk
 oNJ
 rfe
 rfe
-mGz
+jMQ
 rfe
 kAm
 rfe
-mGz
+jMQ
 rfe
 rGm
 rGm
@@ -194385,7 +194385,7 @@ gGS
 jTk
 wdq
 wWZ
-mGz
+jMQ
 rfe
 pyy
 rfe
@@ -194644,11 +194644,11 @@ wdq
 acI
 ePP
 rfe
-mGz
+jMQ
 rfe
 kAm
 rfe
-mGz
+jMQ
 rfe
 rGm
 rGm
