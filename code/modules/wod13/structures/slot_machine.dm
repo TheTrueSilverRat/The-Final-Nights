@@ -11,7 +11,7 @@
 #define SPIN_TIME 65 //As always, deciseconds.
 #define REEL_DEACTIVATE_DELAY 7
 #define SEVEN "<font color='red'>7</font>"
-#define HOLOCHIP 1
+//#define HOLOCHIP 1
 #define COIN 2
 
 /obj/machinery/computer/slot_machine
@@ -22,14 +22,13 @@
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
-	//circuit = /obj/item/circuitboard/computer/slot_machine
 	light_color = LIGHT_COLOR_BROWN
-	var/money = 3000 //How much money it has CONSUMED
+	var/money = 20000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = FALSE
 	var/balance = 0 //How much money is in the machine, ready to be CONSUMED.
 	var/jackpots = 0
-	var/paymode = HOLOCHIP //toggles between HOLOCHIP/COIN, defined above
+	//var/paymode = HOLOCHIP //toggles between HOLOCHIP/COIN, defined above
 	var/cointype = /obj/item/stack/dollar //default cointype
 //	var/list/coinvalues = list()
 	var/list/reels = list(list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0)
@@ -48,11 +47,6 @@
 		randomize_reels()
 
 	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), FALSE)
-
-//	for(cointype in typesof(/obj/item/coin))
-//		var/obj/item/coin/C = new cointype
-//		coinvalues["[cointype]"] = C.get_item_credit_value()
-//		qdel(C) //Sigh
 
 /obj/machinery/computer/slot_machine/Destroy()
 	if(balance)
@@ -237,20 +231,18 @@
 		reels[5][2] = SEVEN
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
-		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] credits!'")
+		visible_message("<b>[src]</b> says, 'JACKPOT! You win ten thousand dollars!'")
 		jackpots += 1
-		balance += money - give_payout(JACKPOT)
-		money = 0
+		give_money(JACKPOT)
 		playsound(loc, 'code/modules/wod13/sounds/jackpot.ogg', 50, TRUE)
-		new /obj/item/stack/dollar(loc,JACKPOT)
 
 	else if(linelength == 5)
-		visible_message("<b>[src]</b> says, 'Big Winner! You win a thousand credits!'")
+		visible_message("<b>[src]</b> says, 'Big Winner! You win a thousand dollars!'")
 		give_money(BIG_PRIZE)
 		playsound(loc, 'code/modules/wod13/sounds/jackpot.ogg', 50, TRUE)
 
 	else if(linelength == 4)
-		visible_message("<b>[src]</b> says, 'Winner! You win four hundred credits!'")
+		visible_message("<b>[src]</b> says, 'Winner! You win four hundred dollars!'")
 		give_money(SMALL_PRIZE)
 		playsound(loc, 'code/modules/wod13/sounds/jackpot.ogg', 50, TRUE)
 
@@ -315,5 +307,5 @@
 #undef BIG_PRIZE
 #undef SMALL_PRIZE
 #undef SPIN_PRICE
-#undef HOLOCHIP
+//#undef HOLOCHIP
 #undef COIN
