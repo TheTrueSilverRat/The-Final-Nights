@@ -22668,6 +22668,7 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
+/obj/machinery/computer/slot_machine,
 /turf/open/floor/carpet,
 /area/vtm/interior/shop)
 "gzE" = (
@@ -31450,6 +31451,13 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/ghetto)
+"jeW" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/laundromat)
 "jfg" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/ammo_casing/caseless/bolt,
@@ -40887,6 +40895,13 @@
 /obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights/community)
+"lVY" = (
+/obj/machinery/light/small{
+	pixel_y = 32
+	},
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/rough,
+/area/vtm/sewer/nosferatu_town)
 "lVZ" = (
 /obj/structure/vamproofwall{
 	color = "#bdbdbd";
@@ -54622,6 +54637,10 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/shop)
+"pPG" = (
+/obj/machinery/computer/slot_machine,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/laundromat)
 "pPH" = (
 /obj/structure/table,
 /turf/open/floor/plating/granite/black,
@@ -94765,7 +94784,7 @@ uuF
 fZO
 hZO
 eZa
-jVA
+lVY
 sfd
 eir
 sfd
@@ -193087,8 +193106,8 @@ rfe
 rfe
 rfe
 rfe
-rfe
-rfe
+pyy
+pPG
 rGm
 gSG
 gSG
@@ -193345,7 +193364,7 @@ rfe
 rfe
 rfe
 rfe
-lva
+jeW
 rGm
 gSG
 gSG
@@ -193854,11 +193873,11 @@ jTk
 oNJ
 rfe
 rfe
-rfe
+pPG
 rfe
 kAm
 rfe
-rfe
+pPG
 rfe
 rGm
 rGm
@@ -194366,7 +194385,7 @@ gGS
 jTk
 wdq
 wWZ
-rfe
+pPG
 rfe
 pyy
 rfe
@@ -194625,11 +194644,11 @@ wdq
 acI
 ePP
 rfe
-rfe
+pPG
 rfe
 kAm
 rfe
-rfe
+pPG
 rfe
 rGm
 rGm
