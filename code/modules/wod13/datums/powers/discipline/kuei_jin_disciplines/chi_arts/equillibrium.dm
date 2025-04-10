@@ -5,7 +5,7 @@
 	power_type = /datum/discipline_power/kj_discipline_power/equilibrium
 	discipline_type = "Chi"
 	yin_cost = 1
-	yang_cost = 2
+	yang_cost = 1
 
 /datum/discipline/thaumaturgy/post_gain()
 	. = ..()
@@ -238,63 +238,3 @@
 	if(current_area.yin_chi)
 		owner.yin_chi = min(owner.yin_chi + current_area.yin_chi, owner.max_yin_chi)
 		to_chat(owner, "<span class='medradio'>Some <b>Yin</b> Chi energy enters you...</span>")
-
-///This is for refrence will remove when done
-/*
-
-/datum/chi_discipline/equilibrium
-	name = "Equilibrium"
-	desc = "Equilibrium can be used to create grotesque Chi imbalances in individuals who displease the user."
-	icon_state = "equilibrium"
-	ranged = FALSE
-	delay = 12 SECONDS
-	cost_yang = 1
-	cost_yin = 1
-	discipline_type = "Chi"
-	activate_sound = 'code/modules/wod13/sounds/equilibrium.ogg'
-
-		if(3)
-			for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
-				affected_mob.dna.species.punchdamagehigh += 5
-				affected_mob.physiology.armor.melee += 15
-				affected_mob.physiology.armor.bullet += 15
-				affected_mob.dexterity += 2
-				affected_mob.athletics += 2
-				affected_mob.lockpicking += 2
-				ADD_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
-				var/obj/effect/celerity/celerity_effect = new(get_turf(affected_mob))
-				celerity_effect.appearance = affected_mob.appearance
-				celerity_effect.dir = affected_mob.dir
-				var/matrix/double_size = matrix(affected_mob.transform)
-				double_size.Scale(2, 2)
-				animate(celerity_effect, transform = double_size, alpha = 0, time = 1 SECONDS)
-				spawn(delay+owner.discipline_time_plus)
-					qdel(celerity_effect)
-					if(affected_mob)
-						affected_mob.dna.species.punchdamagehigh -= 5
-						affected_mob.physiology.armor.melee -= 15
-						affected_mob.physiology.armor.bullet -= 15
-						affected_mob.dexterity -= 2
-						affected_mob.athletics -= 2
-						affected_mob.lockpicking -= 2
-						REMOVE_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
-		if(4)
-			for(var/mob/living/affected_mob in oviewers(5, owner))
-				affected_mob.AdjustKnockdown(2 SECONDS, TRUE)
-				affected_mob.emote("scream")
-				playsound(get_turf(affected_mob), 'code/modules/wod13/sounds/vicissitude.ogg', 75, FALSE)
-				step_away(affected_mob, owner)
-		if(5)
-			owner.yin_chi += 1
-			owner.yang_chi += 1
-			var/area/current_area = get_area(owner)
-			if(current_area.yang_chi)
-				owner.yang_chi = min(owner.yang_chi + current_area.yang_chi, owner.max_yang_chi)
-				to_chat(owner, "<span class='engradio'>Some <b>Yang</b> Chi energy enters you...</span>")
-			if(current_area.yin_chi)
-				owner.yin_chi = min(owner.yin_chi + current_area.yin_chi, owner.max_yin_chi)
-				to_chat(owner, "<span class='medradio'>Some <b>Yin</b> Chi energy enters you...</span>")
-
-
-
-*/
