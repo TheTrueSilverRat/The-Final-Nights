@@ -1,5 +1,5 @@
 //Just gotta comment down all of this (not for now since I need to make sure things work)
-
+/*
 /datum/action/chi_discipline
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi' //This is the file for the BACKGROUND icon
@@ -2211,3 +2211,4 @@
 		sleep(2 SECONDS)
 
 
+*/

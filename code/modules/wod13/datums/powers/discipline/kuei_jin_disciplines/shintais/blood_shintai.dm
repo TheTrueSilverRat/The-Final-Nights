@@ -180,129 +180,36 @@
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
 
 
-/*
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_transfer
-	name = "Chi Transfer"
-	desc = "Transfer your Chi reserves between your Yin, Yang, and Demon."
+/datum/discipline_power/kj_discipline_power/blood_shintai/blood_spit
+	name = "Blood Spit"
+	desc = "Spit out your blood in a spray of spit to act like pepper spray against your enemies."
 
 	level = 2
 
-	check_flags = DISC_CHECK_CONSCIOUS
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_SPEAK
 
-	yin_cost = 0
-	yang_cost = 0
-	toggled = FALSE
-	cooldown_length = 6 SECONDS
+	toggled = false
+	cooldown_length = 1 TURN
 
 	grouped_powers = list(
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost_group,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_feed
+		/datum/discipline_power/kj_discipline_power/blood_shintai/blood_shift,
+		/datum/discipline_power/kj_discipline_power/blood_shintai/blood_crawl,
+		/datum/discipline_power/kj_discipline_power/blood_shintai/blood_wave,
+		/datum/discipline_power/kj_discipline_power/blood_shintai/blood_katana
 	)
 
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_transfer/activate()
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost_group
-	name = "Group Chi Boost"
-	desc = "Channel Chi within everyone else around you to push their bodies to greater heights."
-
-	level = 3
-
-	check_flags = DISC_CHECK_CONSCIOUS
-
-	toggled = TRUE
-	duration_length = 4 TURNS
-
-	grouped_powers = list(
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_transfer,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_feed
-	)
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost/activate()
+/datum/discipline_power/kj_discipline_power/blood_shintai/blood_spit/activate()
 	. = ..()
-	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
-		affected_mob.dna.species.punchdamagehigh += 5
-		affected_mob.physiology.armor.melee += 15
-		affected_mob.physiology.armor.bullet += 15
-		affected_mob.dexterity += 2
-		affected_mob.athletics += 2
-		affected_mob.lockpicking += 2
-		ADD_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
-		var/obj/effect/celerity/celerity_effect = new(get_turf(affected_mob))
-		celerity_effect.appearance = affected_mob.appearance
-		celerity_effect.dir = affected_mob.dir
-		var/matrix/double_size = matrix(affected_mob.transform)
-		double_size.Scale(2, 2)
-		animate(celerity_effect, transform = double_size, alpha = 0, time = 1 SECONDS)
+	playsound(get_turf(owner), 'code/modules/wod13/sounds/spit.ogg', 50, FALSE)
+	var/obj/item/reagent_containers/spray/pepper/kuei_jin/sprayer = new (get_turf(owner))
+	//spits the weird pepper spray 3 tiles ahead of the owner
+	var/turf/sprayed_at_turf = get_turf(owner)
+	for (var/i in 1 to 3)
+		sprayed_at_turf = get_step(sprayed_at_turf, owner.dir)
+		sprayer.spray(sprayed_at_turf, owner)
+		qdel(sprayer)
 
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost/deactivate()
-	. = ..()
-	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
-		var/obj/effect/celerity/celerity_effect = new(get_turf(affected_mob))
-		qdel(celerity_effect)
-		if(affected_mob)
-			affected_mob.dna.species.punchdamagehigh -= 5
-			affected_mob.physiology.armor.melee -= 15
-			affected_mob.physiology.armor.bullet -= 15
-			affected_mob.dexterity -= 2
-			affected_mob.athletics -= 2
-			affected_mob.lockpicking -= 2
-			REMOVE_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
-
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun
-	name = "Chi Stun"
-	desc = "Aggravate the Chi of those around you, forcing them to collapse briefly in sheer pain."
-
-	level = 4
-
-	check_flags = DISC_CHECK_CONSCIOUS
-
-	yin_cost = 1
-	yang_cost = 1
-	toggled = FALSE
-	cooldown_length = 12 SECONDS
-
-	grouped_powers = list(
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_transfer,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost_group,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_feed
-	)
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun/activate()
-	. = ..()
-	for(var/mob/living/affected_mob in oviewers(5, owner))
-		affected_mob.AdjustKnockdown(4 SECONDS, TRUE)
-		affected_mob.emote("scream")
-		playsound(get_turf(affected_mob), 'code/modules/wod13/sounds/vicissitude.ogg', 75, FALSE)
-		step_away(affected_mob, owner)
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_feed
-	name = "Ambient Chi Feed"
-	desc = "Mastery of the Equilibrium arts has allowed you to feed on even the ambient chi of the area like the Mandarins."
-
-	level = 5
-
-	check_flags = DISC_CHECK_CONSCIOUS
-
-	yin_cost = 0
-	yang_cost = 0
-	toggled = FALSE
-	cooldown_length = 6 SECONDS
-
-	grouped_powers = list(
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_transfer,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_boost_group,
-		/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun
-	)
-
-/datum/discipline_power/kj_discipline_power/equilibrium/chi_stun/activate()
-
+/*
 
 /datum/chi_discipline/blood_shintai
 	name = "Blood Shintai"

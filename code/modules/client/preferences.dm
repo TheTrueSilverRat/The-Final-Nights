@@ -2078,13 +2078,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
 						return
 
-					var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
+					var/list/possible_new_disciplines = subtypesof(/datum/discipline/kj_discipline) - discipline_types
 					var/has_chi_one = FALSE
 					var/has_demon_one = FALSE
 					var/how_much_usual = 0
 					for(var/i in discipline_types)
 						if(i)
-							var/datum/chi_discipline/C = i
+							var/datum/discipline/kj_discipline/C = i
 							if(initial(C.discipline_type) == "Shintai")
 								how_much_usual += 1
 							if(initial(C.discipline_type) == "Demon")
@@ -2093,7 +2093,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								has_chi_one = TRUE
 					for(var/i in possible_new_disciplines)
 						if(i)
-							var/datum/chi_discipline/C = i
+							var/datum/discipline/kj_discipline/C = i
 							if(initial(C.discipline_type) == "Shintai")
 								if(how_much_usual >= 3)
 									possible_new_disciplines -= i

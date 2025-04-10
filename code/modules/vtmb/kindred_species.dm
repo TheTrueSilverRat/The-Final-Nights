@@ -609,17 +609,17 @@
 			clane.post_gain(src)
 
 	if((dna.species.id == "kuei-jin")) //only splats that have Disciplines qualify
-		var/list/datum/chi_discipline/adding_disciplines = list()
+		var/list/datum/discipline/kj_discipline/adding_disciplines = list()
 
 		if (discipline_pref) //initialise character's own disciplines
 			for (var/i in 1 to client.prefs.discipline_types.len)
 				var/type_to_create = client.prefs.discipline_types[i]
-				var/datum/chi_discipline/discipline = new type_to_create
+				var/datum/discipline/kj_discipline/discipline = new type_to_create
 				discipline.level = client.prefs.discipline_levels[i]
 				adding_disciplines += discipline
 
-		for (var/datum/chi_discipline/discipline in adding_disciplines)
-			give_chi_discipline(discipline)
+		for (var/datum/discipline/kj_discipline/discipline in adding_disciplines)
+			give_kj_discipline(discipline)
 
 /**
  * Creates an action button and applies post_gain effects of the given Discipline.
@@ -634,12 +634,12 @@
 	var/datum/species/kindred/species = dna.species
 	species.disciplines += discipline
 
-/mob/living/carbon/human/proc/give_chi_discipline(datum/chi_discipline/discipline)
+/mob/living/carbon/human/proc/give_kj_discipline(/datum/discipline/kj_discipline/discipline)
 	if (discipline.level > 0)
-		var/datum/action/chi_discipline/action = new
-		action.discipline = discipline
+		var/datum/action/discipline/action = new(discipline)
 		action.Grant(src)
-	discipline.post_gain(src)
+	var/datum/species/kuei_jin/species = dna.species
+	species.kj_disciplines += discipline
 
 /**
  * Accesses a certain Discipline that a Kindred has. Returns false if they don't.

@@ -64,6 +64,7 @@
 	selectable = TRUE
 	var/turf/fool_turf
 	var/fool_fails = 0
+	var/list/datum/discipline/kj_discipline/kj_disciplines = list()
 
 /atom/breathing_overlay
 	icon = 'code/modules/wod13/UI/kuei_jin.dmi'
@@ -275,9 +276,11 @@
 	for(var/datum/action/rebalance/R in C.actions)
 		if(R)
 			R.Remove(C)
-	for(var/datum/action/chi_discipline/A in C.actions)
+/*	for(var/datum/discipline/kj_discipline/A in C.actions)
 		if(A)
 			A.Remove(C)
+(For some reason REmove is an undefined proc for discipline refactor, so will have to look into it )
+*/
 
 /datum/species/kuei_jin/spec_life(mob/living/carbon/human/H)
 	. = ..()
