@@ -54,6 +54,7 @@
  * Goes through a series of if statements to determine if you are able to afford the costs of the disciplines
  */
 /datum/discipline_power/kj_discipline_power/proc/can_afford()
+	. = ..()
 	if(owner.yin_chi >= yin_cost)
 		if(owner.yang_chi >= yang_cost)
 			if(owner.demon_chi >= demon_cost)
@@ -61,3 +62,15 @@
 	else
 		return FALSE
 //	return (owner.bloodpool >= vitae_cost)
+
+
+/datum/discipline_power/kj_discipline_power/proc/spend_resources()
+	. = ..()
+	if (can_afford())
+		owner.yin_chi = owner.yin_chi - yin_cost
+		owner.yang_chi = owner.yang_chi - yang_cost
+		owner.demon_chi = owner.demon_chi - demon_cost
+		owner.update_action_buttons()
+		return TRUE
+	else
+		return FALSE

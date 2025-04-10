@@ -163,7 +163,7 @@
 			if(iskindred(src))
 				to_chat(owner, span_warning("You do not have enough blood to cast [src]!"))
 			if(iscathayan(src))
-			to_chat(owner, span_warning("You do not have the required amount of chi to cast [src]!"))
+				to_chat(owner, span_warning("You do not have the required amount of chi to cast [src]!"))
 		return FALSE
 
 	//the power's cooldown has not elapsed
