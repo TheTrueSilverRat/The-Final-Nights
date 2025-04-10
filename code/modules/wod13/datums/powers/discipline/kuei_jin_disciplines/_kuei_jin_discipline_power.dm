@@ -34,7 +34,7 @@
 
 	/* HOW AND WHEN IT'S ACTIVATED AND DEACTIVATED */
 	/// If this Discipline doesn't automatically expire, but rather periodically drains blood.
-	var/toggled = FALSE
+	toggled = FALSE
 	/// If this power can be turned on and off.
 	cancelable = FALSE
 	/// If this power can (theoretically, not in reality) have multiple of its effects active at once.
@@ -74,3 +74,24 @@
 		return TRUE
 	else
 		return FALSE
+
+/datum/discipline_power/kj_discipline_power/proc/pre_activation(atom/target)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	//resources are still spent if activation is theoretically possible, but it gets prevented
+	spend_resources()
+
+	. = ..()
+
+/datum/discipline_power/kj_discipline_power/proc/refresh(atom/target)
+	. = ..()
+	if (spend_resources())
+		if(yin_cost > 0)
+			if(yang_cost > 0)
+				if(demon_cost > 0)
+					to_chat(owner, span_warning("[src] consumes your chi to stay active."))
+		if (!duration_override)
+			do_duration(target)
+	else
+		to_chat(owner, span_warning("You don't have enough chi to keep [src] active!"))
+		try_deactivate(target)

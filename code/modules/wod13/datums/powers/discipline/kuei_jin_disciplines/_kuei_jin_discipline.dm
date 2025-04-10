@@ -14,19 +14,12 @@
 	power_type = /datum/discipline_power
 	///If this Discipline can be selected at all, or has special handling.
 	selectable = TRUE
-
-	/* BACKEND */
-	///What rank, or how many dots the caster has in this Discipline.
-	level = 1
-	///What rank of this Discipline is currently being casted.
-	level_casting = 1
-	///The power that is currently in use.
-	/datum/discipline_power/current_power
-	///All Discipline powers under this Discipline that the owner knows. Derived from all_powers.
-	list/datum/discipline_power/known_powers = list()
-	///The typepaths of possible powers for every rank in this Discipline.
-	/all_powers = list()
-	///The mob that owns and is using this Discipline.
-	/mob/living/carbon/human/owner
-	///If this Discipline has been assigned before and post_gain effects have already been applied.
-	post_gain_applied
+	///Needed for the buying of disciplines (The options are Shintai, Demon, and Chi. Case Sensitive)
+	var/discipline_type = "Demon"
+	///These are only for displaying stuff in preferences or character creation menu
+	///How many Yin Chi Points this discipline costs to use
+	var/yin_cost = 0
+	///How many Yang Chi Points this discipline costs to use
+	var/yang_cost = 0
+	///How many Demon Chi Points this discipline costs to use
+	var/demon_cost = 0

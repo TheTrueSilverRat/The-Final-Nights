@@ -3,6 +3,8 @@
 	desc = "Gain the stoicism and endurability of your P'o."
 	icon_state = "ironmountain"
 	power_type = /datum/discipline_power/kj_discipline_power/iron_mountain
+	discipline_type = "Demon"
+	demon_cost = 1
 
 
 
