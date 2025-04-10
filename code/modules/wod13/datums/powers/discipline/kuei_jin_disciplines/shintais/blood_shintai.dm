@@ -109,7 +109,7 @@
 /obj/projectile/blood_wave
 	name = "blood wave"
 	icon_state = "leaper"
-	speed = 20
+	speed = 0.8
 	animate_movement = SLIDE_STEPS
 	ricochets_max = 5
 	ricochet_chance = 100
