@@ -636,10 +636,12 @@
 
 /mob/living/carbon/human/proc/give_chi_discipline(datum/chi_discipline/discipline)
 	if (discipline.level > 0)
-		var/datum/action/chi_discipline/action = new
-		action.discipline = discipline
+		var/datum/action/chi_discipline/action = new(discipline)
 		action.Grant(src)
-	discipline.post_gain(src)
+	var/datum/species/kuei_jin/species = dna.species
+	species.chi_disciplines += discipline
+
+//	discipline.post_gain(src)
 
 /**
  * Accesses a certain Discipline that a Kindred has. Returns false if they don't.

@@ -1,3 +1,5 @@
+/*
+
 /datum/action/chi_discipline
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi' //This is the file for the BACKGROUND icon
@@ -2207,3 +2209,5 @@
 				viewing_mantle.flash_act(affect_silicon = 1)
 
 		sleep(2 SECONDS)
+
+*/

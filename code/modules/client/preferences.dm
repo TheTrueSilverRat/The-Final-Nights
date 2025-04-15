@@ -660,6 +660,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += "<BR>"
 					dat += "-[discipline.desc]. Yin:[discipline.cost_yin], Yang:[discipline.cost_yang], Demon:[discipline.cost_demon]<BR>"
 					qdel(discipline)
+
 				var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
 				var/has_chi_one = FALSE
 				var/has_demon_one = FALSE

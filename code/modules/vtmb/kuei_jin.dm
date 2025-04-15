@@ -64,6 +64,7 @@
 	selectable = TRUE
 	var/turf/fool_turf
 	var/fool_fails = 0
+	var/list/datum/chi_discipline/chi_disciplines = list()
 
 /atom/breathing_overlay
 	icon = 'code/modules/wod13/UI/kuei_jin.dmi'
