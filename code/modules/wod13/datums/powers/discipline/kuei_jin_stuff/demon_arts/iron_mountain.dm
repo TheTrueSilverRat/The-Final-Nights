@@ -4,7 +4,7 @@
 	desc = "Let your Demonic Side Shield you"
 	icon_state = "ironmountain"
 	cost_demon = 1
-	discipline_type =  = 'Demon'
+	discipline_type = "Demon"
 	power_type = /datum/chi_discipline_power/iron_mountain
 
 /datum/chi_discipline_power/iron_mountain
