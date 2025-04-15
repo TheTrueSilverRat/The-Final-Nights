@@ -3470,6 +3470,8 @@
 #include "code\modules\wod13\datums\powers\discipline\visceratika.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\_chi_discipline.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\_chi_discipline_power.dm"
+#include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\iron_mountain.dm"
+#include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\equilibrium.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\basic_chi_discipline_template.dm"
 #include "code\modules\wod13\effects\elysium_barrier.dm"
 #include "code\modules\wod13\effects\elysium_stripclub_barrier.dm"
