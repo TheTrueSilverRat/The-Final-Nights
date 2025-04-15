@@ -486,11 +486,11 @@
 			kueijin.yin_chi = min(kueijin.yin_chi + draining_area.yin_chi, kueijin.max_yin_chi)
 			to_chat(kueijin, "<span class='medradio'>Some <b>Yin</b> Chi energy enters you...</span>")
 		if(draining_area.demon_chi > 0)
-			owner.yin_chi = min(owner.yin_chi + current_area.demon_chi, owner.max_demon_chi)
-			to_chat(owner, "<span class='medradio'>Some <b>Demon</b> Chi energy enters you...</span>")
+			kueijin.yin_chi = min(kueijin.demon_chi + draining_area.demon_chi, kueijin.max_demon_chi)
+			to_chat(owner, "<span class='syndradio'>Some <b>Demon</b> Chi energy enters you...</span>")
 		if(draining_area.demon_chi < 0)
-			owner.yin_chi = min(owner.yin_chi + current_area.demon_chi, owner.max_demon_chi)
-			to_chat(owner, "<span class='medradio'>This area takes away some of your <b>Demon</b> Chi energy away..</span>")
+			kueijin.yin_chi = min(kueijin.demon_chi + draining_area.demon_chi, kueijin.max_demon_chi)
+			to_chat(owner, "<span class='comradio'>This area takes away some of your <b>Demon</b> Chi energy away..</span>")
 
 		button.color = "#970000"
 		animate(button, color = "#ffffff", time = cooldown)

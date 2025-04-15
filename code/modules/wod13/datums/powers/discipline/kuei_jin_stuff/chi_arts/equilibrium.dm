@@ -228,9 +228,9 @@
 		to_chat(owner, "<span class='medradio'>Some <b>Yin</b> Chi energy enters you...</span>")
 	if(current_area.demon_chi > 0)
 		owner.yin_chi = min(owner.yin_chi + current_area.demon_chi, owner.max_demon_chi)
-		to_chat(owner, "<span class='medradio'>Some <b>Demon</b> Chi energy enters you...</span>")
+		to_chat(owner, "<span class='syndradio'>Some <b>Demon</b> Chi energy enters you...</span>")
 	if(current_area.demon_chi < 0)
 		owner.yin_chi = min(owner.yin_chi + current_area.demon_chi, owner.max_demon_chi)
-		to_chat(owner, "<span class='medradio'>This area takes away some of your <b>Demon</b> Chi energy away..</span>")
+		to_chat(owner, "<span class='yellowteamradio'>This area takes away some of your <b>Demon</b> Chi energy away..</span>")
 
 
