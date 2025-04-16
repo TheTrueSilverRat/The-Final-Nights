@@ -2,13 +2,13 @@
 /datum/discipline/chi_discipline/ghost_flame
 	name = "Ghost Flame Shintai"
 	desc = "Channel your Chi and stoke your Righteous Fury into true Flames."
-	icon_state = "GhostFlame"
+	icon_state = "ghostfirea"
 	cost_yang = 1
 	power_type = /datum/discipline_power/chi_discipline_power/ghost_flame
 
 /datum/discipline_power/chi_discipline_power/ghost_flame
 	name = "Ghost Flame Shintai"
-	desc = "Channel your Chi and stoke your Righteous Fury into true Flames.
+	desc = "Channel your Chi and stoke your Righteous Fury into true Flames."
 	cost_yang = 1
 
 	activate_sound = 'code/modules/wod13/sounds/ghostflameshintai_activate.ogg'
@@ -102,7 +102,6 @@
 
 	toggled = TRUE
 	duration_length = 2 TURNS
-	var/burn_loop = FALSE //Needed to help turn burnining aura on and off hopefully
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/ghost_flame/two,
@@ -111,27 +110,18 @@
 		/datum/discipline_power/chi_discipline_power/ghost_flame/five
 	)
 
-/datum/discipline_power/chi_discipline_power/ghost_flame/one/proc/burning_aura(mob/living/carbon/human/owner)
-while (burn_loop = TRUE)
+/datum/discipline_power/chi_discipline_power/ghost_flame/one/activate()
+	. = ..()
+	owner.overlay_fullscreen("ghostflame", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.set_light(1.4,5,"#ff8c00")
 	for(var/mob/living/carbon/burned_mob in oviewers(4, owner))
 		burned_mob.adjustFireLoss(10, TRUE)
 		burned_mob.adjust_bodytemperature(15)
 
-/datum/discipline_power/chi_discipline_power/ghost_flame/one/activate()
-	. = ..()
-	target.overlay_fullscreen("ghostflame", /atom/movable/screen/fullscreen/see_through_darkness)
-	owner.set_light(1.4,5,"#ff8c00")
-	burn_loop = TRUE
-	burning_aura()
-
 /datum/discipline_power/chi_discipline_power/ghost_flame/one/deactivate()
 	. = ..()
-	target.clear_fullscreen("ghostflame", 5)
+	owner.clear_fullscreen("ghostflame", 5)
 	owner.set_light(0)
-	burn_loop = FALSE
-	burning_aura()
-
-
 
 //GhostFlame 2
 /datum/discipline_power/chi_discipline_power/ghost_flame/two
