@@ -64,7 +64,7 @@
 	selectable = TRUE
 	var/turf/fool_turf
 	var/fool_fails = 0
-	var/list/datum/chi_discipline/chi_disciplines = list()
+	var/list/datum/discipline/chi_discipline/chi_disciplines = list()
 
 /atom/breathing_overlay
 	icon = 'code/modules/wod13/UI/kuei_jin.dmi'
@@ -276,7 +276,7 @@
 	for(var/datum/action/rebalance/R in C.actions)
 		if(R)
 			R.Remove(C)
-	for(var/datum/action/chi_discipline/A in C.actions)
+	for(var/datum/action/discipline/chi_discipline/A in C.actions)
 		if(A)
 			A.Remove(C)
 

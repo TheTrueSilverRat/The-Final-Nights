@@ -644,7 +644,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h2>[make_font_cool("DISCIPLINES")]</h2><BR>"
 				for (var/i in 1 to discipline_types.len)
 					var/chi_discipline_type = discipline_types[i]
-					var/datum/chi_discipline/chi_discipline = new chi_discipline_type
+					var/datum/discipline/chi_discipline/chi_discipline = new chi_discipline_type
 					var/chi_discipline_level = discipline_levels[i]
 
 					var/cost
@@ -661,13 +661,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "-[chi_discipline.desc]. Yin:[chi_discipline.cost_yin], Yang:[chi_discipline.cost_yang], Demon:[chi_discipline.cost_demon]<BR>"
 					qdel(chi_discipline)
 
-				var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
+				var/list/possible_new_disciplines = subtypesof(/datum/discipline/chi_discipline) - discipline_types
 				var/has_chi_one = FALSE
 				var/has_demon_one = FALSE
 				var/how_much_usual = 0
 				for(var/i in discipline_types)
 					if(i)
-						var/datum/chi_discipline/C = i
+						var/datum/discipline/chi_discipline/C = i
 						if(initial(C.discipline_type) == "Shintai")
 							how_much_usual += 1
 						if(initial(C.discipline_type) == "Demon")
@@ -676,7 +676,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							has_chi_one = TRUE
 				for(var/i in possible_new_disciplines)
 					if(i)
-						var/datum/chi_discipline/C = i
+						var/datum/discipline/chi_discipline/C = i
 						if(initial(C.discipline_type) == "Shintai")
 							if(how_much_usual >= 3)
 								possible_new_disciplines -= i
@@ -2067,13 +2067,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((player_experience < 10) || !(pref_species.id == "kuei-jin"))
 						return
 
-					var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
+					var/list/possible_new_disciplines = subtypesof(/datum/discipline/chi_discipline) - discipline_types
 					var/has_chi_one = FALSE
 					var/has_demon_one = FALSE
 					var/how_much_usual = 0
 					for(var/i in discipline_types)
 						if(i)
-							var/datum/chi_discipline/C = i
+							var/datum/discipline/chi_discipline/C = i
 							if(initial(C.discipline_type) == "Shintai")
 								how_much_usual += 1
 							if(initial(C.discipline_type) == "Demon")
@@ -2082,7 +2082,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								has_chi_one = TRUE
 					for(var/i in possible_new_disciplines)
 						if(i)
-							var/datum/chi_discipline/C = i
+							var/datum/discipline/chi_discipline/C = i
 							if(initial(C.discipline_type) == "Shintai")
 								if(how_much_usual >= 3)
 									possible_new_disciplines -= i

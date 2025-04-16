@@ -1,49 +1,68 @@
 /datum/discipline_power/chi_discipline_power
 	/// Name of the Discipline power
-	var/name = "Discipline power name"
+	name = "Chi Discipline power name"
 	/// Description of the Discipline power
-	var/desc = "Discipline power description"
+	desc = "Chi Discipline power description"
 
-	/* BASIC INFORMATION */
-	/// What rank of the Discipline this Discipline power belongs to.
-	var/level = 1
-	/// Bitflags determining the requirements to cast this power
-	var/check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE
-	/// How many blood points this power costs to activate
-	var/vitae_cost = 1
-	/// Bitflags determining what types of entities this power is allowed to target. NONE if self-targeting only.
-	var/target_type = NONE
-	/// How many tiles away this power can be used from.
-	var/range = 0
+	/// CHI DISCIPLINES DO NOT COST BLOOD
+	vitae_cost = 0
 
-	/* EXTRA BEHAVIOUR ON ACTIVATION AND DEACTIVATION */
-	/// Sound file that plays to the user when this power is activated.
-	var/activate_sound
-	/// Sound file that plays to the user when this power is deactivated.
-	var/deactivate_sound
-	/// Sound file that plays to all nearby players when this power is activated.
-	var/effect_sound
-	/// If this power will upset NPCs when used on them.
-	var/aggravating = FALSE
-	/// If this power is an aggressive action and logged as such.
-	var/hostile = FALSE
-	/// If use of this power creates a visible Masquerade breach.
-	var/violates_masquerade = FALSE
+	///THE CHI COSTS
+	var/cost_yang = 0
+	var/cost_yin = 0
+	var/cost_demon = 0
 
-	/* HOW AND WHEN IT'S ACTIVATED AND DEACTIVATED */
-	/// If this Discipline doesn't automatically expire, but rather periodically drains blood.
-	var/toggled = FALSE
-	/// If this power can be turned on and off.
-	var/cancelable = FALSE
-	/// If this power can (theoretically, not in reality) have multiple of its effects active at once.
-	var/multi_activate = FALSE
-	/// Amount of time it takes until this Discipline deactivates itself. 0 if instantaneous.
-	var/duration_length = 0
-	/// Amount of time it takes until this Discipline can be used again after activation.
-	var/cooldown_length = 0
-	/// If this power uses its own duration/deactivation handling rather than the default handling
-	var/duration_override = FALSE
-	/// If this power uses its own cooldown handling rather than the default handling
-	var/cooldown_override = FALSE
-	/// List of Discipline power types that cannot be activated alongside this power and share a cooldown with it.
-	var/list/grouped_powers
+
+/* Not sure if needed but here just in case
+/datum/discipline_power/chi_discipline_power/New(datum/discipline/chi_discipline/discipline)
+	if(!discipline)
+		CRASH("discipline_power [src.name] created without a parent discipline!")
+
+	src.discipline = discipline
+	src.owner = discipline.owner
+*/
+
+/datum/discipline_power/chi_discipline_power/can_afford()
+	if (owner.yang_chi >= cost_yang)
+		if (owner.yin_chi >= cost_yin)
+			if (owner.demon_chi >= cost_demon)
+				return TRUE
+
+
+/**
+ * Overridable proc handling the spending of resources (vitae/blood)
+ * when casting the power. Returns TRUE if successfully spent,
+ * returns FALSE otherwise.
+ */
+/datum/discipline_power/chi_discipline_power/spend_resources()
+	if (can_afford())
+		owner.yang_chi = owner.yang_chi - cost_yang
+		owner.yin_chi = owner.yin_chi - cost_yin
+		owner.demon_chi = owner.demon_chi - cost_demon
+		owner.update_action_buttons()
+		return TRUE
+	else
+		return FALSE
+
+/datum/discipline_power/chi_discipline_power/refresh(atom/target)
+	if (!active)
+		return
+	if (!owner)
+		return
+
+	//cancels if overridable proc returns FALSE
+	if (!do_refresh_checks(target))
+		return
+
+	if (spend_resources())
+		if(cost_yang > 0)
+			if(cost_yin > 0)
+				if(cost_demon > 0)
+					to_chat(owner, span_warning("[src] consumes your chi to stay active."))
+		if (!duration_override)
+			do_duration(target)
+	else
+		to_chat(owner, span_warning("You don't have enough chi to keep [src] active!"))
+		try_deactivate(target)
+
+

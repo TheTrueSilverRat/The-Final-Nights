@@ -615,16 +615,16 @@
 			clane.post_gain(src)
 
 	if((dna.species.id == "kuei-jin")) //only splats that have Disciplines qualify
-		var/list/datum/chi_discipline/adding_chi_disciplines = list()
+		var/list/datum/discipline/chi_discipline/adding_chi_disciplines = list()
 
 		if (discipline_pref) //initialise character's own disciplines
 			for (var/i in 1 to client.prefs.discipline_types.len)
 				var/type_to_create = client.prefs.discipline_types[i]
-				var/datum/chi_discipline/chi_discipline = new type_to_create
+				var/datum/discipline/chi_discipline/chi_discipline = new type_to_create
 				chi_discipline.level = client.prefs.discipline_levels[i]
 				adding_chi_disciplines += chi_discipline
 
-		for (var/datum/chi_discipline/chi_discipline in adding_chi_disciplines)
+		for (var/datum/discipline/chi_discipline/chi_discipline in adding_chi_disciplines)
 			give_chi_discipline(chi_discipline)
 
 /**
@@ -640,9 +640,9 @@
 	var/datum/species/kindred/species = dna.species
 	species.disciplines += discipline
 
-/mob/living/carbon/human/proc/give_chi_discipline(datum/chi_discipline/discipline)
+/mob/living/carbon/human/proc/give_chi_discipline(datum/discipline/chi_discipline/discipline)
 	if (discipline.level > 0)
-		var/datum/action/chi_discipline/action = new(discipline)
+		var/datum/action/discipline/chi_discipline/action = new(discipline)
 		action.Grant(src)
 	var/datum/species/kuei_jin/species = dna.species
 	species.chi_disciplines += discipline
@@ -682,8 +682,8 @@
  * * searched_chi_discipline - Name or typepath of the Chi Discipline being searched for.
  */s
 /datum/species/kuei_jin/proc/get_chi_discipline(searched_chi_discipline)
-	for(var/datum/chi_discipline/chi_discipline in chi_disciplines)
-		if (ispath(searched_chi_discipline, /datum/chi_discipline))
+	for(var/datum/discipline/chi_discipline/chi_discipline in chi_disciplines)
+		if (ispath(searched_chi_discipline, /datum/discipline/chi_discipline))
 			if (istype(chi_discipline, searched_chi_discipline))
 				return chi_discipline
 		else if (istext(searched_chi_discipline))

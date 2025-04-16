@@ -1,21 +1,21 @@
 
-/datum/chi_discipline/equilibrium
+/datum/discipline/chi_discipline/equilibrium
 	name = "Equilibrium"
 	desc = "Channel the flow of the Chis not only within you but in others as well"
 	icon_state = "equilibrium"
 	cost_yang = 1
 	cost_yin = 1
 	discipline_type = "Chi"
-	power_type = /datum/chi_discipline_power/equilibrium
+	power_type = /datum/discipline_power/chi_discipline_power/equilibrium
 
-/datum/chi_discipline/equilibrium/post_gain()
+/datum/discipline/chi_discipline/equilibrium/post_gain()
 	. = ..()
 	if (level >= 3)
 		var/datum/action/rebalance/rebalance = new()
 		rebalance.Grant(owner)
 
 
-/datum/chi_discipline_power/equilibrium
+/datum/discipline_power/chi_discipline_power/equilibrium
 	name = "Chi power name"
 	desc = "Chi power description"
 	cost_yang = 1
@@ -24,7 +24,7 @@
 	activate_sound = 'code/modules/wod13/sounds/equilibrium.ogg'
 
 //Equilibrium 1
-/datum/chi_discipline_power/equilibrium/chi_boost
+/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost
 	name = "Boost of your Chi's Inner Strength"
 	desc = "Use the Chi within you to push yourself even further"
 
@@ -36,13 +36,13 @@
 	duration_length = 3 TURNS //Can't use the Bloodpower_time_plus since can't use owner.bloodpower_time_plus so a static increase to 3 TURNS should be okay
 
 	grouped_powers = list(
-		/datum/chi_discipline_power/equilibrium/shift_chi,
-		/datum/chi_discipline_power/equilibrium/group_chi_boost,
-		/datum/chi_discipline_power/equilibrium/aggravate_chi,
-		/datum/chi_discipline_power/equilibrium/area_feed
+		/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	)
 
-/datum/chi_discipline_power/equilibrium/chi_boost/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost/activate()
 	. = ..()
 	owner.dna.species.punchdamagehigh += 5
 	owner.physiology.armor.melee += 15
@@ -53,7 +53,7 @@
 	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 	owner.do_jitter_animation(1 SECONDS)
 
-/datum/chi_discipline_power/equilibrium/chi_boost/deactivate()
+/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost/deactivate()
 	. = ..()
 	owner.dna.species.punchdamagehigh -= 5
 	owner.physiology.armor.melee -= 15
@@ -64,7 +64,7 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 
 //Equilibrium 2
-/datum/chi_discipline_power/equilibrium/shift_chi
+/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi
 	name = "Flow of the Triat-Fold Chi"
 	desc = "Shift the Chi within you, from yin to yang, as well as to fuel or to derive your demon chi"
 
@@ -77,14 +77,14 @@
 	cooldown_length = 5 SECONDS
 
 	grouped_powers = list(
-		/datum/chi_discipline_power/equilibrium/chi_boost,
-		/datum/chi_discipline_power/equilibrium/group_chi_boost,
-		/datum/chi_discipline_power/equilibrium/aggravate_chi,
-		/datum/chi_discipline_power/equilibrium/area_feed
+		/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 
 	)
 
-/datum/chi_discipline_power/equilibrium/shift_chi/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi/activate()
 	. = ..()	//Redeeming for the shift
 	var/yang_shift = input(owner, "Where do you want to shift your Yang Chi?", "Chi Shift") as null|anything in list("Yin Pool", "Demon Pool", "Nowhere")
 	if(yang_shift == "Yin Pool")
@@ -130,7 +130,7 @@
 
 
 //Equilibrium 3
-/datum/chi_discipline_power/equilibrium/group_chi_boost
+/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost
 	name = "Aupiscious Raise of Peers' Strengths"
 	desc = "Channel the Chi of your peers and strengthen them further."
 
@@ -142,13 +142,13 @@
 	duration_length = 2 TURNS
 
 	grouped_powers = list(
-		/datum/chi_discipline_power/equilibrium/chi_boost,
-		/datum/chi_discipline_power/equilibrium/shift_chi,
-		/datum/chi_discipline_power/equilibrium/aggravate_chi,
-		/datum/chi_discipline_power/equilibrium/area_feed
+		/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	)
 
-/datum/chi_discipline_power/equilibrium/three/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/three/activate()
 	. = ..()
 	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
 		affected_mob.dna.species.punchdamagehigh += 5
@@ -159,7 +159,7 @@
 		affected_mob.lockpicking += 2
 		ADD_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 
-/datum/chi_discipline_power/equilibrium/three/deactivate()
+/datum/discipline_power/chi_discipline_power/equilibrium/three/deactivate()
 	. = ..()
 	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
 		if(affected_mob)
@@ -172,7 +172,7 @@
 			REMOVE_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 
 //Equilibrium 4
-/datum/chi_discipline_power/equilibrium/aggravate_chi
+/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi
 	name = "Disruption of the Flow of Chi"
 	desc = "Disrupt the flow of your Enemies' Chi and make them writhe in pain."
 
@@ -183,13 +183,13 @@
 	cooldown_length = 10 SECONDS
 
 	grouped_powers = list(
-		/datum/chi_discipline_power/equilibrium/chi_boost,
-		/datum/chi_discipline_power/equilibrium/shift_chi,
-		/datum/chi_discipline_power/equilibrium/group_chi_boost,
-		/datum/chi_discipline_power/equilibrium/area_feed
+		/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	)
 
-/datum/chi_discipline_power/equilibrium/four/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/four/activate()
 	. = ..()
 	for(var/mob/living/affected_mob in oviewers(5, owner))
 		affected_mob.AdjustKnockdown(4 SECONDS, TRUE)
@@ -198,7 +198,7 @@
 		step_away(affected_mob, owner)
 
 //Equilibrium 5
-/datum/chi_discipline_power/equilibrium/area_feed
+/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	name = "Mimicry of a Mandarin's Diet"
 	desc = "Do a facisimile of an Elder's feed on the ambient area's chi and feed upon it with your mastery of the flow of Chi"
 
@@ -211,13 +211,13 @@
 	cooldown_length = 5 SECONDS
 
 	grouped_powers = list(
-		/datum/chi_discipline_power/equilibrium/chi_boost,
-		/datum/chi_discipline_power/equilibrium/shift_chi,
-		/datum/chi_discipline_power/equilibrium/group_chi_boost,
-		/datum/chi_discipline_power/equilibrium/aggravate_chi
+		/datum/discipline_power/chi_discipline_power/equilibrium/chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/shift_chi,
+		/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost,
+		/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi
 	)
 
-/datum/chi_discipline_power/equilibrium/five/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/five/activate()
 	. = ..()
 	var/area/current_area = get_area(owner)
 	if(current_area.yang_chi)
