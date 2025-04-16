@@ -677,7 +677,7 @@
 /datum/species/kuei_jin/proc/get_chi_discipline(searched_chi_discipline)
 	for(var/datum/chi_discipline/chi_discipline in chi_disciplines)
 		if (ispath(searched_chi_discipline, /datum/chi_discipline))
-			if (istype(chi_discipline, searched_chi__discipline))
+			if (istype(chi_discipline, searched_chi_discipline))
 				return chi_discipline
 		else if (istext(searched_chi_discipline))
 			if (chi_discipline.name == searched_chi_discipline)
