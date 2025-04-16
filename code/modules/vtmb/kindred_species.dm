@@ -276,9 +276,15 @@
 
 /datum/action/blood_power/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(owner?.client?.prefs?.old_discipline)
+		if(iscathayan(owner))
+			button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
+			icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 		button_icon = 'code/modules/wod13/disciplines.dmi'
 		icon_icon = 'code/modules/wod13/disciplines.dmi'
 	else
+		if(iscathayan(owner))
+			button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
+			icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 		button_icon = 'code/modules/wod13/UI/actions.dmi'
 		icon_icon = 'code/modules/wod13/UI/actions.dmi'
 	. = ..()
@@ -640,6 +646,7 @@
 		action.Grant(src)
 	var/datum/species/kuei_jin/species = dna.species
 	species.chi_disciplines += discipline
+	discipline.post_gain(src)
 
 /* For some bloody reason this doesn't work, will have to comment this  to see if the og code would've worked
 		var/datum/action/chi_discipline/action = new(discipline)
