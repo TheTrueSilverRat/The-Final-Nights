@@ -638,7 +638,8 @@
 	if (discipline.level > 0)
 		var/datum/action/chi_discipline/action = new(discipline)
 		action.Grant(src)
-	discipline.post_gain(src)
+	var/datum/species/kuei_jin/species = dna.species
+	species.chi_disciplines += discipline
 
 /* For some bloody reason this doesn't work, will have to comment this  to see if the og code would've worked
 		var/datum/action/chi_discipline/action = new(discipline)

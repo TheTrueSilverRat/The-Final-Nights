@@ -7,16 +7,16 @@
 
 	vampiric = TRUE
 	var/level_icon_state = "1" //And this is the state for the action icon
-	var/datum/chi_discipline/chi_discipline
+	var/datum/chi_discipline/discipline
 	var/targeting = FALSE
 
-/datum/action/chi_discipline/New(datum/chi_discipline/chi_discipline)
+/datum/action/chi_discipline/New(/datum/chi_discipline/discipline)
 	. = ..()
-	src.chi_discipline = chi_discipline
+	src.discipline = discipline
 
 /datum/action/chi_discipline/Grant(mob/M)
 	. = ..()
-	chi_discipline.assign(M)
+	discipline.assign(M)
 
 	register_to_availability_signals()
 
@@ -56,7 +56,7 @@
 	RegisterSignal(owner, relevant_signals, TYPE_PROC_REF(/mob, update_action_buttons))
 
 /datum/action/chi_discipline/IsAvailable()
-	return chi_discipline.current_power.can_activate_untargeted()
+	return discipline.current_power.can_activate_untargeted()
 
 /datum/action/chi_discipline/Trigger()
 	. = ..()
@@ -72,15 +72,15 @@
 	//cancel targeting of other Disciplines when one is activated
 	for (var/datum/action/action in owner.actions)
 		if (istype(action, /datum/action/chi_discipline))
-			var/datum/action/chi_discipline/other_chi_discipline = action
-			other_chi_discipline.end_targeting()
+			var/datum/action/chi_discipline/other_discipline = action
+			other_discipline.end_targeting()
 
 	//ensure it's actually possible to trigger this
-	if (!chi_discipline?.current_power || !isliving(owner))
+	if (!discipline?.current_power || !isliving(owner))
 		. = FALSE
 		return .
 
-	var/datum/chi_discipline_power/power = chi_discipline.current_power
+	var/datum/chi_discipline_power/power = discipline.current_power
 	if (power.active) //deactivation logic
 		if (power.cancelable || power.toggled)
 			power.try_deactivate(direct = TRUE, alert = TRUE)
@@ -101,12 +101,12 @@
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
-		if(chi_discipline)
-			current_button.name = chi_discipline.current_power.name
-			current_button.desc = chi_discipline.current_power.desc
-			current_button.add_overlay(mutable_appearance(icon_icon, "[chi_discipline.icon_state]"))
-			current_button.button_icon_state = "[chi_discipline.icon_state]"
-			current_button.add_overlay(mutable_appearance(icon_icon, "[chi_discipline.level_casting]"))
+		if(discipline)
+			current_button.name = discipline.current_power.name
+			current_button.desc = discipline.current_power.desc
+			current_button.add_overlay(mutable_appearance(icon_icon, "[discipline.icon_state]"))
+			current_button.button_icon_state = "[discipline.icon_state]"
+			current_button.add_overlay(mutable_appearance(icon_icon, "[discipline.level_casting]"))
 		else
 			current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 			current_button.button_icon_state = button_icon_state
@@ -114,17 +114,17 @@
 /datum/action/chi_discipline/proc/switch_level(to_advance = 1)
 	SEND_SOUND(owner, sound('code/modules/wod13/sounds/highlight.ogg', 0, 0, 50))
 
-	if (chi_discipline.level_casting + to_advance > length(chi_discipline.known_powers))
-		chi_discipline.level_casting = 1
-	else if (chi_discipline.level_casting + to_advance < 1)
-		chi_discipline.level_casting = length(chi_discipline.known_powers)
+	if (discipline.level_casting + to_advance > length(discipline.known_powers))
+		discipline.level_casting = 1
+	else if (discipline.level_casting + to_advance < 1)
+		discipline.level_casting = length(discipline.known_powers)
 	else
-		chi_discipline.level_casting += to_advance
+		discipline.level_casting += to_advance
 
 	if (targeting)
 		end_targeting()
 
-	chi_discipline.current_power = chi_discipline.known_powers[chi_discipline.level_casting]
+	discipline.current_power = discipline.known_powers[discipline.level_casting]
 	if (button)
 		ApplyIcon(button, TRUE)
 
@@ -139,7 +139,6 @@
 
 	UnregisterSignal(owner, COMSIG_MOB_CLICKON)
 	targeting = FALSE
-	//this goes to a specific mob define var, don't change it to chi_discipline
 	owner.discipline_targeting = FALSE
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
@@ -156,7 +155,7 @@
 
 	//actually try to use the Discipline on the target
 	spawn()
-		if (chi_discipline.current_power.try_activate(target))
+		if (discipline.current_power.try_activate(target))
 			end_targeting()
 
 	return COMSIG_MOB_CANCEL_CLICKON
@@ -167,12 +166,11 @@
 		return
 	if (targeting)
 		return
-	if (!chi_discipline.current_power.can_activate_untargeted(TRUE))
+	if (!discipline.current_power.can_activate_untargeted(TRUE))
 		return
 	SEND_SOUND(owner, sound('code/modules/wod13/sounds/highlight.ogg', 0, 0, 50))
 	RegisterSignal(owner, COMSIG_MOB_CLICKON, PROC_REF(handle_click))
 	targeting = TRUE
-	//this goes to a specific mob define var, don't change it to chi_discipline
 	owner.discipline_targeting = TRUE
 	client.mouse_pointer_icon = 'icons/effects/mouse_pointers/discipline.dmi'
 
@@ -182,7 +180,7 @@
 
 		//increase on right click, decrease on shift right click
 		if(LAZYACCESS(modifiers, "right"))
-			var/datum/action/discipline/discipline = linked_action
+			var/datum/action/chi_discipline/discipline = linked_action
 			if (LAZYACCESS(modifiers, "alt"))
 				discipline.switch_level(-1)
 			else
