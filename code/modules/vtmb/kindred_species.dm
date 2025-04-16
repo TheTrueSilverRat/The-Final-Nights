@@ -609,17 +609,17 @@
 			clane.post_gain(src)
 
 	if((dna.species.id == "kuei-jin")) //only splats that have Disciplines qualify
-		var/list/datum/chi_discipline/adding_disciplines = list()
+		var/list/datum/chi_discipline/adding_chi_disciplines = list()
 
 		if (discipline_pref) //initialise character's own disciplines
 			for (var/i in 1 to client.prefs.discipline_types.len)
 				var/type_to_create = client.prefs.discipline_types[i]
-				var/datum/chi_discipline/discipline = new type_to_create
-				discipline.level = client.prefs.discipline_levels[i]
-				adding_disciplines += discipline
+				var/datum/chi_discipline/chi_discipline = new type_to_create
+				chi_discipline.level = client.prefs.discipline_levels[i]
+				adding_chi_disciplines += chi_discipline
 
-		for (var/datum/chi_discipline/discipline in adding_disciplines)
-			give_chi_discipline(discipline)
+		for (var/datum/chi_discipline/chi_discipline in adding_chi_disciplines)
+			give_chi_discipline(chi_discipline)
 
 /**
  * Creates an action button and applies post_gain effects of the given Discipline.

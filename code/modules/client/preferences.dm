@@ -643,23 +643,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (pref_species.name == "Kuei-Jin")
 				dat += "<h2>[make_font_cool("DISCIPLINES")]</h2><BR>"
 				for (var/i in 1 to discipline_types.len)
-					var/discipline_type = discipline_types[i]
-					var/datum/chi_discipline/discipline = new discipline_type
-					var/discipline_level = discipline_levels[i]
+					var/chi_discipline_type = discipline_types[i]
+					var/datum/chi_discipline/chi_discipline = new chi_discipline_type
+					var/chi_discipline_level = discipline_levels[i]
 
 					var/cost
-					if (discipline_level <= 0)
+					if (chi_discipline_level <= 0)
 						cost = 10
 					else
-						cost = discipline_level * 6
+						cost = chi_discipline_level * 6
 
-					dat += "<b>[discipline.name]</b> ([discipline.discipline_type]): [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
-					if((player_experience >= cost) && (discipline_level != 5))
+					dat += "<b>[chi_discipline.name]</b> ([chi_discipline.discipline_type]): [chi_discipline_level > 0 ? "•" : "o"][chi_discipline_level > 1 ? "•" : "o"][chi_discipline_level > 2 ? "•" : "o"][chi_discipline_level > 3 ? "•" : "o"][chi_discipline_level > 4 ? "•" : "o"]([chi_discipline_level])"
+					if((player_experience >= cost) && (chi_discipline_level != 5))
 						dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradechidiscipline=[i]'>Learn ([cost])</a><BR>"
 					else
 						dat += "<BR>"
-					dat += "-[discipline.desc]. Yin:[discipline.cost_yin], Yang:[discipline.cost_yang], Demon:[discipline.cost_demon]<BR>"
-					qdel(discipline)
+					dat += "-[chi_discipline.desc]. Yin:[chi_discipline.cost_yin], Yang:[chi_discipline.cost_yang], Demon:[chi_discipline.cost_demon]<BR>"
+					qdel(chi_discipline)
 
 				var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
 				var/has_chi_one = FALSE

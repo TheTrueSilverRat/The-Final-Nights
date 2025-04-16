@@ -211,7 +211,7 @@ GENE SCANNER
 		var/datum/species/the_dudes_species = the_dude.dna.species
 		if (!(NOBLOOD in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_HEART))
 			render_list += "<span class='alert ml-1'>Subject lacks a heart.</span>\n"
-		if /*(!(TRAIT_NOBREATH in the_dudes_species.species_traits)*/ && !the_dude.getorganslot(ORGAN_SLOT_LUNGS))
+		if (!(TRAIT_NOBREATH in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_LUNGS))
 			render_list += "<span class='alert ml-1'>Subject lacks lungs.</span>\n"
 		if (!(TRAIT_NOMETABOLISM in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_LIVER))
 			render_list += "<span class='alert ml-1'>Subject lacks a liver.</span>\n"
