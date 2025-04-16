@@ -4,8 +4,6 @@
 	name = "Chi Discipline name"
 	///Text description of this Discipline.
 	desc = "Chi Discipline description"
-	///Icon for this Discipline as in disciplines.dmi
-	icon_state
 	///If this Discipline is unique to a certain Clan.
 	clan_restricted = FALSE
 	///Chi Disciplines are for KJ Only!!

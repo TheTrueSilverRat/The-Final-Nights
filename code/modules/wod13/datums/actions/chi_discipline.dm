@@ -24,3 +24,4 @@
 		else
 			current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 			current_button.button_icon_state = button_icon_state
+
