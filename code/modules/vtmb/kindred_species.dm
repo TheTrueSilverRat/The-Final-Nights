@@ -667,6 +667,22 @@
 			if (discipline.name == searched_discipline)
 				return discipline
 
+
+/**
+ * Attempting to see if I can work for this with KJ
+ *
+ * Arguments:
+ * * searched_chi_discipline - Name or typepath of the Chi Discipline being searched for.
+ */s
+/datum/species/kuei_jin/proc/get_chi_discipline(searched_chi_discipline)
+	for(var/datum/chi_discipline/chi_discipline in chi_disciplines)
+		if (ispath(searched_chi_discipline, /datum/chi_discipline))
+			if (istype(chi_discipline, searched_chi__discipline))
+				return chi_discipline
+		else if (istext(searched_chi_discipline))
+			if (chi_discipline.name == searched_chi_discipline)
+				return chi_discipline
+
 	return FALSE
 
 /datum/species/kindred/check_roundstart_eligible()

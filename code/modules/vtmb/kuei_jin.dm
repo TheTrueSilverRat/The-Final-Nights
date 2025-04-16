@@ -447,6 +447,7 @@
 	chi_particle.anchored = TRUE
 	chi_particle.icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	chi_particle.icon_state = "drain"
+	chi_particle.alpha = 10
 	var/matrix/face_kueijin = matrix()
 	face_kueijin.Turn(get_angle_raw(victim.x, victim.y, 0, 0, owner.x, owner.y, 0, 0))
 	chi_particle.transform = face_kueijin
