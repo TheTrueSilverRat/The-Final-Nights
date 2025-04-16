@@ -148,7 +148,7 @@
 		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	)
 
-/datum/discipline_power/chi_discipline_power/equilibrium/three/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost/activate()
 	. = ..()
 	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
 		affected_mob.dna.species.punchdamagehigh += 5
@@ -159,7 +159,7 @@
 		affected_mob.lockpicking += 2
 		ADD_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 
-/datum/discipline_power/chi_discipline_power/equilibrium/three/deactivate()
+/datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost/deactivate()
 	. = ..()
 	for(var/mob/living/carbon/human/affected_mob in oviewers(5, owner))
 		if(affected_mob)
@@ -189,7 +189,7 @@
 		/datum/discipline_power/chi_discipline_power/equilibrium/area_feed
 	)
 
-/datum/discipline_power/chi_discipline_power/equilibrium/four/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi/activate()
 	. = ..()
 	for(var/mob/living/affected_mob in oviewers(5, owner))
 		affected_mob.AdjustKnockdown(4 SECONDS, TRUE)
@@ -217,7 +217,7 @@
 		/datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi
 	)
 
-/datum/discipline_power/chi_discipline_power/equilibrium/five/activate()
+/datum/discipline_power/chi_discipline_power/equilibrium/area_feed/activate()
 	. = ..()
 	var/area/current_area = get_area(owner)
 	if(current_area.yang_chi)

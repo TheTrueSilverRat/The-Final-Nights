@@ -620,13 +620,12 @@
 		if (discipline_pref) //initialise character's own disciplines
 			for (var/i in 1 to client.prefs.discipline_types.len)
 				var/type_to_create = client.prefs.discipline_types[i]
-				var/datum/discipline/chi_discipline/chi_discipline = new type_to_create
-				chi_discipline.level = client.prefs.discipline_levels[i]
+				var/level = client.prefs.discipline_levels[i]
+				var/datum/discipline/chi_discipline/chi_discipline = new type_to_create(level)
 				adding_chi_disciplines += chi_discipline
 
 		for (var/datum/discipline/chi_discipline/chi_discipline in adding_chi_disciplines)
 			give_chi_discipline(chi_discipline)
-
 /**
  * Creates an action button and applies post_gain effects of the given Discipline.
  *
@@ -646,7 +645,7 @@
 		action.Grant(src)
 	var/datum/species/kuei_jin/species = dna.species
 	species.chi_disciplines += discipline
-	discipline.post_gain(src)
+//	discipline.post_gain(src)
 
 /* For some bloody reason this doesn't work, will have to comment this  to see if the og code would've worked
 		var/datum/action/chi_discipline/action = new(discipline)
