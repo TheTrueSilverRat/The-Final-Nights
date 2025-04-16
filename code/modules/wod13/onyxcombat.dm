@@ -463,7 +463,7 @@
 /atom/movable/screen/chi_disciplines
 	layer = HUD_LAYER
 	plane = HUD_PLANE
-	var/datum/chi_discipline/dscpln
+	var/datum/discipline/chi_discipline/dscpln
 	var/last_discipline_click = 0
 	var/last_discipline_use = 0
 	var/main_state = ""
