@@ -3476,6 +3476,7 @@
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\black_wind.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\iron_mountain.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\shintais\ghost_flame.dm"
+#include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\shintais\storm.dm"
 #include "code\modules\wod13\effects\elysium_barrier.dm"
 #include "code\modules\wod13\effects\elysium_stripclub_barrier.dm"
 #include "code\modules\wod13\effects\fake_steam.dm"
