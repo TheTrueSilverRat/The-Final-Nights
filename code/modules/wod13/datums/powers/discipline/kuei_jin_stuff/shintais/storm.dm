@@ -131,8 +131,8 @@
 	owner.apply_overlay(FORTITUDE_LAYER)
 	wind_aura = TRUE
 	while(wind_aura)
-		for(var/mob/living/pushed_by_wind in oviewers(2, caster))
-			step_away(pushed_by_wind, caster)
+		for(var/mob/living/pushed_by_wind in oviewers(2, owner))
+			step_away(pushed_by_wind, owner)
 		sleep(0.5 SECONDS)
 
 /datum/discipline_power/chi_discipline_power/storm/one/deactivate()
@@ -203,17 +203,17 @@
 
 /datum/discipline_power/chi_discipline_power/storm/four/activate()
 	. = ..()
-	caster.dna.species.ToggleFlight(caster)
-	caster.remove_overlay(FORTITUDE_LAYER)
+	owner.dna.species.ToggleFlight(owner)
+	owner.remove_overlay(FORTITUDE_LAYER)
 	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "tornado", -FORTITUDE_LAYER)
 	fortitude_overlay.pixel_y = -16
-	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
-	caster.apply_overlay(FORTITUDE_LAYER)
+	owner.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
+	owner.apply_overlay(FORTITUDE_LAYER)
 
 /datum/discipline_power/chi_discipline_power/storm/four/deactivate()
 	. = ..()
-	caster.dna.species.ToggleFlight(caster)
-	caster.remove_overlay(FORTITUDE_LAYER)
+	owner.dna.species.ToggleFlight(owner)
+	owner.remove_overlay(FORTITUDE_LAYER)
 
 //STORM 5
 /datum/discipline_power/chi_discipline_power/storm/five
@@ -237,35 +237,25 @@
 
 /datum/discipline_power/chi_discipline_power/storm/five/activate()
 	. = ..()
-	caster.remove_overlay(FORTITUDE_LAYER)
+	owner.remove_overlay(FORTITUDE_LAYER)
 	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "puff_const", -FORTITUDE_LAYER)
 	fortitude_overlay.alpha = 128
-	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
-	caster.apply_overlay(FORTITUDE_LAYER)\
+	owner.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
+	owner.apply_overlay(FORTITUDE_LAYER)
 	storm_loop = TRUE
+
 	while(storm_loop)
-		for(var/mob/living/shocked_mob in oviewers(5, caster))
-			var/turf/lightning_source = get_turf(caster)
+		for(var/mob/living/shocked_mob in oviewers(5, owner))
+			var/turf/lightning_source = get_turf(owner)
 			lightning_source.Beam(shocked_mob, icon_state="lightning[rand(1,12)]", time = 0.5 SECONDS)
 			shocked_mob.Stun(0.5 SECONDS)
+			hocked_mob.electrocute_act(10, src, siemens_coeff = 1, flags = NONE)
 			playsound(get_turf(shocked_mob), 'code/modules/wod13/sounds/lightning.ogg', 100, FALSE)
 
-		sleep(2 SECONDS)
+		sleep(3 SECONDS)
 
 
 /datum/discipline_power/chi_discipline_power/storm/five/deactivate()
 	. = ..()
-	caster.remove_overlay(FORTITUDE_LAYER)
+	owner.remove_overlay(FORTITUDE_LAYER)
 	storm_loop = FALSE
-
-/datum/chi_discipline/storm_shintai/proc/storm_aura_loop(mob/living/carbon/human/caster, duration)
-	var/loop_started_time = world.time
-	while (world.time <= (loop_started_time + duration))
-		for(var/mob/living/shocked_mob in oviewers(5, caster))
-			var/turf/lightning_source = get_turf(caster)
-			lightning_source.Beam(shocked_mob, icon_state="lightning[rand(1,12)]", time = 0.5 SECONDS)
-			shocked_mob.Stun(0.5 SECONDS)
-			shocked_mob.electrocute_act(50, src, siemens_coeff = 1, flags = NONE)
-			playsound(get_turf(shocked_mob), 'code/modules/wod13/sounds/lightning.ogg', 100, FALSE)
-
-		sleep(6 SECONDS)

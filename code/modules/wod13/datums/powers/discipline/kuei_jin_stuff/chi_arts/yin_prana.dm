@@ -123,14 +123,15 @@
 
 /datum/discipline_power/chi_discipline_power/yin_prana/two/activate()
 	. = ..()
-	owner.set_light(discipline.level+2, -10)
 	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, TRAIT_GENERIC) //Needed cause it would be so lame to be blinded by your own darkness
-
+	owner.set_light(discipline.level+2, -10)
+	owner.update_sight()
 
 /datum/discipline_power/chi_discipline_power/yin_prana/two/deactivate()
 	. = ..()
-	owner.set_light(discipline.level+2, -10)
+	owner.set_light(0)
 	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
+	owner.update_sight()
 
 //Yin Prana 3
 /datum/discipline_power/chi_discipline_power/yin_prana/three
@@ -173,7 +174,7 @@
 	level = 4
 
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_FREE_HAND
-	duration_length = 2 TURNS
+	cooldown_length = 2 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/yin_prana/one,

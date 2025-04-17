@@ -1672,7 +1672,7 @@
 				storm_aura_loop(caster, delay + caster.discipline_time_plus)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
-					caster.remove_overlay(FORTITUDE_LAYER)
+					d
 
 /datum/chi_discipline/storm_shintai/proc/wind_aura_loop(mob/living/carbon/human/caster, duration)
 	var/loop_started_time = world.time
