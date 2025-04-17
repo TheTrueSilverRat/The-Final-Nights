@@ -186,7 +186,7 @@
 
 //GhostFlame 4
 /datum/discipline_power/chi_discipline_power/ghost_flame/four
-	name = "Refined Blade of Your Burning Fury"
+	name = "Goblin Sword"
 	desc = "Refinde your Firey Ghost Flames into a Katana made out of Fire."
 
 	level = 4
