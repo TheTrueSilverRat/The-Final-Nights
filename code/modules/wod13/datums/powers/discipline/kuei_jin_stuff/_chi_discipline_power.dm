@@ -56,9 +56,11 @@
 
 	if (spend_resources())
 		if(cost_yang > 0)
-			if(cost_yin > 0)
-				if(cost_demon > 0)
-					to_chat(owner, span_warning("[src] consumes your chi to stay active."))
+			to_chat(owner, span_egnradio("[src] consumes your yang chi to stay active."))
+		if(cost_yin > 0)
+			to_chat(owner, span_medradio("[src] consumes your yin chi to stay active."))
+		if(cost_demon > 0)
+			to_chat(owner, span_syndradio("[src] consumes your demon chi to stay active."))
 		if (!duration_override)
 			do_duration(target)
 	else

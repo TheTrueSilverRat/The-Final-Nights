@@ -249,7 +249,7 @@
 			var/turf/lightning_source = get_turf(owner)
 			lightning_source.Beam(shocked_mob, icon_state="lightning[rand(1,12)]", time = 0.5 SECONDS)
 			shocked_mob.Stun(0.5 SECONDS)
-			hocked_mob.electrocute_act(10, src, siemens_coeff = 1, flags = NONE)
+			shocked_mob.electrocute_act(10, src, siemens_coeff = 1, flags = NONE)
 			playsound(get_turf(shocked_mob), 'code/modules/wod13/sounds/lightning.ogg', 100, FALSE)
 
 		sleep(3 SECONDS)
