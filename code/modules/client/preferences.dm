@@ -665,20 +665,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/has_chi_one = FALSE
 				var/has_demon_one = FALSE
 				var/how_much_usual = 0
+				//Editing stuff for testing purposes (MUHAHAHA I GET ALL THE DISCIPLINES EHEHHEHEHEHEHEH!!!)
 				for(var/i in discipline_types)
 					if(i)
 						var/datum/discipline/chi_discipline/C = i
 						if(initial(C.discipline_type) == "Shintai")
 							how_much_usual += 1
 						if(initial(C.discipline_type) == "Demon")
-							has_demon_one = TRUE
+							has_demon_one = FALSE
 						if(initial(C.discipline_type) == "Chi")
-							has_chi_one = TRUE
+							has_chi_one = FALSE
 				for(var/i in possible_new_disciplines)
 					if(i)
 						var/datum/discipline/chi_discipline/C = i
 						if(initial(C.discipline_type) == "Shintai")
-							if(how_much_usual >= 3)
+							if(how_much_usual >= 20)
 								possible_new_disciplines -= i
 						if(initial(C.discipline_type) == "Demon")
 							if(has_demon_one)
