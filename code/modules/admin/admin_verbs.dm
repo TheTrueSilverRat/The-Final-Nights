@@ -706,7 +706,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		if ((preferences.pref_species.id != "kindred") && (preferences.pref_species.id != "ghoul"))
 			to_chat(usr, "<span class='warning'>Your target is not a vampire or a ghoul.</span>")
 			return
-		var/removing_discipline = input("What Discipline do you want to give [player]?") as null|anything in preferences.discipline_types
+		var/removing_discipline = input("What Discipline do you want to remove from [player]?") as null|anything in preferences.discipline_types
 		if (removing_discipline)
 			var/reason = input("Why are you removing this Discipline from [player]?") as null|text
 			if (reason)
@@ -725,7 +725,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Discipline") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/remove_discipline()
+/client/proc/remove_chi_discipline()
 	set name = "Remove Discipline"
 	set category = "Admin"
 	if (!check_rights(R_ADMIN))
@@ -737,10 +737,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			to_chat(usr, "<span class='warning'>Could not find preferences for [player].")
 			return
 		var/datum/preferences/preferences = player.prefs
-		if ((preferences.pref_species.id != "kindred") && (preferences.pref_species.id != "ghoul"))
-			to_chat(usr, "<span class='warning'>Your target is not a vampire or a ghoul.</span>")
+		if ((preferences.pref_species.id != "kuei-jin"))
+			to_chat(usr, "<span class='warning'>Your target is not a Kuei Jin.</span>")
 			return
-		var/removing_discipline = input("What Discipline do you want to give [player]?") as null|anything in preferences.discipline_types
+		var/removing_discipline = input("What Discipline do you want to remove from [player]?") as null|anything in preferences.discipline_types
 		if (removing_discipline)
 			var/reason = input("Why are you removing this Discipline from [player]?") as null|text
 			if (reason)
@@ -757,7 +757,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 				qdel(discipline)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Discipline") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Chi Discipline") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/whitelist_panel()
 	set name = "Whitelist Management"
