@@ -433,7 +433,7 @@
 		if ((prob(50) || victim.yang_chi == 0) && (victim.yin_chi > 0))
 			victim.yin_chi = max(0, victim.yin_chi - 1)
 			kueijin.yin_chi = min(kueijin.yin_chi + 1, kueijin.max_yin_chi)
-			to_chat(kueijin, span_medradio()"Some <b>Yin</b> Chi enters you..."))
+			to_chat(kueijin, span_medradio("Some <b>Yin</b> Chi enters you..."))
 		else if ((victim.yang_chi > 0))
 			victim.yang_chi = max(0, victim.yang_chi - 1)
 			kueijin.yang_chi = min(kueijin.yang_chi + 1, kueijin.max_yang_chi)

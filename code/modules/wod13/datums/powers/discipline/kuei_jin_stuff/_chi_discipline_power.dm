@@ -56,7 +56,7 @@
 
 	if (spend_resources())
 		if(cost_yang > 0)
-			to_chat(owner, span_egnradio("[src] consumes your yang chi to stay active."))
+			to_chat(owner, span_engradio("[src] consumes your yang chi to stay active."))
 		if(cost_yin > 0)
 			to_chat(owner, span_medradio("[src] consumes your yin chi to stay active."))
 		if(cost_demon > 0)
