@@ -254,11 +254,11 @@
 		. |= dropItemToGround(I)
 
 
-mob/proc/drop_active_item()
+/mob/proc/drop_active_item()
 	. = FALSE
-	var/obj/item/I = get_active_held_item()
-	if(I)
-		. |= dropItemToGround(I)
+	for(var/obj/item/I = get_active_held_item())
+		if(I)
+			. |= dropItemToGround(I)
 
 
 
