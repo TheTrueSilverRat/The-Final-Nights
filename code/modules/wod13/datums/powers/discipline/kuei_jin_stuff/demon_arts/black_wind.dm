@@ -2,16 +2,16 @@
 
 
 /datum/discipline/chi_discipline/black_wind
-	name = "Celerity"
-	desc = "Boosts your speed. Violates Masquerade."
+	name = "Black Wind"
+	desc = "Your Demonic Side bursts out in a whirlwind of speed."
 	icon_state = "blackwind"
 	power_type = /datum/discipline_power/chi_discipline_power/black_wind
 	discipline_type = "Demon"
 	cost_demon = 1
 
 /datum/discipline_power/chi_discipline_power/black_wind
-	name = "Celerity power name"
-	desc = "Celerity power description"
+	name = "Black Wind power name"
+	desc = "Black Wind power description"
 
 	activate_sound = 'code/modules/wod13/sounds/blackwind_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/blackwind_activate.ogg'
@@ -45,7 +45,7 @@
 	multiplicative_slowdown = -0.5
 
 /datum/discipline_power/chi_discipline_power/black_wind/one
-	name = "Celerity 1"
+	name = "Black Wind 1"
 	desc = "Enhances your speed to make everything a little bit easier."
 
 	check_flags = DISC_CHECK_LYING | DISC_CHECK_IMMOBILE
@@ -83,7 +83,7 @@
 	multiplicative_slowdown = -0.75
 
 /datum/discipline_power/chi_discipline_power/black_wind/two
-	name = "Celerity 2"
+	name = "Black Wind 2"
 	desc = "Significantly improves your speed and reaction time."
 
 	check_flags = DISC_CHECK_LYING | DISC_CHECK_IMMOBILE
@@ -120,7 +120,7 @@
 	multiplicative_slowdown = -1
 
 /datum/discipline_power/chi_discipline_power/black_wind/three
-	name = "Celerity 3"
+	name = "Black Wind 3"
 	desc = "Move faster. React in less time. Your body is under perfect control."
 
 	check_flags = DISC_CHECK_LYING | DISC_CHECK_IMMOBILE
@@ -157,7 +157,7 @@
 	multiplicative_slowdown = -1.25
 
 /datum/discipline_power/chi_discipline_power/black_wind/four
-	name = "Celerity 4"
+	name = "Black Wind 4"
 	desc = "Breach the limits of what is humanly possible. Move like a lightning bolt."
 
 	check_flags = DISC_CHECK_LYING | DISC_CHECK_IMMOBILE
@@ -194,7 +194,7 @@
 	multiplicative_slowdown = -1.5
 
 /datum/discipline_power/chi_discipline_power/black_wind/five
-	name = "Celerity 5"
+	name = "Black Wind 5"
 	desc = "You are like light. Blaze your way through the world."
 
 	check_flags = DISC_CHECK_LYING | DISC_CHECK_IMMOBILE

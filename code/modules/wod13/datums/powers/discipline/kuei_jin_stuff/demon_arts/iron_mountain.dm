@@ -1,7 +1,7 @@
 
 /datum/discipline/chi_discipline/iron_mountain
 	name = "Iron Mountain"
-	desc = "Let your Demonic Side Shield you"
+	desc = "Let your Demonic Side shield you"
 	icon_state = "ironmountain"
 	cost_demon = 1
 	discipline_type = "Demon"
