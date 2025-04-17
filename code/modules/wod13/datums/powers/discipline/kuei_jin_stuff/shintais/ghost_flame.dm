@@ -169,7 +169,7 @@
 
 	level = 3
 
-	check_flags = DISC_CHECK_CONSCIOUS
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND
 
 	cooldown_length = 10 SECONDS
 
@@ -191,7 +191,7 @@
 
 	level = 4
 
-	check_flags = DISC_CHECK_CONSCIOUS
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND
 
 	toggled = TRUE
 	duration_length = 2 TURNS
@@ -205,14 +205,12 @@
 
 /datum/discipline_power/chi_discipline_power/ghost_flame/four/activate()
 	. = ..()
-	var/obj/item/melee/vampirearms/katana/fire/firekatana = new (owner)
-	owner.put_in_active_hand(firekatana)
+	owner.put_in_active_hand(new /obj/item/melee/vampirearms/katana/fire(owner))
 	owner.set_light(2,8,"#ff8c00")
 
 /datum/discipline_power/chi_discipline_power/ghost_flame/four/deactivate()
 	. = ..()
-	var/obj/item/melee/vampirearms/katana/fire/firekatana = new (owner)
-	if(firekatana)
+	for(var/obj/item/melee/vampirearms/katana/fire/firekatana in owner.contents)
 		qdel(firekatana)
 	owner.set_light(0)
 

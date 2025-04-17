@@ -253,23 +253,6 @@
 	for(var/obj/item/I in held_items)
 		. |= dropItemToGround(I)
 
-
-/mob/proc/drop_active_item()
-	. = FALSE
-	for(var/obj/item/I = get_active_held_item())
-		if(I)
-			. |= dropItemToGround(I)
-
-
-
-/mob/verb/quick_equip()
-	set name = "quick-equip"
-	set hidden = TRUE
-
-	var/obj/item/I = get_active_held_item()
-	if (I)
-		I.equip_to_best_slot(src)
-
 //Here lie drop_from_inventory and before_item_take, already forgotten and not missed.
 
 /mob/proc/canUnEquip(obj/item/I, force)
