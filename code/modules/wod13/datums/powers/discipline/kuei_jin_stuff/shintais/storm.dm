@@ -1,7 +1,7 @@
 /*
 /datum/discipline/chi_discipline/storm
-	name = "Chi Discipline"
-	desc = "Chi Discipline storm."
+	name = "Storm Shintai"
+	desc = "RIDE THE LIGHTNING!!!."
 	icon_state = "fortitude"
 	power_type = /datum/discipline_power/chi_discipline_power/storm
 

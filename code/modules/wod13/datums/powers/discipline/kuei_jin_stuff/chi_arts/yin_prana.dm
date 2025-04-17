@@ -173,8 +173,6 @@
 	level = 4
 
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_FREE_HAND
-
-	toggled = TRUE
 	duration_length = 2 TURNS
 
 	grouped_powers = list(

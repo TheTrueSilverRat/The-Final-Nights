@@ -672,9 +672,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(initial(C.discipline_type) == "Shintai")
 							how_much_usual += 1
 						if(initial(C.discipline_type) == "Demon")
-							has_demon_one = FALSE
+							has_demon_one = TRUE
 						if(initial(C.discipline_type) == "Chi")
-							has_chi_one = FALSE
+							has_chi_one = TRUE
 				for(var/i in possible_new_disciplines)
 					if(i)
 						var/datum/discipline/chi_discipline/C = i
