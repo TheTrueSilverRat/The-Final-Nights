@@ -2,7 +2,7 @@
 /datum/discipline/chi_discipline/ghost_flame
 	name = "Ghost Flame Shintai"
 	desc = "Channel your Chi and stoke your Righteous Fury into true Flames."
-	icon_state = "ghostfirea"
+	icon_state = "ghostfire"
 	cost_yang = 1
 	power_type = /datum/discipline_power/chi_discipline_power/ghost_flame
 
@@ -102,6 +102,7 @@
 
 	toggled = TRUE
 	duration_length = 2 TURNS
+	var/burn_loop = FALSE
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/ghost_flame/two,
@@ -113,15 +114,19 @@
 /datum/discipline_power/chi_discipline_power/ghost_flame/one/activate()
 	. = ..()
 	owner.overlay_fullscreen("ghostflame", /atom/movable/screen/fullscreen/see_through_darkness)
-	owner.set_light(1.4,5,"#ff8c00")
-	for(var/mob/living/carbon/burned_mob in oviewers(4, owner))
-		burned_mob.adjustFireLoss(10, TRUE)
-		burned_mob.adjust_bodytemperature(15)
+	owner.set_light(2,8,"#ff8c00")
+	burn_loop = TRUE
+	while(burn_loop)
+		for(var/mob/living/carbon/burned_mob in oviewers(4, owner))
+			burned_mob.adjustFireLoss(10, TRUE)
+			burned_mob.adjust_bodytemperature(15)
+		sleep(1 SECONDS)
 
 /datum/discipline_power/chi_discipline_power/ghost_flame/one/deactivate()
 	. = ..()
 	owner.clear_fullscreen("ghostflame", 5)
 	owner.set_light(0)
+	burn_loop = FALSE
 
 //GhostFlame 2
 /datum/discipline_power/chi_discipline_power/ghost_flame/two
@@ -202,13 +207,14 @@
 	. = ..()
 	var/obj/item/melee/vampirearms/katana/fire/firekatana = new (owner)
 	owner.put_in_active_hand(firekatana)
+	owner.set_light(2,8,"#ff8c00")
 
 /datum/discipline_power/chi_discipline_power/ghost_flame/four/deactivate()
 	. = ..()
 	var/obj/item/melee/vampirearms/katana/fire/firekatana = new (owner)
 	if(firekatana)
 		qdel(firekatana)
-
+	owner.set_light(0)
 
 //GhostFlame 5
 /datum/discipline_power/chi_discipline_power/ghost_flame/five
@@ -236,6 +242,7 @@
 	ADD_TRAIT(owner, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	owner.set_fire_stacks(10)
 	owner.IgniteMob()
+	owner.set_light(2,8,"#ff8c00")
 
 /datum/discipline_power/chi_discipline_power/ghost_flame/five/deactivate()
 	. = ..()
@@ -252,3 +259,4 @@
 		owner.dna.species.burnmod = initial(owner.dna.species.burnmod)
 	owner.bodytemperature = BODYTEMP_NORMAL
 	owner.coretemperature = BODYTEMP_NORMAL
+	owner.set_light(0)
