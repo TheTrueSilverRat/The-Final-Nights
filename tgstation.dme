@@ -3474,6 +3474,7 @@
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\equilibrium.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\yin_prana.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\black_wind.dm"
+#include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\hellweaving.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\iron_mountain.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\shintais\ghost_flame.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\shintais\storm.dm"

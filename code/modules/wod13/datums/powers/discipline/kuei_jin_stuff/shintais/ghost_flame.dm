@@ -115,6 +115,7 @@
 /datum/discipline_power/chi_discipline_power/ghost_flame/one/activate()
 	. = ..()
 	owner.overlay_fullscreen("ghostflame", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.update_sight()
 	owner.set_light(2,8,"#ff8c00")
 	burn_loop = TRUE
 	while(burn_loop)
@@ -123,11 +124,13 @@
 			burned_mob.adjust_bodytemperature(15)
 		sleep(1 SECONDS)
 
+
 /datum/discipline_power/chi_discipline_power/ghost_flame/one/deactivate()
 	. = ..()
 	owner.clear_fullscreen("ghostflame", 5)
 	owner.set_light(0)
 	burn_loop = FALSE
+	owner.update_sight()
 
 //GhostFlame 2
 /datum/discipline_power/chi_discipline_power/ghost_flame/two
