@@ -93,7 +93,7 @@
 
 // GhostFlame 1
 /datum/discipline_power/chi_discipline_power/ghost_flame/one
-	name = "Stoke the Inner Heat"
+	name = "Goblin Face"
 	desc = "Push your Yang Chi through your body to create an immense heat hot enough around you to create light"
 
 	level = 1
@@ -130,7 +130,7 @@
 
 //GhostFlame 2
 /datum/discipline_power/chi_discipline_power/ghost_flame/two
-	name = "A Fiery Companion"
+	name = "Goblin Spark"
 	desc = "Summon a Fireball to attack your enemies."
 
 	level = 2
@@ -164,7 +164,7 @@
 
 //GhostFlame 3
 /datum/discipline_power/chi_discipline_power/ghost_flame/three
-	name = "Spark of an Inferno"
+	name = "Goblin Scorch"
 	desc = "Create a fireball on your hand that you can throw to create a fire that can spread to flammable tiles."
 
 	level = 3
@@ -216,7 +216,7 @@
 
 //GhostFlame 5
 /datum/discipline_power/chi_discipline_power/ghost_flame/five
-	name = "Pinnacle of Inferno"
+	name = "Goblin lantern"
 	desc = "Light yourself on fire with your own burning Chi while being immune to its damage and fire all around. Your equipment isn't as immune though."
 
 	level = 5

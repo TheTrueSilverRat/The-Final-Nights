@@ -16,7 +16,7 @@
 
 
 /datum/discipline_power/chi_discipline_power/equilibrium
-	name = "Chi power name"
+	name = "Equilibrium"
 	desc = "Chi power description"
 	cost_yang = 1
 	cost_yin = 1
@@ -25,7 +25,7 @@
 
 //Equilibrium 1
 /datum/discipline_power/chi_discipline_power/equilibrium/chi_boost
-	name = "Boost of your Chi's Inner Strength"
+	name = "Master Flow"
 	desc = "Use the Chi within you to push yourself even further"
 
 	level = 1
@@ -65,7 +65,7 @@
 
 //Equilibrium 2
 /datum/discipline_power/chi_discipline_power/equilibrium/shift_chi
-	name = "Flow of the Triat-Fold Chi"
+	name = "Adjust Balance"
 	desc = "Shift the Chi within you, from yin to yang, as well as to fuel or to derive your demon chi"
 
 	level = 2
@@ -131,7 +131,7 @@
 
 //Equilibrium 3
 /datum/discipline_power/chi_discipline_power/equilibrium/group_chi_boost
-	name = "Aupiscious Raise of Peers' Strengths"
+	name = "Master Flow of Others"
 	desc = "Channel the Chi of your peers and strengthen them further."
 
 	level = 3
@@ -173,7 +173,7 @@
 
 //Equilibrium 4
 /datum/discipline_power/chi_discipline_power/equilibrium/aggravate_chi
-	name = "Disruption of the Flow of Chi"
+	name = "Chi Interrupt"
 	desc = "Disrupt the flow of your Enemies' Chi and make them writhe in pain."
 
 	level = 4

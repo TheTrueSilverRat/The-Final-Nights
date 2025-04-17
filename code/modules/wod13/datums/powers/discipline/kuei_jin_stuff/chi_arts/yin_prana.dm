@@ -103,7 +103,7 @@
 
 //Yin Prana 2
 /datum/discipline_power/chi_discipline_power/yin_prana/two
-	name = "Shadows Embrace (1 Yin)"
+	name = "Yin Mantle (1 Yin)"
 	desc = "Let the shadows protect you by casting the area around you heavily in darkness."
 
 	level = 2
@@ -134,7 +134,7 @@
 
 //Yin Prana 3
 /datum/discipline_power/chi_discipline_power/yin_prana/three
-	name = "Yin Prana 3"
+	name = "Bone Dance"
 	desc = "With a burst of Yin chi, let all around you feel the crippling death-like sensation of Yin overload."
 
 	level = 3
@@ -167,7 +167,7 @@
 
 //Yin Prana 4
 /datum/discipline_power/chi_discipline_power/yin_prana/four
-	name = "Yin Prana 4"
+	name = "Eightfold Yin Mantle"
 	desc = "Concentrate a burst of Yin Chi around your hand, whether to attack enemies or break down doors."
 
 	level = 4
@@ -190,7 +190,7 @@
 
 //Yin Prana 5
 /datum/discipline_power/chi_discipline_power/yin_prana/five
-	name = "Yin Prana 5"
+	name = "Semblance of the Ebon Dragon"
 	desc = "Reach the pinnacle of toughness. Never fear anything again."
 
 	level = 5
