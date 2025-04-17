@@ -37,7 +37,9 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/toggle_canon,
 	/client/proc/reward_exp,
 	/client/proc/grant_discipline,
+	/client/proc/grant_chi_discipline,
 	/client/proc/remove_discipline,
+	/client/proc/remove_chi_discipline,
 	/client/proc/whitelist_panel,
 	/*
 	/client/proc/encipher_word,
@@ -726,7 +728,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Discipline") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/remove_chi_discipline()
-	set name = "Remove Discipline"
+	set name = "Remove Chi Discipline"
 	set category = "Admin"
 	if (!check_rights(R_ADMIN))
 		return

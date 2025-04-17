@@ -5,6 +5,7 @@
 	icon_state = "ghostfire"
 	cost_yang = 1
 	power_type = /datum/discipline_power/chi_discipline_power/ghost_flame
+	discipline_type = "Shintai"
 
 /datum/discipline_power/chi_discipline_power/ghost_flame
 	name = "Ghost Flame Shintai"
