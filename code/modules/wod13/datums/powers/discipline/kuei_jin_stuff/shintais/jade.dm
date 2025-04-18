@@ -129,11 +129,11 @@
 
 /datum/discipline_power/chi_discipline_power/jade/four/activate()
 	. = ..()
-	caster.dna.species.ToggleFlight(caster)
+	owner.dna.species.ToggleFlight(owner)
 
 /datum/discipline_power/chi_discipline_power/jade/four/deactivate()
 	. = ..()
-	caster.dna.species.ToggleFlight(caster)
+	owner.dna.species.ToggleFlight(owner)
 
 //JADE 5
 /datum/discipline_power/chi_discipline_power/jade/five
@@ -156,22 +156,22 @@
 
 /datum/discipline_power/chi_discipline_power/jade/five/activate()
 	. = ..()
-	caster.remove_overlay(POTENCE_LAYER)
-	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "[caster.base_body_mod]rock", -POTENCE_LAYER)
-	caster.overlays_standing[POTENCE_LAYER] = fortitude_overlay
-	caster.apply_overlay(POTENCE_LAYER)
-	caster.physiology.armor.melee += 50
-	caster.physiology.armor.bullet += 50
-	caster.drop_all_held_items()
+	owner.remove_overlay(POTENCE_LAYER)
+	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "[owner.base_body_mod]rock", -POTENCE_LAYER)
+	owner.overlays_standing[POTENCE_LAYER] = fortitude_overlay
+	owner.apply_overlay(POTENCE_LAYER)
+	owner.physiology.armor.melee += 50
+	owner.physiology.armor.bullet += 50
+	owner.drop_all_held_items()
 	owner.put_in_r_hand(new /obj/item/melee/powerfist/stone(owner))
 	owner.put_in_l_hand(new /obj/item/melee/powerfist/stone(owner))
-	ADD_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+	ADD_TRAIT(owner, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 
 /datum/discipline_power/chi_discipline_power/jade/five/deactivate()
 	. = ..()
-	caster.physiology.armor.melee -= 50
-	caster.physiology.armor.bullet -= 50
-	caster.remove_overlay(POTENCE_LAYER)
-	REMOVE_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+	owner.physiology.armor.melee -= 50
+	owner.physiology.armor.bullet -= 50
+	owner.remove_overlay(POTENCE_LAYER)
+	REMOVE_TRAIT(owner, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 	for(var/obj/item/melee/powerfist/stone/fister in owner.contents)
 		qdel(fister)
