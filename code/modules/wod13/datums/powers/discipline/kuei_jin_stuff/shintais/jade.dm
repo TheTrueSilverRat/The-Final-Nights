@@ -1,15 +1,15 @@
 
 /datum/discipline/chi_discipline/jade
-	name = "Chi Discipline"
-	desc = "Chi Discipline jade."
-	icon_state = "fortitude"
+	name = "Jade Shintai"
+	desc = "Channel the Earth through Yang Chi"
+	icon_state = "jade"
 	power_type = /datum/discipline_power/chi_discipline_power/jade
 	discipline_type = "Shintai"
 	cost_yang = 1
 
 /datum/discipline_power/chi_discipline_power/jade
-	name = "Chi power name"
-	desc = "Chi power description"
+	name = "Jade Shintai"
+	desc = "Channel the Earth through Yang Chi"
 
 	activate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
@@ -20,7 +20,10 @@
 	icon_state = "stonefist"
 	desc = "A stone gauntlet to punch someone."
 	item_flags = DROPDEL
-	fisto_setting = 3
+	fisto_setting = 2
+
+/datum/movespeed_modifier/wall_passing
+	multiplicative_slowdown = 5
 
 //JADE 1
 /datum/discipline_power/chi_discipline_power/jade/one
@@ -100,11 +103,13 @@
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
 	owner.alpha = 100
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 
 /datum/discipline_power/chi_discipline_power/jade/three/deactivate()
 	. = ..()
 	owner.alpha = 255
 	REMOVE_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 
 //JADE 4
 /datum/discipline_power/chi_discipline_power/jade/four

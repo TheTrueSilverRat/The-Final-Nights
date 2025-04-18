@@ -140,7 +140,7 @@
 	level = 2
 
 	check_flags = DISC_CHECK_CONSCIOUS
-
+	violates_masquerade = TRUE
 	cooldown_length = 10 SECONDS
 
 	grouped_powers = list(
@@ -172,7 +172,7 @@
 	desc = "Create a fireball on your hand that you can throw to create a fire that can spread to flammable tiles."
 
 	level = 3
-
+	violates_masquerade = TRUE
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND
 
 	cooldown_length = 10 SECONDS
@@ -194,7 +194,7 @@
 	desc = "Refinde your Firey Ghost Flames into a Katana made out of Fire."
 
 	level = 4
-
+	violates_masquerade = TRUE
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND
 
 	toggled = TRUE
@@ -226,7 +226,7 @@
 	level = 5
 
 	check_flags = DISC_CHECK_CONSCIOUS
-
+	violates_masquerade = TRUE
 	toggled = TRUE
 	duration_length = 2 TURNS
 
