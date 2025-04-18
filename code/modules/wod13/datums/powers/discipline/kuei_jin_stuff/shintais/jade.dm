@@ -11,8 +11,8 @@
 	name = "Chi power name"
 	desc = "Chi power description"
 
-	activate_sound
-	deactivate_sound =
+	activate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
+	deactivate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
 
 /obj/item/melee/powerfist/stone
 	name = "stone-fist"
@@ -20,18 +20,18 @@
 	icon_state = "stonefist"
 	desc = "A stone gauntlet to punch someone."
 	item_flags = DROPDEL
+	fisto_setting = 3
 
 //JADE 1
 /datum/discipline_power/chi_discipline_power/jade/one
-	name = "Chi power name 1"
+	name = "Stand Upon The Dragon's Back"
 	desc = "HChi power description"
 
 	level = 1
 
 	check_flags = DISC_CHECK_CONSCIOUS
 
-	toggled = TRUE
-	duration_length = 2 TURNS
+	cooldown_length = 2 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/jade/two,
@@ -42,15 +42,13 @@
 
 /datum/discipline_power/chi_discipline_power/jade/one/activate()
 	. = ..()
-
-
-/datum/discipline_power/chi_discipline_power/jade/one/deactivate()
-	. = ..()
-
+	var/obj/structure/bury_pit/burial_pit = new (get_turf(owner))
+	burial_pit.icon_state = "pit0"
+	owner.forceMove(burial_pit)
 
 //JADE 2
 /datum/discipline_power/chi_discipline_power/jade/two
-	name = "Fortitude 2"
+	name = "Tread The Thrashing Dragon's Tail"
 	desc = "Become as stone. Let nothing breach your protections."
 
 	level = 2
@@ -69,14 +67,19 @@
 
 /datum/discipline_power/chi_discipline_power/jade/two/activate()
 	. = ..()
-
+	owner.pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	owner.athletics += 5
+	ADD_TRAIT(owner, TRAIT_SUPERNATURAL_DEXTERITY, "jade shintai 2")
 
 /datum/discipline_power/chi_discipline_power/jade/two/deactivate()
 	. = ..()
+	owner.pass_flags = initial(owner.pass_flags)
+	owner.athletics -= 5
+	REMOVE_TRAIT(owner, TRAIT_SUPERNATURAL_DEXTERITY, "jade shintai 2")
 
 //JADE 3
 /datum/discipline_power/chi_discipline_power/jade/three
-	name = "Fortitude 3"
+	name = "Placate the Earth Dragon"
 	desc = "Look down upon those who would try to kill you. Shrug off grievous attacks."
 
 	level = 3
@@ -95,18 +98,24 @@
 
 /datum/discipline_power/chi_discipline_power/jade/three/activate()
 	. = ..()
+	ADD_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
+	owner.alpha = 128
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 
 /datum/discipline_power/chi_discipline_power/jade/three/deactivate()
 	. = ..()
+	owner.alpha = 255
+	REMOVE_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 
 //JADE 4
 /datum/discipline_power/chi_discipline_power/jade/four
-	name = "Fortitude 4"
+	name = "Harnessing the Dragon's Breath"
 	desc = "Be like steel. Walk into fire and come out only singed."
 
 	level = 4
 
-	check_flags = DISC_CHECK_CONSCIOUS
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_LYING
 
 	toggled = TRUE
 	duration_length = 2 TURNS
@@ -120,18 +129,20 @@
 
 /datum/discipline_power/chi_discipline_power/jade/four/activate()
 	. = ..()
+	caster.dna.species.ToggleFlight(caster)
 
 /datum/discipline_power/chi_discipline_power/jade/four/deactivate()
 	. = ..()
+	caster.dna.species.ToggleFlight(caster)
 
 //JADE 5
 /datum/discipline_power/chi_discipline_power/jade/five
-	name = "Fortitude 5"
+	name = "Jade Servant of the August Personage"
 	desc = "Reach the pinnacle of toughness. Never fear anything again."
 
 	level = 5
 
-	check_flags = DISC_CHECK_CONSCIOUS
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
 
 	toggled = TRUE
 	duration_length = 2 TURNS
@@ -145,7 +156,22 @@
 
 /datum/discipline_power/chi_discipline_power/jade/five/activate()
 	. = ..()
+	caster.remove_overlay(POTENCE_LAYER)
+	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "[caster.base_body_mod]rock", -POTENCE_LAYER)
+	caster.overlays_standing[POTENCE_LAYER] = fortitude_overlay
+	caster.apply_overlay(POTENCE_LAYER)
+	caster.physiology.armor.melee += 50
+	caster.physiology.armor.bullet += 50
+	caster.drop_all_held_items()
+	owner.put_in_r_hand(new /obj/item/melee/powerfist/stone(owner))
+	owner.put_in_l_hand(new /obj/item/melee/powerfist/stone(owner))
+	ADD_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 
 /datum/discipline_power/chi_discipline_power/jade/five/deactivate()
 	. = ..()
-
+	caster.physiology.armor.melee -= 50
+	caster.physiology.armor.bullet -= 50
+	caster.remove_overlay(POTENCE_LAYER)
+	REMOVE_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+	for(var/obj/item/melee/powerfist/stone/fister in owner.contents)
+		qdel(fister)
