@@ -143,7 +143,6 @@
 
 /datum/discipline_power/chi_discipline_power/blood/one/activate()
 	. = ..()
-	blood_shift_loop = TRUE
 	var/result = alert(owner, "How do you manage your shape?",,"Shrink","Inflate")
 	if(result == "Inflate")
 		inflating_matrix.Scale(1.2, 1)
@@ -225,8 +224,8 @@
 /datum/discipline_power/chi_discipline_power/blood/three/activate()
 	. = ..()
 	if(!bloodcrawler_shapeshift)
-		bloodcrawler_shapeshift = new (caster)
-	bloodcrawler_shapeshift.Shapeshift(caster)
+		bloodcrawler_shapeshift = new (owner)
+	bloodcrawler_shapeshift.Shapeshift(owner)
 	var/mob/living/simple_animal/hostile/host = bloodcrawler_shapeshift.myshape
 	host.my_creator = null
 
@@ -234,11 +233,11 @@
 	. = ..()
 	var/mob/living/simple_animal/hostile/bloodcrawler/current_form = bloodcrawler_shapeshift.myshape
 	if(current_form.collected_blood > 1)
-		caster.adjustBruteLoss(-5*round(current_form.collected_blood/2), TRUE)
-		caster.adjustFireLoss(-5*round(current_form.collected_blood/2), TRUE)
+		owner.adjustBruteLoss(-5*round(current_form.collected_blood/2), TRUE)
+		owner.adjustFireLoss(-5*round(current_form.collected_blood/2), TRUE)
 	bloodcrawler_shapeshift.Restore(bloodcrawler_shapeshift.myshape)
-	caster.Stun(1.5 SECONDS)
-	caster.do_jitter_animation(3 SECONDS)
+	owner.Stun(1.5 SECONDS)
+	owner.do_jitter_animation(3 SECONDS)
 
 //BLOOD SHINTAI 4
 /datum/discipline_power/chi_discipline_power/blood/four
@@ -260,7 +259,7 @@
 
 /datum/discipline_power/chi_discipline_power/blood/four/activate()
 	. = ..()
-	caster.put_in_active_hand(new /obj/item/gun/magic/blood_shintai(caster))
+	owner.put_in_active_hand(new /obj/item/gun/magic/blood_shintai(owner))
 
 
 //BLOOD SHINTAI 5

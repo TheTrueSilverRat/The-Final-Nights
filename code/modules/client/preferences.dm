@@ -649,7 +649,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					var/cost
 					if (chi_discipline_level <= 0)
-						cost = 10
+						cost = 0
 					else
 						cost = chi_discipline_level * 6
 
@@ -687,8 +687,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(initial(C.discipline_type) == "Chi")
 							if(has_chi_one)
 								possible_new_disciplines -= i
-				if (possible_new_disciplines.len && (player_experience >= 10))
-					dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
+				if (possible_new_disciplines.len)
+					dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (FREE)</a><BR>"
 
 			if(slotlocked)
 				dat += "<a href='byond://?_src_=prefs;preference=change_appearance;task=input'>Change Appearance (Free)</a><BR>"
