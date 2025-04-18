@@ -99,7 +99,7 @@
 /obj/projectile/blood_wave
 	name = "blood wave"
 	icon_state = "leaper"
-	speed = 20
+	speed = 5
 	animate_movement = SLIDE_STEPS
 	ricochets_max = 5
 	ricochet_chance = 100
@@ -138,8 +138,10 @@
 	)
 	var/result
 	var/matrix/inflating_matrix = matrix()
-	var/matrix/initial = owner.transform
+	var/matrix/initial_inflating = matrix()
+	var/matrix/initial_matrix = owner.transform
 	var/matrix/shrinking_matrix = matrix()
+	var/matrix/initial_shrinking = matrix()
 
 /datum/discipline_power/chi_discipline_power/blood/one/activate()
 	. = ..()
@@ -158,13 +160,15 @@
 /datum/discipline_power/chi_discipline_power/blood/one/deactivate()
 	. = ..()
 	if(result == "Inflate")
-		animate(owner, transform = initial, 1 SECONDS)
+		initial_inflating.Scale(0.8, 1)
+		animate(owner, transform = initial_inflating , 1 SECONDS)
 		owner.physiology.armor.melee -= 20
 		owner.physiology.armor.bullet -= 20
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_fat)
 	else if(result == "Shrink")
-		animate(owner, transform = initial, 1 SECONDS)
-		owner.remove_movespeed_modifier(blood_slim)
+		initial_shrinking.Scale(1.2, 1)
+		animate(owner, transform = initial_shrinking, 1 SECONDS)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
 
 //BLOOD SHINTAI 2
 /datum/discipline_power/chi_discipline_power/blood/two
