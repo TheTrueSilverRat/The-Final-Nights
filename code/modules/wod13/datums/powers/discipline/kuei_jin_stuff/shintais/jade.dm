@@ -99,14 +99,12 @@
 /datum/discipline_power/chi_discipline_power/jade/three/activate()
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
-	owner.alpha = 128
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
+	owner.alpha = 100
 
 /datum/discipline_power/chi_discipline_power/jade/three/deactivate()
 	. = ..()
 	owner.alpha = 255
 	REMOVE_TRAIT(owner, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 
 //JADE 4
 /datum/discipline_power/chi_discipline_power/jade/four
