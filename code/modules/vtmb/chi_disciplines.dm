@@ -2153,11 +2153,9 @@
 			new_say = sanitize_text(new_say)
 			if(new_say)
 				caster.say(new_say)
-
 				for(var/mob/living/carbon/human/victim in oviewers(7, caster))
 					victim.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_MAGIC)
 					victim.gain_trauma(new /datum/brain_trauma/hypnosis(new_say), TRAUMA_RESILIENCE_MAGIC)
-
 					spawn(30 SECONDS)
 						if(victim)
 							victim.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_MAGIC)

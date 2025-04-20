@@ -3475,6 +3475,7 @@
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\feng_shui.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\tapestry.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\yin_prana.dm"
+#include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\chi_arts\yang_prana.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\black_wind.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\demon_shintai.dm"
 #include "code\modules\wod13\datums\powers\discipline\kuei_jin_stuff\demon_arts\hellweaving.dm"

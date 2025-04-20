@@ -10,6 +10,7 @@
 /datum/discipline_power/chi_discipline_power/blood
 	name = "Blood Shintai"
 	desc = "Channel the flow of Blood through Yin Chi."
+	cost_yin = 1
 	activate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 
@@ -98,7 +99,7 @@
 /obj/projectile/blood_wave
 	name = "blood wave"
 	icon_state = "leaper"
-	speed = 5
+	speed = 0.8
 	animate_movement = SLIDE_STEPS
 	ricochets_max = 5
 	ricochet_chance = 100
@@ -108,7 +109,7 @@
 	damage = 75
 	damage_type = BRUTE
 	armour_penetration = 50
-	range = 50
+	range = 200 //due to side steps, it basically made the range quadaruple times smaller or 1/4th
 	stun = 20
 	eyeblur = 20
 	dismemberment = 20
@@ -239,6 +240,8 @@
 
 /datum/discipline_power/chi_discipline_power/blood/three/activate()
 	. = ..()
+	owner.add_splatter_floor(get_turf(owner))
+	owner.add_splatter_floor(get_turf(get_step(owner, owner.dir)))
 	if(!bloodcrawler_shapeshift)
 		bloodcrawler_shapeshift = new (owner)
 	bloodcrawler_shapeshift.Shapeshift(owner)
