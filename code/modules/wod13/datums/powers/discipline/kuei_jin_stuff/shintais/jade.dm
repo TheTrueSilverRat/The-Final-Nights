@@ -10,7 +10,6 @@
 /datum/discipline_power/chi_discipline_power/jade
 	name = "Jade Shintai"
 	desc = "Channel the Earth through Yang Chi"
-	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
 

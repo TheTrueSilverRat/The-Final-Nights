@@ -11,7 +11,6 @@
 /datum/discipline_power/chi_discipline_power/yin_prana
 	name = "Yin Prana"
 	desc = "Master the Flow of your Yin Chi."
-		multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/yin_prana.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/yin_prana.ogg'
 	cost_yin = 2

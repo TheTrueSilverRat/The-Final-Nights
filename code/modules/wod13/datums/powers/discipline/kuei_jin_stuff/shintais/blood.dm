@@ -10,7 +10,6 @@
 /datum/discipline_power/chi_discipline_power/blood
 	name = "Blood Shintai"
 	desc = "Channel the flow of Blood through Yin Chi."
-	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 
@@ -120,7 +119,7 @@
 
 //BLOOD SHINTAI 1
 /datum/discipline_power/chi_discipline_power/blood/one
-	name = "Chi power name 1"
+	name = "Premeate (WIP DOESNT WORK!!)"
 	desc = "HChi power description"
 
 	level = 1
@@ -185,7 +184,7 @@
 
 //BLOOD SHINTAI 2
 /datum/discipline_power/chi_discipline_power/blood/two
-	name = "Fortitude 2"
+	name = "Blood Atemi"
 	desc = "Become as stone. Let nothing breach your protections."
 
 	level = 2
@@ -216,7 +215,7 @@
 
 //BLOOD SHINTAI 3
 /datum/discipline_power/chi_discipline_power/blood/three
-	name = "Fortitude 3"
+	name = "Flow Like Blood"
 	desc = "Look down upon those who would try to kill you. Shrug off grievous attacks."
 
 	level = 3
@@ -258,14 +257,14 @@
 
 //BLOOD SHINTAI 4
 /datum/discipline_power/chi_discipline_power/blood/four
-	name = "Fortitude 4"
+	name = "Bloodlash"
 	desc = "Be like steel. Walk into fire and come out only singed."
 
 	level = 4
 
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND
 
-	cooldown_length =  8 SECONDS
+	cooldown_length =  5 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/blood/one,
@@ -281,7 +280,7 @@
 
 //BLOOD SHINTAI 5
 /datum/discipline_power/chi_discipline_power/blood/five
-	name = "Fortitude 5"
+	name = "Blood Blade"
 	desc = "Reach the pinnacle of toughness. Never fear anything again."
 
 	level = 5

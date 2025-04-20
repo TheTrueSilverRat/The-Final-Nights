@@ -20,7 +20,6 @@
 	desc = "Chi power description"
 	cost_yang = 1
 	cost_yin = 1
-	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/equilibrium.ogg'
 
 //Equilibrium 1

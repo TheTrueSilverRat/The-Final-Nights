@@ -10,7 +10,6 @@
 /datum/discipline_power/chi_discipline_power/example
 	name = "Chi power name"
 	desc = "Chi power description"
-	multi_activate = TRUE
 	activate_sound =
 	deactivate_sound =
 
