@@ -12,6 +12,9 @@
 	desc = "Chi power description"
 	cost_demon = 1
 	activate_sound = "code/modules/wod13/sounds/hellweaving_activate.ogg"
+	multi_activate = TRUE
+
+
 
 /atom/movable/screen/fullscreen/yomi_world
 	icon = 'icons/hud/fullscreen.dmi'

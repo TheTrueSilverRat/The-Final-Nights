@@ -11,7 +11,7 @@
 	desc = "RIDE THE LIGHTNING!!!."
 
 	cost_yang = 1
-
+	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/stormshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/stormshintai_activate.ogg'
 

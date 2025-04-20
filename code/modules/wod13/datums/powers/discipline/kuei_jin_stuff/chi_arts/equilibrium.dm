@@ -20,7 +20,7 @@
 	desc = "Chi power description"
 	cost_yang = 1
 	cost_yin = 1
-
+	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/equilibrium.ogg'
 
 //Equilibrium 1
@@ -29,7 +29,6 @@
 	desc = "Use the Chi within you to push yourself even further"
 
 	level = 1
-
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE

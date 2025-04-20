@@ -10,7 +10,7 @@
 /datum/discipline_power/chi_discipline_power/blood
 	name = "Blood Shintai"
 	desc = "Channel the flow of Blood through Yin Chi."
-
+	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/bloodshintai_activate.ogg'
 
@@ -136,6 +136,7 @@
 		/datum/discipline_power/chi_discipline_power/blood/four,
 		/datum/discipline_power/chi_discipline_power/blood/five
 	)
+
 	var/result
 	var/matrix/inflating_matrix = matrix()
 	var/matrix/initial_inflating = matrix()
@@ -144,30 +145,42 @@
 
 /datum/discipline_power/chi_discipline_power/blood/one/activate()
 	. = ..()
-	var/result = alert(owner, "How do you manage your shape?",,"Shrink","Inflate")
+
+
+
+/* I DO NOT KNOW HOW TO MAKE THIS ALL FUCKING WORK!!!!
+	. = ..()
 	if(result == "Inflate")
+		result = "Inflate"
 		inflating_matrix.Scale(1.2, 1)
 		animate(owner, transform = inflating_matrix, 1 SECONDS)
 		owner.physiology.armor.melee += 20
 		owner.physiology.armor.bullet += 20
 		owner.add_movespeed_modifier(/datum/movespeed_modifier/blood_fat)
 	else if(result == "Shrink")
+		result = "Shrink"
 		shrinking_matrix.Scale(0.8, 1)
 		animate(owner, transform = shrinking_matrix, 1 SECONDS)
 		owner.add_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
+*/
 
 /datum/discipline_power/chi_discipline_power/blood/one/deactivate()
+
+
+/*
 	. = ..()
 	if(result == "Inflate")
-		var/matrix/initial_matrix = owner.transform
-		animate(owner, transform = initial_inflating , 1 SECONDS)
+		var/matrix/initial_matrix = owner.initial(transform)
+		animate(owner, transform = initial_matrix , 1 SECONDS)
 		owner.physiology.armor.melee -= 20
 		owner.physiology.armor.bullet -= 20
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_fat)
 	else if(result == "Shrink")
-		var/matrix/initial_matrix = owner.transform
-		animate(owner, transform = initial_shrinking, 1 SECONDS)
+		var/matrix/initial_matrix = owner.initial(transform)
+		animate(owner, transform = initial_matrix, 1 SECONDS)
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
+*/
+
 
 //BLOOD SHINTAI 2
 /datum/discipline_power/chi_discipline_power/blood/two

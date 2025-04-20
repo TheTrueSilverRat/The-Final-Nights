@@ -11,7 +11,7 @@
 	name = "Ghost Flame Shintai"
 	desc = "Channel your Chi and stoke your Righteous Fury into true Flames."
 	cost_yang = 1
-
+	multi_activate = TRUE
 	activate_sound = 'code/modules/wod13/sounds/ghostflameshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/ghostflameshintai_activate.ogg'
 
