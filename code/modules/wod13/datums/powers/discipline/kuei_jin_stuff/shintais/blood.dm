@@ -139,7 +139,6 @@
 	var/result
 	var/matrix/inflating_matrix = matrix()
 	var/matrix/initial_inflating = matrix()
-	var/matrix/initial_matrix = owner.transform
 	var/matrix/shrinking_matrix = matrix()
 	var/matrix/initial_shrinking = matrix()
 
@@ -160,13 +159,13 @@
 /datum/discipline_power/chi_discipline_power/blood/one/deactivate()
 	. = ..()
 	if(result == "Inflate")
-		initial_inflating.Scale(0.8, 1)
+		var/matrix/initial_matrix = owner.transform
 		animate(owner, transform = initial_inflating , 1 SECONDS)
 		owner.physiology.armor.melee -= 20
 		owner.physiology.armor.bullet -= 20
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_fat)
 	else if(result == "Shrink")
-		initial_shrinking.Scale(1.2, 1)
+		var/matrix/initial_matrix = owner.transform
 		animate(owner, transform = initial_shrinking, 1 SECONDS)
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
 
