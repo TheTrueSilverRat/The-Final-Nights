@@ -143,12 +143,13 @@
 	var/matrix/shrinking_matrix = matrix()
 	var/matrix/initial_shrinking = matrix()
 
+/*
 /datum/discipline_power/chi_discipline_power/blood/one/activate()
-	. = ..()
 
 
 
-/* I DO NOT KNOW HOW TO MAKE THIS ALL FUCKING WORK!!!!
+
+ I DO NOT KNOW HOW TO MAKE THIS ALL FUCKING WORK!!!!
 	. = ..()
 	if(result == "Inflate")
 		result = "Inflate"
@@ -163,11 +164,11 @@
 		animate(owner, transform = shrinking_matrix, 1 SECONDS)
 		owner.add_movespeed_modifier(/datum/movespeed_modifier/blood_slim)
 */
-
+/*
 /datum/discipline_power/chi_discipline_power/blood/one/deactivate()
 
 
-/*
+
 	. = ..()
 	if(result == "Inflate")
 		var/matrix/initial_matrix = owner.initial(transform)
