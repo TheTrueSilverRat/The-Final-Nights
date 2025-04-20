@@ -103,7 +103,7 @@
 				var/empty_yin_chi = max_yin_chi - yin_chi
 				var/empty_yang_chi = max_yang_chi - yang_chi
 				if(mob.yang_chi > 0 || mob.yin_chi > 0)
-					if(empty_yang_chi > empty_yin_chi && mob.yin_chi > 0)
+					if(empty_yang_chi > empty_yin_chi && mob.yang_chi > 0)
 						mob.yang_chi = mob.yang_chi-1
 						yang_chi = min(yang_chi+1, max_yang_chi)
 						to_chat(src, "<span class='engradio'>Some <b>Yang</b> Chi energy enters you...</span>")
