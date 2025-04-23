@@ -133,20 +133,14 @@
 		/datum/discipline_power/protean/mist_form
 	)
 
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
-
 /datum/discipline_power/protean/earth_meld/activate()
 	. = ..()
-	if (!GA)
-		GA = new(owner)
-	owner.drop_all_held_items()
-	GA.Shapeshift(owner)
+	var/obj/structure/bury_pit/burial_pit = new (get_turf(owner))
+	burial_pit.icon_state = "pit1"
+	owner.forceMove(burial_pit)
 
 /datum/discipline_power/protean/earth_meld/deactivate()
 	. = ..()
-	GA.Restore(GA.myshape)
-	owner.Stun(1.5 SECONDS)
-	owner.do_jitter_animation(30)
 
 /mob/living/simple_animal/hostile/gangrel/better
 	maxHealth = 325
@@ -156,8 +150,8 @@
 	speed = -0.6
 
 //SHAPE OF THE BEAST
-/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better
-	shapeshift_type = /mob/living/simple_animal/hostile/gangrel/better
+/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/wolf
+	shapeshift_type = /mob/living/carbon/werewolf/lupus
 
 /datum/discipline_power/protean/shape_of_the_beast
 	name = "Shape of the Beast"
@@ -179,7 +173,7 @@
 		/datum/discipline_power/protean/mist_form
 	)
 
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better/GA
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/wolf/GA
 
 /datum/discipline_power/protean/shape_of_the_beast/activate()
 	. = ..()
@@ -193,7 +187,6 @@
 	GA.Restore(GA.myshape)
 	owner.Stun(1 SECONDS)
 	owner.do_jitter_animation(15)
-
 /mob/living/simple_animal/hostile/gangrel/best
 	icon_state = "gangrel_m"
 	icon_living = "gangrel_m"
@@ -206,6 +199,45 @@
 //MIST FORM
 /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/best
 	shapeshift_type = /mob/living/simple_animal/hostile/gangrel/best
+
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/mist_form
+	name = "Mist Form"
+	desc = "Dissipate your body and move as mist."
+	charge_max = 50
+	cooldown_min = 50
+	revert_on_death = TRUE
+	die_with_shapeshifted_form = FALSE
+	shapeshift_type = /mob/living/simple_animal/hostile/mist_form
+
+/mob/living/simple_animal/hostile/mist_form
+	name = "Mist Form"
+	desc = "Levitating fumes."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "smoke"
+	icon_living = "smoke"
+	mob_biotypes = MOB_ORGANIC
+	density = FALSE
+	ventcrawler = VENTCRAWLER_ALWAYS
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_size = MOB_SIZE_TINY
+	speak_chance = 0
+	speed = 1
+	maxHealth = 100
+	health = 100
+	butcher_results = list(/obj/item/stack/human_flesh = 1)
+	harm_intent_damage = 5
+	melee_damage_lower = 1
+	melee_damage_upper = 1
+	attack_verb_continuous = "slashes"
+	attack_verb_simple = "slash"
+	attack_sound = 'sound/weapons/slash.ogg'
+	a_intent = INTENT_HARM
+	brutemod
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	bloodpool = 0
+	maxbloodpool = 0
 
 /datum/discipline_power/protean/mist_form
 	name = "Mist Form"
@@ -227,7 +259,7 @@
 		/datum/discipline_power/protean/shape_of_the_beast
 	)
 
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/best/GA
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/mist_form/GA
 
 /datum/discipline_power/protean/mist_form/activate()
 	. = ..()
