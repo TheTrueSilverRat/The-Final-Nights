@@ -63,6 +63,14 @@
 	alpha = 10
 	speed = 1
 
+/obj/effect/forcefield/smoke_wall
+	desc = "A space wizard's magic wall."
+	name = "FORCEWALL"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "smoke"
+	anchored = TRUE
+	density = TRUE
+	timeleft = 30 SECONDS //Set to 0 for permanent forcefields (ugh
 
 //SMOKE SHINTAI 1
 /datum/discipline_power/chi_discipline_power/smoke/one
@@ -85,7 +93,7 @@
 /datum/discipline_power/chi_discipline_power/smoke/one/activate()
 	. = ..()
 	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(4, owner)
+	smoke.set_up(discipline.level+1, owner)
 	smoke.start()
 	playsound(get_turf(owner), 'sound/effects/smoke.ogg', 50, TRUE)
 
@@ -102,7 +110,7 @@
 
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_SPEAK
 
-	cooldown_length = 10 SECONDS
+	cooldown_length = 5 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/smoke/one,
@@ -150,7 +158,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_SPEAK
 
 	cooldown_length = 10 SECONDS
-	duration_length = 20 SECONDS
+	multi_activate = TRUE
 
 	grouped_powers = list(
 		/datum/discipline_power/chi_discipline_power/smoke/one,
@@ -161,29 +169,13 @@
 
 /datum/discipline_power/chi_discipline_power/smoke/three/activate()
 	. = ..()
-	var/atom/movable/visual1 = new (get_step(owner, owner.dir))
-	visual1.density = TRUE
-	visual1.anchored = TRUE
-	visual1.layer = ABOVE_ALL_MOB_LAYER
-	visual1.icon = 'icons/effects/effects.dmi'
-	visual1.icon_state = "smoke"
-	var/atom/movable/visual2 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, 90)))
-	visual2.density = TRUE
-	visual2.anchored = TRUE
-	visual2.layer = ABOVE_ALL_MOB_LAYER
-	visual2.icon = 'icons/effects/effects.dmi'
-	visual2.icon_state = "smoke"
-	var/atom/movable/visual3 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, -90)))
-	visual3.density = TRUE
-	visual3.anchored = TRUE
-	visual3.layer = ABOVE_ALL_MOB_LAYER
-	visual3.icon = 'icons/effects/effects.dmi'
-	visual3.icon_state = "smoke"
+	var/obj/effect/forcefield/smoke_wall/visual1 = new (get_step(owner, owner.dir))
+
+	var/obj/effect/forcefield/smoke_wall/visual2 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, 90)))
+
+	var/obj/effect/forcefield/smoke_wall/visual3 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, -90)))
+
 	playsound(get_turf(owner), 'sound/effects/smoke.ogg', 50, TRUE)
-	spawn(duration_length)
-		qdel(visual1)
-		qdel(visual2)
-		qdel(visual3)
 
 /datum/discipline_power/chi_discipline_power/smoke/three/deactivate()
 	. = ..()
