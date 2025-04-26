@@ -252,10 +252,10 @@
 		step_away(hearer, owner)
 		if(total_power > 1)
 			hearer.apply_effect(total_power * 0.2 SECONDS, EFFECT_KNOCKDOWN)
-			hearer.visible_message("<span class='danger'>[target] is knocked to the floor!</span>", "<span class='userdanger'>[owner]'s scream knocks you off your feet!</span>")
+			hearer.visible_message("<span class='danger'>[hearer] is knocked to the floor!</span>", "<span class='userdanger'>[owner]'s scream knocks you off your feet!</span>")
 		if(mypower >= theirpower)
 			hearer.do_jitter_animation(1 SECONDS)
-			new /datum/hallucination/fire(target, TRUE)
+			new /datum/hallucination/fire(hearer, TRUE)
 
 
 
