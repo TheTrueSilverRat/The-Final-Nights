@@ -19,7 +19,7 @@
 	level = 1
 	vitae_cost = 0
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_SEE
-	target_type = TARGET_HUMAN
+	target_type = TARGET_LIVING
 	range = 7
 
 	cooldown_length = 5 SECONDS
@@ -29,11 +29,11 @@
 	var/melee_armor = target.physiology.armor.melee
 	var/bullet_armor = 	target.physiology.armor.bullet
 	var/fire_armor =  target.physiology.armor.fire
-	to_chat(owner, "<b>[target]</b> has <b>[num2text(target.bloodpool)]/[target.maxbloodpool]</b> blood points.")
 	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(melee_armor)]</b> against melee attacks ")
 	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(bullet_armor)]</b> against ranged attacks ")
 	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(fire_armor)]</b> against fire")
-	if(iskindred(target))
+	if(iskindred(target) || isghoul(target))
+		to_chat(owner, "<b>[target]</b> has <b>[num2text(target.bloodpool)]/[target.maxbloodpool]</b> blood points.")
 		for(var/datum/action/discipline/D in target.actions)
 			if(D.discipline.name == "Fortitude")
 				to_chat(owner, "<b>[target]</b> has a Fortitude rating of [D.discipline.level]")
@@ -69,7 +69,7 @@
 
 /datum/discipline_power/valeren_warrior/morphean_blow/deactivate(atom/target, direct)
 	. = ..()
-	if(morphean_check)
+	if(morphean_check == TRUE)
 		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
 
 //BURNING TOUCH
@@ -138,7 +138,7 @@
 	desc = "Open your third eye and let it guide your weapon, striking with unerring accuracy and lethality."
 	level = 5
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
-	vitae_cost = 3 //Basically can't miss, tripled damage on attack, hence same cost as tabletop.
+	vitae_cost = 3 //Basically can't miss, hence same cost as tabletop.
 	target_type = TARGET_LIVING
 	range = 1
 
