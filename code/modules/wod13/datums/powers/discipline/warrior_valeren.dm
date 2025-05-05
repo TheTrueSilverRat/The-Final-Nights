@@ -52,18 +52,25 @@
 	hostile = TRUE
 
 	cooldown_length = 10 SECONDS
+	duration_length = 1 MINUTES
+	var/morphean_check
 
 /datum/discipline_power/valeren_warrior/morphean_blow/activate(mob/living/target)
 	. = ..()
 	if(target == owner)
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
-		sleep(1 MINUTES)
-			REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
+		morphean_check = TRUE
+		return
 	if (ishumanbasic(target))
 		target.SetSleeping(15 SECONDS)
 	else
 		target.add_confusion(5)
 		target.drowsyness += 4
+
+/datum/discipline_power/valeren_warrior/morphean_blow/deactivate(atom/target, direct)
+	. = ..()
+	if(morphean_check)
+		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
 
 //BURNING TOUCH
 /datum/discipline_power/valeren_warrior/burning_touch
@@ -138,7 +145,7 @@
 	aggravating = TRUE
 	hostile = TRUE
 
-	cooldown_length = 15 SECONDS
+	cooldown_length = 10 SECONDS
 
 /datum/discipline_power/valeren_warrior/samiels_vengeance/can_activate(atom/target, alert = FALSE)
 	. = ..()
@@ -152,10 +159,9 @@
 /datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/living/carbon/target)
 	. = ..()
 	var/obj/item/I = owner.get_active_held_item()
-	owner.dna.species.meleemod += 2 //3x damage, additive.
-	I.armour_penetration += 40
+	owner.dna.species.meleemod += 3 //4x damage baseline, additive.
 	owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful blow to [target] with [I]!"))
 	playsound(target.loc, I.hitsound, 100, FALSE)
 	target.attacked_by(I, owner)
 	owner.dna.species.meleemod -= 2
-	I.armour_penetration -= 40
+
