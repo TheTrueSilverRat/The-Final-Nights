@@ -5,6 +5,16 @@
 	clan_restricted = TRUE
 	power_type = /datum/discipline_power/valeren_warrior
 
+
+/datum/discipline/valeren_warrior/post_gain()
+	. = ..()
+	if(level >= 3)
+		var/obj/item/organ/eyes/night_vision/salubri/salubri = new()
+		salubri.Insert(owner, TRUE, FALSE)
+		if(H.base_body_mod == "f")
+			H.base_body_mod = ""
+		H.update_body()
+
 /datum/discipline_power/valeren_warrior
 	name = "Valeren power name"
 	desc = "Valeren power description"

@@ -123,6 +123,7 @@
 
 	var/celerity_visual = FALSE
 	var/potential = 0
+	var/salubri_eye = FALSE
 
 	var/in_frenzy = FALSE
 	var/frenzy_hardness = 1
