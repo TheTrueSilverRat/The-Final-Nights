@@ -9,11 +9,11 @@
 /datum/discipline/valeren_warrior/post_gain()
 	. = ..()
 	if(level >= 3)
-		var/obj/item/organ/eyes/night_vision/salubri/salubri = new()
+		var/obj/item/organ/eyes/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
-		if(H.base_body_mod == "f")
-			H.base_body_mod = ""
-		H.update_body()
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
 
 /datum/discipline_power/valeren_warrior
 	name = "Valeren power name"
@@ -34,14 +34,18 @@
 
 	cooldown_length = 5 SECONDS
 
-/datum/discipline_power/valeren_warrior/sense_death/activate(mob/living/carbon/human/target)
+/datum/discipline_power/valeren_warrior/sense_death/activate(mob/living/carbon/target)
 	. = ..()
-	var/melee_armor = target.physiology.armor.melee
-	var/bullet_armor = 	target.physiology.armor.bullet
-	var/fire_armor =  target.physiology.armor.fire
-	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(melee_armor)]</b> against melee attacks ")
-	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(bullet_armor)]</b> against ranged attacks ")
-	to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(fire_armor)]</b> against fire")
+	if(iswerewolf(target))
+		var/werewolf_armor = target.werewolf_armor
+		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(werewolf_armor)]</b> against physical attacks")
+	if(ishuman(target))
+		var/melee_armor = target.physiology.armor.melee
+		var/bullet_armor = 	target.physiology.armor.bullet
+		var/fire_armor =  target.physiology.armor.fire
+		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(melee_armor)]</b> against melee attacks ")
+		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(bullet_armor)]</b> against ranged attacks ")
+		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(fire_armor)]</b> against fire")
 	if(iskindred(target) || isghoul(target))
 		to_chat(owner, "<b>[target]</b> has <b>[num2text(target.bloodpool)]/[target.maxbloodpool]</b> blood points.")
 		for(var/datum/action/discipline/D in target.actions)

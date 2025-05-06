@@ -14,11 +14,11 @@
 /datum/discipline/valeren/post_gain()
 	. = ..()
 	if(level >= 3)
-		var/obj/item/organ/eyes/night_vision/salubri/salubri = new()
+		var/obj/item/organ/eyes/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
-		if(H.base_body_mod == "f")
-			H.base_body_mod = ""
-		H.update_body()
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
 
 //SENSE VITALITY
 /datum/discipline_power/valeren/sense_vitality
