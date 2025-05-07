@@ -1064,11 +1064,11 @@
 	source = new_source
 
 /datum/status_effect/burning_touch/tick()
-	var/mob/living/carbon/H = owner
-	if(source.pulling == H)
-		H.adjustStaminaLoss(40, forced = TRUE)
-		H.emote("scream")
-		H.apply_status_effect(STATUS_EFFECT_BURNING_TOUCH, owner)
+	var/mob/living/carbon/grabber = owner
+	if(source.pulling == grabber)
+		grabber.adjustStaminaLoss(60, forced = TRUE)
+		grabber.emote("scream")
+		grabber.apply_status_effect(STATUS_EFFECT_BURNING_TOUCH, owner)
 
 /datum/status_effect/burning_touch/Destroy()
 	source = null

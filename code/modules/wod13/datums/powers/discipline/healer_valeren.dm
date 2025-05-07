@@ -37,7 +37,8 @@
 	. = ..()
 	healthscan(owner, target, 1, FALSE)
 	chemscan(owner, target)
-	to_chat(owner, "<b>[target]</b> has <b>[num2text(target.bloodpool)]/[target.maxbloodpool]</b> blood points.")
+	if(iskindred(target) || isghoul(target))
+		to_chat(owner, "<b>[target]</b> has <b>[num2text(target.bloodpool)]/[target.maxbloodpool]</b> blood points.")
 	if(iskindred(target))
 		to_chat(owner, "<b>[target]</b> has a rating of <b>[target.morality_path?.score]</b> on their path.")
 
@@ -73,7 +74,7 @@
 
 	level = 3
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
-	target_type = TARGET_LIVING
+	target_type = TARGET_MOB
 	range = 1
 
 	violates_masquerade = TRUE

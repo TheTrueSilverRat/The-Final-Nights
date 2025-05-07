@@ -34,15 +34,25 @@
 
 	cooldown_length = 5 SECONDS
 
-/datum/discipline_power/valeren_warrior/sense_death/activate(mob/living/carbon/target)
+/datum/discipline_power/valeren_warrior/sense_death/activate(mob/living/carbon/human/target)
 	. = ..()
+/* Currently need to figure out how to make it so werewolf armor can be found
 	if(iswerewolf(target))
 		var/werewolf_armor = target.werewolf_armor
 		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(werewolf_armor)]</b> against physical attacks")
+*/
 	if(ishuman(target))
-		var/melee_armor = target.physiology.armor.melee
-		var/bullet_armor = 	target.physiology.armor.bullet
-		var/fire_armor =  target.physiology.armor.fire
+		var/armor_melee_addon = 0
+		var/armor_bullet_addon = 0
+		var/armor_fire_addon = 0
+		if(target.wear_suit)
+			var/obj/item/clothing/suit/protec = target.wear_suit
+			armor_melee_addon += protec.armor.melee
+			armor_bullet_addon += protec.armor.bullet
+			armor_fire_addon += protec.armor.fire
+		var/melee_armor = target.physiology.armor.melee + armor_melee_addon
+		var/bullet_armor = 	target.physiology.armor.bullet + armor_bullet_addon
+		var/fire_armor =  target.physiology.armor.fire + armor_fire_addon
 		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(melee_armor)]</b> against melee attacks ")
 		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(bullet_armor)]</b> against ranged attacks ")
 		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(fire_armor)]</b> against fire")
@@ -51,6 +61,7 @@
 		for(var/datum/action/discipline/D in target.actions)
 			if(D.discipline.name == "Fortitude")
 				to_chat(owner, "<b>[target]</b> has a Fortitude rating of [D.discipline.level]")
+
 
 //MORPHEAN BLOW
 /datum/discipline_power/valeren_warrior/morphean_blow
@@ -119,7 +130,7 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	duration_length = 1 SCENES //Unreliable protection, doesn't protect against burn/aggravated, but lasts for scene.
+	duration_length = 1 SCENES
 	cooldown_length = 30 SECONDS
 	var/lastmypower
 
@@ -127,10 +138,9 @@
 	. = ..()
 	var/fortitudelevel
 	var/totaldice
-	var/datum/species/kindred = owner.dna.species
-	if(ispath(kindred, /datum/species/kindred))
-		for(var/datum/discipline/fortitude/fort in kindred) //An easier way to fetch this would be really nice.
-			fortitudelevel = fort.level
+	for(var/datum/action/discipline/Disc in owner.actions)
+		if(Disc.discipline.name == "Fortitude")
+			fortitudelevel = Disc.discipline.level
 	totaldice = (owner.get_total_physique() + fortitudelevel)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = 7, mobs_to_show_output = owner, numerical = TRUE)
 	mypower = clamp(mypower, 1, 5)

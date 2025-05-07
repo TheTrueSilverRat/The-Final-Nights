@@ -116,7 +116,7 @@
 			qdel(suckbar)
 			return
 		if(clane.name == "Salubri Warrior" && (ishumanbasic(mob) || isghoul(mob))) //passes by if it's not a supernatural
-			if(mob.stat < SOFT_CRIT) //Needs to be KO'd to feed on
+			if( (!HAS_TRAIT_FROM(mob, TRAIT_INCAPACITATED, STAMINA)) && mob.stat < SOFT_CRIT) //Needs to be KO'd to feed on
 				to_chat(src, span_warning("I HAVE NOT BESTED THIS ONE IN COMBAT!! I FEED ON WARRIORS NOT CATTLE!!"))
 				stop_sound_channel(CHANNEL_BLOOD)
 				if(client)
