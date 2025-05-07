@@ -201,15 +201,13 @@
 	target.add_splatter_floor(get_turf(target))
 	target.add_splatter_floor(get_turf(get_step(target, owner.dir)))
 	switch(SSroll.storyteller_roll(mypower, target_phys + 3))
-		if(DICE_WIN, DICE_CRIT_WIN)
+		if(ROLL_SUCCESS)
 			target.apply_damage(5*mypower, BRUTE)
 			target.apply_damage(2*mypower, CLONE)
 			target.visible_message("<span class='danger'>[target]'s flesh tears!</span>", "<span class='userdanger'>[owner]'s scream rips the flesh from your bones!</span>")
-		if(DICE_FAILURE, DICE_CRIT_FAILURE)
+		if(ROLL_FAILURE, ROLL_BOTCH)
 			target.apply_damage(3*mypower, BRUTE)
 			target.visible_message("<span class='danger'>Bleeding wounds open up on [target]!</span>", "<span class='userdanger'>[owner]'s scream tears at your flesh!</span>")
-
-
 
 /datum/discipline_power/chi_discipline_power/kiai/four/deactivate()
 	. = ..()
