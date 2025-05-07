@@ -51,11 +51,10 @@
 	disliked_food = GROSS | RAW
 	liked_food = JUNKFOOD | FRIED
 	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS, HAS_FLESH, HAS_BONE)
-	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER, TRAIT_NOBREATH, TRAIT_NOBLEED, TRAIT_NOCRITDAMAGE)
+	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER, TRAIT_NOBREATH, TRAIT_NOCRITDAMAGE)
 	use_skintones = TRUE
 	limbs_id = "human"
 	wings_icon = "None"
-	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None")
 	brutemod = 0.5
 	heatmod = 1
 	burnmod = 3
@@ -64,7 +63,6 @@
 	selectable = TRUE
 	var/turf/fool_turf
 	var/fool_fails = 0
-	var/list/datum/discipline/chi_discipline/chi_disciplines = list()
 
 /atom/breathing_overlay
 	icon = 'code/modules/wod13/UI/kuei_jin.dmi'
@@ -276,7 +274,7 @@
 	for(var/datum/action/rebalance/R in C.actions)
 		if(R)
 			R.Remove(C)
-	for(var/datum/action/discipline/chi_discipline/A in C.actions)
+	for(var/datum/action/chi_discipline/A in C.actions)
 		if(A)
 			A.Remove(C)
 
@@ -424,20 +422,20 @@
 	if ((iskindred(victim) || isghoul(victim)) && (victim.bloodpool > 0)) //drain vitae bloodpool
 		victim.bloodpool = max(0, victim.bloodpool - 1)
 		kueijin.yin_chi = min(kueijin.yin_chi + 1, kueijin.max_yin_chi)
-		to_chat(kueijin, span_medradio("Some bitter <b>Yin</b> Chi enters you..."))
+		to_chat(kueijin, "<span class='medradio'>Some bitter <b>Yin</b> Chi enters you...</span>")
 	else if ((isgarou(victim) || iswerewolf(victim)) && has_gnosis) //drain gnosis
 		adjust_gnosis(-1, victim, sound = TRUE)
-		kueijin.yang_chi = min(kueijin.yang_chi + 2, kueijin.max_yang_chi)
-		to_chat(kueijin, span_engradio("Some fiery <b>Yang</b> Chi enters you..."))
+		kueijin.yang_chi = min(kueijin.yang_chi + 1, kueijin.max_yang_chi)
+		to_chat(kueijin, "<span class='engradio'>Some fiery <b>Yang</b> Chi enters you...</span>")
 	else if ((victim.yin_chi > 0) || (victim.yang_chi > 0)) //normally drain chi from humans and simplemobs and kuei-jin
 		if ((prob(50) || victim.yang_chi == 0) && (victim.yin_chi > 0))
 			victim.yin_chi = max(0, victim.yin_chi - 1)
 			kueijin.yin_chi = min(kueijin.yin_chi + 1, kueijin.max_yin_chi)
-			to_chat(kueijin, span_medradio("Some <b>Yin</b> Chi enters you..."))
+			to_chat(kueijin, "<span class='medradio'>Some <b>Yin</b> Chi enters you...</span>")
 		else if ((victim.yang_chi > 0))
 			victim.yang_chi = max(0, victim.yang_chi - 1)
 			kueijin.yang_chi = min(kueijin.yang_chi + 1, kueijin.max_yang_chi)
-			to_chat(kueijin, span_engradio("Some <b>Yang</b> Chi enters you..."))
+			to_chat(kueijin, "<span class='engradio'>Some <b>Yang</b> Chi enters you...</span>")
 	else
 		return
 
@@ -447,7 +445,6 @@
 	chi_particle.anchored = TRUE
 	chi_particle.icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	chi_particle.icon_state = "drain"
-	chi_particle.alpha = 10
 	var/matrix/face_kueijin = matrix()
 	face_kueijin.Turn(get_angle_raw(victim.x, victim.y, 0, 0, owner.x, owner.y, 0, 0))
 	chi_particle.transform = face_kueijin
@@ -486,12 +483,6 @@
 		if(draining_area.yin_chi)
 			kueijin.yin_chi = min(kueijin.yin_chi + draining_area.yin_chi, kueijin.max_yin_chi)
 			to_chat(kueijin, "<span class='medradio'>Some <b>Yin</b> Chi energy enters you...</span>")
-		if(draining_area.demon_chi > 0)
-			kueijin.demon_chi = min(kueijin.demon_chi + draining_area.demon_chi, kueijin.max_demon_chi)
-			to_chat(owner, "<span class='syndradio'>Some <b>Demon</b> Chi energy enters you...</span>")
-		if(draining_area.demon_chi < 0)
-			kueijin.demon_chi = min(kueijin.demon_chi + draining_area.demon_chi, kueijin.max_demon_chi)
-			to_chat(owner, "<span class='comradio'>This area takes away some of your <b>Demon</b> Chi energy away..</span>")
 
 		button.color = "#970000"
 		animate(button, color = "#ffffff", time = cooldown)
@@ -545,6 +536,7 @@
 	var/obj/item/organ/brain/brain = kueijin.getorganslot(ORGAN_SLOT_BRAIN)
 	if(brain)
 		brain.applyOrganDamage(-100)
+		brain.cure_all_traumas(TRAUMA_RESILIENCE_WOUND)
 
 	var/heal_level = min(kueijin.mind.dharma.level, 4)
 	kueijin.heal_ordered_damage(20 * heal_level, list(OXY, STAMINA, BRUTE, TOX))
@@ -604,6 +596,7 @@
 	var/obj/item/organ/brain/brain = kueijin.getorganslot(ORGAN_SLOT_BRAIN)
 	if(brain)
 		brain.applyOrganDamage(-100)
+		brain.cure_all_traumas(TRAUMA_RESILIENCE_WOUND)
 
 	var/heal_level = min(kueijin.mind.dharma.level, 4)
 	kueijin.heal_ordered_damage(10 * heal_level, list(OXY, STAMINA, BRUTE, TOX))
