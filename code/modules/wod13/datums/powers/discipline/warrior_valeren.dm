@@ -196,24 +196,18 @@
 
 	cooldown_length = 10 SECONDS
 
-/datum/discipline_power/valeren_warrior/samiels_vengeance/can_activate(atom/target, alert = FALSE)
-	. = ..()
-	var/obj/item/I = owner.get_active_held_item()
-	if(!I || I.force < 5)
-		if(alert)
-			to_chat(owner, span_warning("[src] can only be used with a weapon in hand!"))
-		return FALSE
-
-
 /datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/living/carbon/target)
 	. = ..()
 	open_eyes()
 	var/obj/item/I = owner.get_active_held_item()
 	if(!I)
-		owner.dna.species.punchdamagelow += 120
-		owner.dna.species.punchdamagehigh += 120
-		owner.a_intent_change(INTENT_HARM)
-		ClickOn(target)
+		owner.dna.species.punchdamagelow += 100
+		owner.dna.species.punchdamagehigh += 100
+		owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful unarmed strike to [target]!"))
+		owner.a_intent = INTENT_HARM
+		owner.dna.species.harm(owner, target)
+		owner.dna.species.punchdamagelow -= 100
+		owner.dna.species.punchdamagehigh -= 100
 	else
 		owner.dna.species.meleemod += 3 //4x damage baseline, additive.
 		owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful blow to [target] with [I]!"))
