@@ -2726,20 +2726,3 @@
 /datum/sprite_accessory/moth_markings/witchwing
 	name = "Witch Wing"
 	icon_state = "witchwing"
-
-
-//////////.//////////////////
-// Mutant FOREHEAD DEFINITIONS Definitions FR FR //
-/////////////////////////////
-
-/datum/sprite_accessory/forehead
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-
-/datum/sprite_accessory/forehead/none
-	name = "None"
-	icon_state = "none"
-
-/datum/sprite_accessory/forehead/salubri
-	name = "salubri"
-	icon_state = "salubri"
-	color_src = EYECOLOR

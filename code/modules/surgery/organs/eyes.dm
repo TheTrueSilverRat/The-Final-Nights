@@ -94,6 +94,8 @@
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/night_vision = TRUE
 
+/obj/item/organ/eyes/salubri
+	eye_icon_state = "salubri"
 
 /obj/item/organ/eyes/night_vision/kiasyd
 	eye_icon_state = "kiasyd"
