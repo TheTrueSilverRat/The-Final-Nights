@@ -14,7 +14,7 @@
 /datum/discipline/valeren/post_gain()
 	. = ..()
 	if(level >= 3)
-		var/obj/item/organ/eyes/salubri/salubri = new()
+		var/obj/item/organ/forehead/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
 		if(owner.base_body_mod == "f")
 			owner.base_body_mod = ""
