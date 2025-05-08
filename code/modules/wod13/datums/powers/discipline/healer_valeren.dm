@@ -19,6 +19,33 @@
 		if(owner.base_body_mod == "f")
 			owner.base_body_mod = ""
 		owner.update_body()
+		owner.salubri_eye = TRUE
+		var/datum/action/salubri_eye/salubri_opener = new()
+		salubri_opener.Grant(owner)
+
+/datum/discipline_power/valeren/proc/open_eyes()
+	if(!(owner.salubri_eye))
+		var/obj/item/organ/eyes/salubri/salubri = new()
+		salubri.Insert(owner, TRUE, FALSE)
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
+		owner.salubri_eye = TRUE
+		owner.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your eye forcibly awakens!</span>")
+	else
+		to_chat(owner, span_warning("You already have an open eye"))
+
+/datum/discipline_power/valeren/proc/close_eyes()
+	if(owner.salubri_eye)
+		var/obj/item/organ/eyes/eyes = new()
+		eyes.Insert(owner, TRUE, FALSE)
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
+		owner.salubri_eye = FALSE
+	else
+		to_chat(owner, span_warning("You already have a closed eye"))
+
 
 //SENSE VITALITY
 /datum/discipline_power/valeren/sense_vitality
@@ -83,6 +110,7 @@
 
 /datum/discipline_power/valeren/corpore_sano/activate(mob/living/target)
 	. = ..()
+	open_eyes()
 	owner.Beam(target, icon_state="sm_arc", time = 5 SECONDS, maxdistance = 9, beam_type = /obj/effect/ebeam/medical)
 
 	target.heal_ordered_damage(60, list(BRUTE, TOX, BURN, CLONE, OXY, BRAIN))
@@ -106,6 +134,7 @@
 
 /datum/discipline_power/valeren/shepherds_watch/activate()
 	. = ..()
+	open_eyes()
 	for (var/turf/turf in orange(1, get_turf(owner)))
 		new /obj/effect/forcefield/wizard(turf, owner)
 
@@ -155,6 +184,7 @@
 
 /datum/discipline_power/valeren/unburden_the_bestial_soul/activate(mob/living/carbon/human/target)
 	. = ..()
+	open_eyes()
 	// Resets the path hit cooldown on the target vampire so this power isn't rendered completely time consuming
 	S_TIMER_COOLDOWN_RESET(target.morality_path, COOLDOWN_PATH_HIT)
 

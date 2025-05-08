@@ -12,7 +12,7 @@
 	whitelisted = FALSE
 	clan_keys = /obj/item/vamp/keys/salubri
 
-/*
+
 /datum/action/salubri_eye
 	name = "Close/Open the Third Eye"
 	desc = "Decide whether to Close or Open the Third Eye."
@@ -24,17 +24,15 @@
 
 /datum/action/salubri_eye/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
-		var/mob/living/carbon/human/user = owner
+		var/mob/living/carbon/human/user = usr
 
-/*
-		var/new_form = input(user, "Choose your Demon Form", "Demon Form") as null|anything in list("Samurai", "Tentacles", "Demon", "Giant", "Foul")
-		if(new_form)
-			to_chat(user, "Your new form is [new_form].")
-			for(var/datum/action/chi_discipline/chi_action in user.actions)
-				if(chi_action)
-					if(istype(chi_action.discipline, /datum/chi_discipline/demon_shintai))
-						var/datum/chi_discipline/demon_shintai/demon_shintai = chi_action.discipline
-						demon_shintai.current_form = new_form*/
-		button.color = "#970000"
-		animate(button, color = "#ffffff", time = 2 SECONDS, loop = 1)
-*/
+		if(do_after(user, 5 SECONDS))
+			if(!(user.salubri_eye))
+				to_chat(owner, span_warning("You already have an open eye"))
+			if(user.salubri_eye)
+				var/obj/item/organ/eyes/eyes = new()
+				eyes.Insert(user, TRUE, FALSE)
+				if(user.base_body_mod == "f")
+					user.base_body_mod = ""
+				user.update_body()
+				user.salubri_eye = FALSE

@@ -14,6 +14,33 @@
 		if(owner.base_body_mod == "f")
 			owner.base_body_mod = ""
 		owner.update_body()
+		owner.salubri_eye = TRUE
+		var/datum/action/salubri_eye/salubri_opener = new()
+		salubri_opener.Grant(owner)
+
+/datum/discipline_power/valeren_warrior/proc/open_eyes()
+	if(!(owner.salubri_eye))
+		var/obj/item/organ/eyes/salubri/salubri = new()
+		salubri.Insert(owner, TRUE, FALSE)
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
+		owner.salubri_eye = TRUE
+		owner.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your eye forcibly awakens!</span>")
+	else
+		to_chat(owner, span_warning("You already have an open eye"))
+
+/datum/discipline_power/valeren_warrior/proc/close_eyes()
+	if(owner.salubri_eye)
+		var/obj/item/organ/eyes/eyes = new()
+		eyes.Insert(owner, TRUE, FALSE)
+		if(owner.base_body_mod == "f")
+			owner.base_body_mod = ""
+		owner.update_body()
+		owner.salubri_eye = FALSE
+	else
+		to_chat(owner, span_warning("You already have a closed eye"))
+
 
 /datum/discipline_power/valeren_warrior
 	name = "Valeren power name"
@@ -36,11 +63,6 @@
 
 /datum/discipline_power/valeren_warrior/sense_death/activate(mob/living/carbon/human/target)
 	. = ..()
-/* Currently need to figure out how to make it so werewolf armor can be found
-	if(iswerewolf(target))
-		var/werewolf_armor = target.werewolf_armor
-		to_chat(owner, "<b>[target]</b> has a defense rating of <b>[num2text(werewolf_armor)]</b> against physical attacks")
-*/
 	if(ishuman(target))
 		var/armor_melee_addon = 0
 		var/armor_bullet_addon = 0
@@ -114,6 +136,7 @@
 
 /datum/discipline_power/valeren_warrior/burning_touch/activate(mob/living/carbon/target)
 	. = ..()
+	open_eyes()
 	target.grabbedby(owner)
 	target.grippedby(owner, instant = TRUE)
 	target.apply_status_effect(STATUS_EFFECT_BURNING_TOUCH, owner)
@@ -136,6 +159,7 @@
 
 /datum/discipline_power/valeren_warrior/armor_of_caines_fury/activate()
 	. = ..()
+	open_eyes()
 	var/fortitudelevel
 	var/totaldice
 	for(var/datum/action/discipline/Disc in owner.actions)
@@ -151,6 +175,7 @@
 
 /datum/discipline_power/valeren_warrior/armor_of_caines_fury/deactivate()
 	. = ..()
+	close_eyes()
 	playsound(owner.loc, 'sound/magic/voidblink.ogg', 50, FALSE)
 	owner.physiology.armor.melee -= (15*lastmypower)
 	owner.physiology.armor.bullet -= (15*lastmypower)
@@ -182,10 +207,16 @@
 
 /datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/living/carbon/target)
 	. = ..()
+	open_eyes()
 	var/obj/item/I = owner.get_active_held_item()
-	owner.dna.species.meleemod += 3 //4x damage baseline, additive.
-	owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful blow to [target] with [I]!"))
-	playsound(target.loc, I.hitsound, 100, FALSE)
-	target.attacked_by(I, owner)
-	owner.dna.species.meleemod -= 2
-
+	if(!I)
+		owner.dna.species.punchdamagelow += 120
+		owner.dna.species.punchdamagehigh += 120
+		owner.a_intent_change(INTENT_HARM)
+		ClickOn(target)
+	else
+		owner.dna.species.meleemod += 3 //4x damage baseline, additive.
+		owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful blow to [target] with [I]!"))
+		playsound(target.loc, I.hitsound, 100, FALSE)
+		target.attacked_by(I, owner)
+		owner.dna.species.meleemod -= 3
