@@ -196,7 +196,7 @@
 
 	cooldown_length = 10 SECONDS
 
-/datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/living/carbon/target)
+/datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/target)
 	. = ..()
 	open_eyes()
 	var/obj/item/I = owner.get_active_held_item()
@@ -206,6 +206,8 @@
 		owner.visible_message(span_bolddanger("[owner]'s third eye flashes open, delivering a masterful unarmed strike to [target]!"))
 		owner.a_intent = INTENT_HARM
 		owner.dna.species.harm(owner, target)
+		if(!ishuman(target))
+			target.attack_hand(owner)
 		owner.dna.species.punchdamagelow -= 100
 		owner.dna.species.punchdamagehigh -= 100
 	else
