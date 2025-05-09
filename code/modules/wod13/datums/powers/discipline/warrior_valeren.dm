@@ -15,8 +15,13 @@
 			owner.base_body_mod = ""
 		owner.update_body()
 		owner.salubri_eye = TRUE
-		var/datum/action/salubri_eye/salubri_opener = new()
-		salubri_opener.Grant(owner)
+
+		for(var/datum/action/open_eye in owner.actions)
+			if(open_eye.name == "Close the Third Eye")
+				return
+			else
+				var/datum/action/salubri_eye/salubri_opener = new()
+				salubri_opener.Grant(owner)
 
 /datum/discipline_power/valeren_warrior/proc/open_eyes()
 	if(!(owner.salubri_eye))

@@ -7,14 +7,16 @@
 		/datum/discipline/fortitude,
 		/datum/discipline/valeren
 	)
+	common_disciplines = list(/datum/discipline/valeren_warrior)
 	male_clothes = /obj/item/clothing/under/vampire/salubri
 	female_clothes = /obj/item/clothing/under/vampire/salubri/female
 	whitelisted = FALSE
 	clan_keys = /obj/item/vamp/keys/salubri
+	salubri = TRUE
 
 
 /datum/action/salubri_eye
-	name = "Close/Open the Third Eye"
+	name = "Close the Third Eye"
 	desc = "Decide whether to Close or Open the Third Eye."
 	button_icon_state = "auspex"
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
