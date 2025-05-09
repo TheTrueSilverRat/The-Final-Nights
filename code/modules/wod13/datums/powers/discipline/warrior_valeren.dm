@@ -12,29 +12,10 @@
 		var/obj/item/organ/eyes/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
 		owner.update_body()
-
-
-		var/datum/action/salubri_eye/salubri_opener = new()
-		salubri_opener.Grant(owner)
-
-/datum/discipline_power/valeren_warrior/proc/open_eyes()
-	if(!(HAS_TRAIT(owner, TRAIT_EYE_OPEN)))
-		var/obj/item/organ/eyes/salubri/salubri = new()
-		salubri.Insert(owner, TRUE, FALSE)
-		owner.update_body()
-		owner.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your eye forcibly awakens!</span>")
-		ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
-	else
-		to_chat(owner, span_warning("You already have an open eye"))
-
-/datum/discipline_power/valeren_warrior/proc/close_eyes()
-	if(HAS_TRAIT(owner, TRAIT_EYE_OPEN))
-		var/obj/item/organ/eyes/eyes = new()
-		eyes.Insert(owner, TRUE, FALSE)
-		owner.update_body()
-		REMOVE_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
-	else
-		to_chat(owner, span_warning("You already have a closed eye"))
+		if(!(HAS_TRAIT_FROM(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)))
+			var/datum/action/salubri_eye/salubri_opener = new()
+			salubri_opener.Grant(owner)
+			ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
 
 
 /datum/discipline_power/valeren_warrior
@@ -42,6 +23,14 @@
 	desc = "Valeren power description"
 
 	activate_sound = 'code/modules/wod13/sounds/valeren.ogg'
+
+/datum/discipline_power/valeren_warrior/can_activate(alert)
+	. = ..()
+	if(level >=3 && !(HAS_TRAIT_FROM(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)))
+		if(alert)
+			to_chat(owner, span_warning("You can only use this ability with your third eye open!"))
+		return FALSE
+
 
 //SENSE DEATH
 /datum/discipline_power/valeren_warrior/sense_death
@@ -131,7 +120,6 @@
 
 /datum/discipline_power/valeren_warrior/burning_touch/activate(mob/living/carbon/target)
 	. = ..()
-	open_eyes()
 	target.grabbedby(owner)
 	target.grippedby(owner, instant = TRUE)
 	target.apply_status_effect(STATUS_EFFECT_BURNING_TOUCH, owner)
@@ -154,7 +142,6 @@
 
 /datum/discipline_power/valeren_warrior/armor_of_caines_fury/activate()
 	. = ..()
-	open_eyes()
 	var/fortitudelevel
 	var/totaldice
 	for(var/datum/action/discipline/Disc in owner.actions)
@@ -170,7 +157,6 @@
 
 /datum/discipline_power/valeren_warrior/armor_of_caines_fury/deactivate()
 	. = ..()
-	close_eyes()
 	playsound(owner.loc, 'sound/magic/voidblink.ogg', 50, FALSE)
 	owner.physiology.armor.melee -= (15*lastmypower)
 	owner.physiology.armor.bullet -= (15*lastmypower)
@@ -193,7 +179,6 @@
 
 /datum/discipline_power/valeren_warrior/samiels_vengeance/activate(mob/target)
 	. = ..()
-	open_eyes()
 	var/obj/item/I = owner.get_active_held_item()
 	if(!I)
 		owner.dna.species.punchdamagelow += 100

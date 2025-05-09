@@ -26,20 +26,17 @@
 
 /datum/action/salubri_eye/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
-		var/mob/living/carbon/human/user = usr
+		var/obj/item/organ/eyes/salubri = owner.getorgan(/obj/item/organ/eyes)
 
-
-		if(!(HAS_TRAIT(user, TRAIT_EYE_OPEN)))
-			var/obj/item/organ/eyes/salubri/eyes = new()
-			eyes.Insert(user, TRUE, FALSE)
-			user.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your third eye forcibly awakens!</span>")
-			user.update_body()
-			ADD_TRAIT(user, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+		if(!(HAS_TRAIT(owner, TRAIT_EYE_OPEN)))
+			salubri.eye_icon_state = "salubri"
+			owner.update_body()
+			owner.visible_message(span_danger("[owner] sprouts a Third Eye on their Forehead!"), span_userdanger("Your third eye forcibly awakens!"))
+			ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
 			return
-		if(HAS_TRAIT(user, TRAIT_EYE_OPEN))
-			var/obj/item/organ/eyes/eyes = new()
-			eyes.Insert(user, TRUE, FALSE)
-			user.visible_message("<span class='danger'>[owner]'s Third Eye sinks back into their head</span>", "<span class='userdanger'>You close your third eye!</span>")
-			user.update_body()
-			REMOVE_TRAIT(user, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+		else
+			salubri.eye_icon_state = "eyes"
+			owner.update_body()
+			owner.visible_message(span_danger("[owner]'s Third Eye sinks back into their head"), span_userdanger("You close your third eye!"))
+			REMOVE_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
 			return
