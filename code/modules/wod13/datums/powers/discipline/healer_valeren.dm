@@ -16,35 +16,31 @@
 	if(level >= 3)
 		var/obj/item/organ/eyes/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
-		if(owner.base_body_mod == "f")
-			owner.base_body_mod = ""
 		owner.update_body()
-		owner.salubri_eye = TRUE
 		var/datum/action/salubri_eye/salubri_opener = new()
 		salubri_opener.Grant(owner)
 
 /datum/discipline_power/valeren/proc/open_eyes()
-	if(!(owner.salubri_eye))
+	if(!(HAS_TRAIT(owner, TRAIT_EYE_OPEN)))
 		var/obj/item/organ/eyes/salubri/salubri = new()
 		salubri.Insert(owner, TRUE, FALSE)
-		if(owner.base_body_mod == "f")
-			owner.base_body_mod = ""
 		owner.update_body()
-		owner.salubri_eye = TRUE
 		owner.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your eye forcibly awakens!</span>")
+		ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
 	else
 		to_chat(owner, span_warning("You already have an open eye"))
 
 /datum/discipline_power/valeren/proc/close_eyes()
-	if(owner.salubri_eye)
+	if(HAS_TRAIT(owner, TRAIT_EYE_OPEN))
 		var/obj/item/organ/eyes/eyes = new()
 		eyes.Insert(owner, TRUE, FALSE)
 		if(owner.base_body_mod == "f")
 			owner.base_body_mod = ""
 		owner.update_body()
-		owner.salubri_eye = FALSE
+		REMOVE_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
 	else
 		to_chat(owner, span_warning("You already have a closed eye"))
+
 
 
 //SENSE VITALITY

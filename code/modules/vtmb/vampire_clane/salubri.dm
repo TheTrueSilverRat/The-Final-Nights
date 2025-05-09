@@ -17,7 +17,7 @@
 
 /datum/action/salubri_eye
 	name = "Close the Third Eye"
-	desc = "Decide whether to Close or Open the Third Eye."
+	desc = "Close the Third Eye."
 	button_icon_state = "auspex"
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
 	background_icon_state = "discipline"
@@ -28,13 +28,18 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/user = usr
 
-		if(do_after(user, 5 SECONDS))
-			if(!(user.salubri_eye))
-				to_chat(owner, span_warning("You already have an open eye"))
-			if(user.salubri_eye)
-				var/obj/item/organ/eyes/eyes = new()
-				eyes.Insert(user, TRUE, FALSE)
-				if(user.base_body_mod == "f")
-					user.base_body_mod = ""
-				user.update_body()
-				user.salubri_eye = FALSE
+
+		if(!(HAS_TRAIT(user, TRAIT_EYE_OPEN)))
+			var/obj/item/organ/eyes/salubri/eyes = new()
+			eyes.Insert(user, TRUE, FALSE)
+			user.visible_message("<span class='danger'>[owner] sprouts a Third Eye on their Forehead!</span>", "<span class='userdanger'>Your third eye forcibly awakens!</span>")
+			user.update_body()
+			ADD_TRAIT(user, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+			return
+		if(HAS_TRAIT(user, TRAIT_EYE_OPEN))
+			var/obj/item/organ/eyes/eyes = new()
+			eyes.Insert(user, TRUE, FALSE)
+			user.visible_message("<span class='danger'>[owner]'s Third Eye sinks back into their head</span>", "<span class='userdanger'>You close your third eye!</span>")
+			user.update_body()
+			REMOVE_TRAIT(user, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+			return

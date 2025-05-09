@@ -188,6 +188,7 @@
 #define TRAIT_GULLET			"gullet"
 #define TRAIT_CHARMER			"charmer"
 #define TRAIT_ORGANOVORE		"organovore"
+#define TRAIT_EYE_OPEN			"eye_open" //This is for Salubri Stuff
 #define TRAIT_UNMASQUERADE		"unmasquerade"	//For tzi clothing
 #define TRAIT_NONMASQUERADE		"nonmasquerade"	//For tzi mods
 #define TRAIT_GUNFIGHTER        "gunfighter"    //Halves firing delay and cooldown between burst fire shots
