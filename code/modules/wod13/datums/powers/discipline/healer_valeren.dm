@@ -1,7 +1,7 @@
 /datum/discipline/valeren
 	name = "Healer Valeren"
 	desc = "Use your third eye in healing or protecting needs."
-	icon_state = "valeren"
+	icon_state = "healer"
 	clan_restricted = TRUE
 	power_type = /datum/discipline_power/valeren
 
@@ -14,17 +14,15 @@
 /datum/discipline/valeren/post_gain()
 	. = ..()
 	if(level >= 3)
-		var/obj/item/organ/eyes/salubri/salubri = new()
-		salubri.Insert(owner, TRUE, FALSE)
-		owner.update_body()
-		if(!(HAS_TRAIT_FROM(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)))
+		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE)
+		if(!(HAS_TRAIT_FROM(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
 			var/datum/action/salubri_eye/salubri_opener = new()
 			salubri_opener.Grant(owner)
-			ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+			ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 
-/datum/discipline_power/valeren/can_activate(alert)
+/datum/discipline_power/valeren/can_activate_untargeted(alert)
 	. = ..()
-	if(level >=3 && !(HAS_TRAIT_FROM(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)))
+	if(level >=3 && !(HAS_TRAIT_FROM(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
 		if(alert)
 			to_chat(owner, span_warning("You can only use this ability with your third eye open!"))
 		return FALSE

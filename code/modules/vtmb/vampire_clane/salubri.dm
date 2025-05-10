@@ -14,6 +14,13 @@
 	clan_keys = /obj/item/vamp/keys/salubri
 	salubri = TRUE
 
+/datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
+	..()
+	//This was messing with the visualiser in the character setup menu somehow
+	if (H.clane?.type != /datum/vampireclane/salubri)
+		return
+	ADD_TRAIT(H, TRAIT_SALUBRI_EYE)
+
 
 /datum/action/salubri_eye
 	name = "Close the Third Eye"
@@ -28,15 +35,15 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/obj/item/organ/eyes/salubri = owner.getorgan(/obj/item/organ/eyes)
 
-		if(!(HAS_TRAIT(owner, TRAIT_EYE_OPEN)))
+		if(!(HAS_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN)))
 			salubri.eye_icon_state = "salubri"
 			owner.update_body()
 			owner.visible_message(span_danger("[owner] sprouts a Third Eye on their Forehead!"), span_userdanger("Your third eye forcibly awakens!"))
-			ADD_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+			ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 			return
 		else
 			salubri.eye_icon_state = "eyes"
 			owner.update_body()
 			owner.visible_message(span_danger("[owner]'s Third Eye sinks back into their head"), span_userdanger("You close your third eye!"))
-			REMOVE_TRAIT(owner, TRAIT_EYE_OPEN, SALUBRI_EYE_TRAIT)
+			REMOVE_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 			return
