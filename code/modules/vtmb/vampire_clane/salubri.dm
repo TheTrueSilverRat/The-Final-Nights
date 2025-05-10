@@ -16,10 +16,8 @@
 
 /datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
 	..()
-	//This was messing with the visualiser in the character setup menu somehow
-	if (H.clane?.type != /datum/vampireclane/salubri)
-		return
-	ADD_TRAIT(H, TRAIT_SALUBRI_EYE)
+	ADD_TRAIT(H, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
+	H.on_salubri_eye()
 
 
 /datum/action/salubri_eye

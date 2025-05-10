@@ -9,12 +9,10 @@
 /datum/discipline/valeren_warrior/post_gain()
 	. = ..()
 	if(level >= 3)
-		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE)
+		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
 		owner.update_body()
-		if(!(HAS_TRAIT_FROM(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
-			var/datum/action/salubri_eye/salubri_opener = new()
-			salubri_opener.Grant(owner)
-			ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
+		owner.on_salubri_eye()
+
 
 
 /datum/discipline_power/valeren_warrior

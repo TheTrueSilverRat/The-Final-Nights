@@ -14,11 +14,8 @@
 /datum/discipline/valeren/post_gain()
 	. = ..()
 	if(level >= 3)
-		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE)
-		if(!(HAS_TRAIT_FROM(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
-			var/datum/action/salubri_eye/salubri_opener = new()
-			salubri_opener.Grant(owner)
-			ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
+		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
+		owner.on_salubri_eye()
 
 /datum/discipline_power/valeren/can_activate_untargeted(alert)
 	. = ..()
