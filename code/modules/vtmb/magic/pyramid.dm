@@ -522,7 +522,7 @@
 	else if(clan == "Salubri")
 		message += "The cursed blood of the Salubri! The owner of this blood must be slain."
 	else if(clan == "Salubri Warrior")
-		message += "No...It can't be. The Warriors of the Salubri were dead a long time ago!!"
+		message += "The avatar of Samiel's vengeance stands before you, do you dare return their bitter hatred?"
 	else if(clan == "Giovanni" || clan == "Cappadocian")
 		message += "The blood is very cold and filled with death. The owner must be a necromancer."
 	else if(clan == "Kiasyd")

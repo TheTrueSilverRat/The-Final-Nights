@@ -103,7 +103,7 @@
 					client.images -= suckbar
 				qdel(suckbar)
 				return
-		if(HAS_TRAIT(src, TRAIT_ORGANOVORE) && (ishumanbasic(mob) || isghoul(mob))) // think this is fine?  //Edited to make
+		if(HAS_TRAIT(src, TRAIT_ORGANOVORE))
 			mob.adjustBruteLoss(20, TRUE) // sharp teeth
 			to_chat(src, span_warning("You can't drink this disgusting <b>BLOOD</b>. Go find something meatier!"))
 			visible_message(span_danger("[src] throws up!"), span_userdanger("You throw up!"))

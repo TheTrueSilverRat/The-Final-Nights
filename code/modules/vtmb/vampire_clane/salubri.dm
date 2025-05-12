@@ -16,13 +16,12 @@
 
 /datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
 	..()
-	ADD_TRAIT(H, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
-	H.on_salubri_eye()
+	ADD_TRAIT(H, TRAIT_SALUBRI_EYE, TRAIT_CLAN)
 
 
 /datum/action/salubri_eye
-	name = "Close the Third Eye"
-	desc = "Close the Third Eye."
+	name = "Open or Close the Third Eye"
+	desc = "Open or Close the Third Eye."
 	button_icon_state = "auspex"
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
 	background_icon_state = "discipline"
@@ -31,17 +30,16 @@
 
 /datum/action/salubri_eye/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
-		var/obj/item/organ/eyes/salubri = owner.getorgan(/obj/item/organ/eyes)
+		return
+	var/obj/item/organ/eyes/salubri = owner.getorgan(/obj/item/organ/eyes)
 
-		if(!(HAS_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN)))
-			salubri.eye_icon_state = "salubri"
-			owner.update_body()
-			owner.visible_message(span_danger("[owner] sprouts a Third Eye on their Forehead!"), span_userdanger("Your third eye forcibly awakens!"))
-			ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
-			return
-		else
-			salubri.eye_icon_state = "eyes"
-			owner.update_body()
-			owner.visible_message(span_danger("[owner]'s Third Eye sinks back into their head"), span_userdanger("You close your third eye!"))
-			REMOVE_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
-			return
+	if(!(HAS_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN)))
+		salubri.eye_icon_state = "salubri"
+		owner.update_body()
+		owner.visible_message(span_danger("[owner] sprouts a Third Eye on their Forehead!"), span_userdanger("Your third eye forcibly awakens!"))
+		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
+	else
+		salubri.eye_icon_state = "eyes"
+		owner.update_body()
+		owner.visible_message(span_danger("[owner]'s Third Eye sinks back into their head"), span_userdanger("You close your third eye!"))
+		REMOVE_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)

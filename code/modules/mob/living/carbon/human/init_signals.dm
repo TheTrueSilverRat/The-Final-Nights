@@ -5,9 +5,10 @@
 /mob/living/carbon/human/proc/on_salubri_eye()
 	SIGNAL_HANDLER
 
+	var/obj/item/organ/eyes/salubri/salubri = getorgan(/obj/item/organ/eyes/salubri)
 	var/datum/action/salubri_eye/salubri_opener = new()
 	if(HAS_TRAIT(src, TRAIT_SALUBRI_EYE))
-		var/obj/item/organ/eyes/salurbi/salubri = getorgan(/obj/item/organ/eyes/salubri)
+
 
 		salubri?.Insert(TRUE, FALSE)
 		update_body()

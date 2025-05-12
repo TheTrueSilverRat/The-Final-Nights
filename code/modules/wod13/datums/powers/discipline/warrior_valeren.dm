@@ -8,7 +8,7 @@
 
 /datum/discipline/valeren_warrior/post_gain()
 	. = ..()
-	if(level >= 3)
+	if(level >= 2)
 		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
 		owner.update_body()
 		owner.on_salubri_eye()
