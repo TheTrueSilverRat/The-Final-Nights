@@ -7,24 +7,15 @@
 
 	var/datum/action/salubri_eye/salubri_opener = new()
 	if(HAS_TRAIT(src, TRAIT_SALUBRI_EYE))
-		var/obj/item/organ/eyes/salubri = src.getorgan(/obj/item/organ/eyes)
+		var/obj/item/organ/eyes/salurbi/salubri = getorgan(/obj/item/organ/eyes/salubri)
 
-		if(salubri)
-			salubri.Remove(TRUE, FALSE)
+		salubri?.Insert(TRUE, FALSE)
 		update_body()
 		if(!(HAS_TRAIT_FROM(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
 			salubri_opener.Grant(src)
 			ADD_TRAIT(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 	else
-		var/obj/item/organ/eyes/salubri/salubri = new()
-		salubri.Insert(TRUE, FALSE)
+		salubri.Remove(TRUE, FALSE)
 		update_body()
 		salubri_opener.Remove(src)
 		REMOVE_TRAIT(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
-
-/*
-		if(!(HAS_TRAIT_FROM(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
-			var/datum/action/salubri_eye/salubri_opener = new()
-			salubri_opener.Grant(src)
-			ADD_TRAIT(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
-*/
