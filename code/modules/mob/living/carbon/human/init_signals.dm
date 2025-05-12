@@ -14,6 +14,7 @@
 		update_body()
 		if(!(HAS_TRAIT_FROM(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
 			salubri_opener.Grant(src)
+			salubri.eye_icon_state = "salubri"
 			ADD_TRAIT(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 	else
 		salubri.Remove(TRUE, FALSE)

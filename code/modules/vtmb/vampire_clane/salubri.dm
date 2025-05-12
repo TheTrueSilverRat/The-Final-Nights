@@ -12,7 +12,6 @@
 	female_clothes = /obj/item/clothing/under/vampire/salubri/female
 	whitelisted = FALSE
 	clan_keys = /obj/item/vamp/keys/salubri
-	salubri = TRUE
 
 /datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
 	..()
@@ -29,7 +28,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/salubri_eye/Trigger()
-	if(istype(owner, /mob/living/carbon/human))
+	if(!iskindred(owner))
 		return
 	var/obj/item/organ/eyes/salubri = owner.getorgan(/obj/item/organ/eyes)
 

@@ -12,4 +12,3 @@
 	female_clothes = /obj/item/clothing/under/vampire/salubri/female
 	whitelisted = FALSE
 	clan_keys = /obj/item/vamp/keys/salubri
-	salubri = TRUE

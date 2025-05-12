@@ -15,7 +15,6 @@
 	. = ..()
 	if(level >= 2)
 		ADD_TRAIT(owner, TRAIT_SALUBRI_EYE, TRAIT_GENERIC)
-		owner.on_salubri_eye()
 
 /datum/discipline_power/valeren/can_activate_untargeted(alert)
 	. = ..()

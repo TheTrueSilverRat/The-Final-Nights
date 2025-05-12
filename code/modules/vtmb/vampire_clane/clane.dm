@@ -34,7 +34,6 @@ And it also helps for the character set panel
 	var/accessories_layers = list()
 	var/current_accessory
 	var/clan_keys //Keys to your hideout
-	var/salubri = FALSE //used to determine if they're a Salubri or not for the Common Valeren Paths
 
 /datum/vampireclane/proc/on_gain(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
