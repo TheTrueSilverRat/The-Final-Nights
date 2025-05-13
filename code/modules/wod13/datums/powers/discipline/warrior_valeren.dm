@@ -86,6 +86,8 @@
 	. = ..()
 	if(target == owner)
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
+		ADD_TRAIT(owner, TRAIT_NOSOFTCRIT, TRAIT_GENERIC)
+
 		morphean_check = TRUE
 		return
 	if (ishumanbasic(target))
@@ -98,6 +100,7 @@
 	. = ..()
 	if(morphean_check == TRUE)
 		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
+		REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, TRAIT_GENERIC)
 
 //BURNING TOUCH
 /datum/discipline_power/valeren_warrior/burning_touch
