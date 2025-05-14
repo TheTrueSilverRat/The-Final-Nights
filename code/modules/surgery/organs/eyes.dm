@@ -97,8 +97,8 @@
 /obj/item/organ/eyes/salubri
 	eye_icon_state = "salubri"
 /obj/item/organ/eyes/salubri
-   eye_icon_state = "salubri"
-   var/datum/action/salubri_eye/salubri_opener
+	eye_icon_state = "salubri"
+	var/datum/action/salubri_eye/salubri_opener
 
 /obj/item/organ/eyes/salubri/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
@@ -106,8 +106,8 @@
 	salubri_opener.Grant(M)
 
 /obj/item/organ/eyes/salubri/Remove(mob/living/carbon/M, special = 0)
-   . = ..()
-   if(salubri_opener)
+	. = ..()
+	if(salubri_opener)
 		salubri_opener.Remove(M)
 /obj/item/organ/eyes/night_vision/kiasyd
 	eye_icon_state = "kiasyd"

@@ -10,5 +10,5 @@
 		var/obj/item/organ/eyes/salubri/salubri_eye = new()
 		salubri_eye.Insert(src, TRUE, FALSE)
 	else
-		var/obj/item/organ/eyes/salubri/salubri_eyes = getorganslot(ORGAN_SLOT_SALUBRI_EYES)
-		salubri_eyes.Remove(src)		
+		var/obj/item/organ/eyes/salubri/salubri_eyes = getorganslot(ORGAN_SLOT_EYES)
+		salubri_eyes.Remove(src)
