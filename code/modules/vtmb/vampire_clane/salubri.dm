@@ -30,7 +30,9 @@
 /datum/action/salubri_eye/Trigger()
 	if(!iskindred(owner))
 		return
-	var/obj/item/organ/eyes/salubri/salubri = owner.getorgan(/obj/item/organ/eyes/salubri)
+	var/obj/item/organ/eyes/salubri/salubri = getorganslot(ORGAN_SLOT_SALUBRI_EYES)
+	if(!salubri)
+	   return
 
 	if(!(HAS_TRAIT(owner, TRAIT_SALUBRI_EYE_OPEN)))
 		salubri.eye_icon_state = "salubri"
