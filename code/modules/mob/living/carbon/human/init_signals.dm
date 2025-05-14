@@ -6,14 +6,9 @@
 	SIGNAL_HANDLER
 
 
-	var/datum/action/salubri_eye/salubri_opener = new()
 	if(HAS_TRAIT(src, TRAIT_SALUBRI_EYE))
-
-
-		if(!(HAS_TRAIT_FROM(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)))
-			var/obj/item/organ/eyes/salubri/salubri_eye = new()
-			salubri_eye.Insert(src, TRUE, FALSE)
-			salubri_opener.Grant(src)
-			salubri_eye.eye_icon_state = "salubri"
-			update_body()
-			ADD_TRAIT(src, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
+		var/obj/item/organ/eyes/salubri/salubri_eye = new()
+		salubri_eye.Insert(src, TRUE, FALSE)
+	else
+		var/obj/item/organ/eyes/salubri/salubri_eyes = getorganslot(ORGAN_SLOT_SALUBRI_EYES)
+		salubri_eyes.Remove(src)		
