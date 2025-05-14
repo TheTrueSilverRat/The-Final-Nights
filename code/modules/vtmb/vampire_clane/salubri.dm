@@ -10,7 +10,7 @@
 	common_disciplines = list(/datum/discipline/valeren_warrior)
 	male_clothes = /obj/item/clothing/under/vampire/salubri
 	female_clothes = /obj/item/clothing/under/vampire/salubri/female
-	whitelisted = FALSE
+	whitelisted = TRUE
 	clan_keys = /obj/item/vamp/keys/salubri
 
 /datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
