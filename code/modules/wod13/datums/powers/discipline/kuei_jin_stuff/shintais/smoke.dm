@@ -169,11 +169,13 @@
 
 /datum/discipline_power/chi_discipline_power/smoke/three/activate()
 	. = ..()
-	var/obj/effect/forcefield/smoke_wall/visual1 = new (get_step(owner, owner.dir))
+	var/obj/effect/forcefield/smoke_wall/smoke_wall
 
-	var/obj/effect/forcefield/smoke_wall/visual2 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, 90)))
+	smoke_wall = new (get_step(owner, owner.dir))
 
-	var/obj/effect/forcefield/smoke_wall/visual3 = new (get_step(get_step(owner, owner.dir), turn(owner.dir, -90)))
+	smoke_wall = new (get_step(get_step(owner, owner.dir), turn(owner.dir, 90)))
+
+	smoke_wall = new (get_step(get_step(owner, owner.dir), turn(owner.dir, -90)))
 
 	playsound(get_turf(owner), 'sound/effects/smoke.ogg', 50, TRUE)
 
