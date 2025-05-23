@@ -26,3 +26,21 @@
 	key_third_person = "howls"
 	message = "howls!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+
+
+	/datum/emote/living/howl/run_emote(mob/user, params , type_override, intentional)
+	. = ..()
+
+	if(isgarou(user))
+		var/mob/living/carbon/human/wolf = user
+		playsound(get_turf(wolf), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 100, FALSE)
+		return
+
+
+	if(iswerewolf(user))
+		var/mob/living/carbon/werewolf/wolf = user
+		if(iscrinos(wolf))
+			playsound(get_turf(wolf), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 100, FALSE)
+		if(islupus(wolf))
+			playsound(get_turf(wolf), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 100, FALSE)
+
