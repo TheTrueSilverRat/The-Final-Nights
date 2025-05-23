@@ -2496,7 +2496,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/a = GLOB.clanes_list[i]
 						var/datum/vampireclane/V = new a
 						if (V.whitelisted)
-							if (SSwhitelists.is_whitelisted(user.ckey, V.name))
+							if (SSwhitelists.is_whitelisted(user.ckey, TRUSTED_PLAYER))
 								available_clans[V.name] += GLOB.clanes_list
 						else
 							available_clans[V.name] += GLOB.clanes_list[i]
