@@ -108,6 +108,8 @@
 /obj/item/organ/eyes/salubri/Remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(salubri_opener)
+		if(HAS_TRAIT(M, TRAIT_SALUBRI_EYE_OPEN))
+			REMOVE_TRAIT(M, TRAIT_SALUBRI_EYE_OPEN, SALUBRI_EYE_TRAIT)
 		salubri_opener.Remove(M)
 /obj/item/organ/eyes/night_vision/kiasyd
 	eye_icon_state = "kiasyd"
