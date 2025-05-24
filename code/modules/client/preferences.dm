@@ -209,6 +209,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/enemy = FALSE
 	var/lover = FALSE
 
+	var/show_flavor_text_when_masked = FALSE
 	var/flavor_text
 	var/flavor_text_nsfw
 	var/ooc_notes
@@ -822,6 +823,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				else
 					dat += "<BR><b>Flavor Text (NSFW):</b> [preview_text_nsfw]... <a href='byond://?_src_=prefs;preference=flavor_text_nsfw;task=input'>Change</a>"
 				dat += "<BR><b>OOC Notes:</b> [ooc_notes] <a href='byond://?_src_=prefs;preference=ooc_notes;task=input'>Change</a>"
+
+			dat += "<BR><b>Show flavor text while identity hidden:</b> <a href='byond://?_src_=prefs;preference=show_flavor_text_when_masked'>[(show_flavor_text_when_masked) ? "Enabled" : "Disabled"]</A>"
 
 			// TFN EDIT ADDITION END
 			dat += "<h2>[make_font_cool("EQUIP")]</h2>"
@@ -3299,6 +3302,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("nsfw_content_preference")
 					nsfw_content_pref = !nsfw_content_pref
 
+				if("show_flavor_text_when_masked")
+					show_flavor_text_when_masked = !show_flavor_text_when_masked
+
 				if("persistent_scars")
 					persistent_scars = !persistent_scars
 
@@ -3321,9 +3327,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					toggles ^= SOUND_ENDOFROUND
 
 				if("ghost_ears")
-					if(istype(user.client.mob, /mob/dead/observer))
-						var/mob/dead/observer/obs = user.client.mob
-						if(obs.auspex_ghosted)
+					if(isobserver(user.client.mob))
+						if(isavatar(user.client.mob))
 							return
 						else
 							chat_toggles ^= CHAT_GHOSTEARS
@@ -3334,9 +3339,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					chat_toggles ^= CHAT_GHOSTSIGHT
 
 				if("ghost_whispers")
-					if(istype(user.client.mob, /mob/dead/observer))
-						var/mob/dead/observer/obs = user.client.mob
-						if(obs.auspex_ghosted)
+					if(isobserver(user.client.mob))
+						if(isavatar(user.client.mob))
 							return
 						else
 							chat_toggles ^= CHAT_GHOSTWHISPER
@@ -3594,6 +3598,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.flavor_text_nsfw = sanitize_text(flavor_text_nsfw)
 	character.ooc_notes = sanitize_text(ooc_notes)
 	character.character_notes = sanitize_text(character_notes)
+	character.show_flavor_text_when_masked = show_flavor_text_when_masked
 	character.gender = gender
 	character.age = age
 	character.chronological_age = total_age
