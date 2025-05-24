@@ -42,7 +42,7 @@
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/current_form
 
-/* Going to shelve this for now and try the radial version
+/* Going to shelve this for now and try the radial version (Yeah definitely doing radial first)
 /datum/action/choose_demon_form/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
 		var/new_form = input(owner, "Choose your Demon Form", "Demon Form") as null|anything in list("Samurai", "Tentacles", "Demon", "Giant", "Foul")
