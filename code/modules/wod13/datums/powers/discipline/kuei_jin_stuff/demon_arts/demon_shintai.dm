@@ -40,20 +40,22 @@
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	var/current_form
 
+/* Going to shelve this for now and try the radial version
 /datum/action/choose_demon_form/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
 		var/new_form = input(owner, "Choose your Demon Form", "Demon Form") as null|anything in list("Samurai", "Tentacles", "Demon", "Giant", "Foul")
 		if(new_form)
 			to_chat(owner, "Your new form is [new_form].")
-			for(var/datum/action/discipline/chi_discipline/chi_action in owner.actions)
+			for(var/datum/discipline_power/chi_discipline_power/chi_action in owner.actions)
 				if(chi_action)
 					if(istype(chi_action.chi_discipline, /datum/discipline_power/chi_discipline_power/demon_shintai))
-						var/datum/chi_discipline/demon_shintai/demon_shintai = chi_action.discipline
+						var/datum/discipline/chi_discipline/demon_shintai/demon_shintai = chi_action.discipline
 						demon_shintai.current_form = new_form
 		button.color = "#970000"
 		animate(button, color = "#ffffff", time = 2 SECONDS, loop = 1)
-
+*/
 
 //DEMON SHINTAI 1
 /datum/discipline_power/chi_discipline_power/demon_shintai/one

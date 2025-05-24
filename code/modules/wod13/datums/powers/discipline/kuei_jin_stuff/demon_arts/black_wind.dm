@@ -63,7 +63,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/one/activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(black_wind_visual))
-	SEND_SIGNAL(owner, CELERITY_POWER_ACTIVATE)
 
 	//put this out of its misery
 	owner.black_wind_visual = TRUE
@@ -72,8 +71,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/one/deactivate()
 	. = ..()
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
-	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	SEND_SIGNAL(owner, CELERITY_POWER_DEACTIVATE)
 
 	owner.black_wind_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/black_wind)
@@ -101,7 +98,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/two/activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(black_wind_visual))
-	SEND_SIGNAL(owner, CELERITY_POWER_ACTIVATE)
 
 	owner.black_wind_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/black_wind2)
@@ -110,8 +106,6 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	SEND_SIGNAL(owner, CELERITY_POWER_DEACTIVATE)
-
 	owner.black_wind_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/black_wind2)
 
@@ -138,8 +132,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/three/activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(black_wind_visual))
-	SEND_SIGNAL(owner, CELERITY_POWER_ACTIVATE)
-
 	owner.black_wind_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/black_wind3)
 
@@ -147,7 +139,6 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	SEND_SIGNAL(owner, CELERITY_POWER_DEACTIVATE)
 
 	owner.black_wind_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/black_wind3)
@@ -175,7 +166,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/four/activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(black_wind_visual))
-	SEND_SIGNAL(owner, CELERITY_POWER_ACTIVATE)
 
 	owner.black_wind_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/black_wind4)
@@ -184,7 +174,6 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	SEND_SIGNAL(owner, CELERITY_POWER_DEACTIVATE)
 
 	owner.black_wind_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/black_wind4)
@@ -212,7 +201,6 @@
 /datum/discipline_power/chi_discipline_power/black_wind/five/activate()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(black_wind_visual))
-	SEND_SIGNAL(owner, CELERITY_POWER_ACTIVATE)
 
 	owner.black_wind_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/black_wind5)
@@ -221,7 +209,6 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	SEND_SIGNAL(owner, CELERITY_POWER_DEACTIVATE)
 
 	owner.black_wind_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/black_wind5)
