@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags_cover = MASKCOVERSMOUTH | PEPPERPROOF
+	flags_cover = MASKCOVERSMOUTH | PEPPERPROOF | MASKCOVERSFOREHEAD
 	resistance_flags = NONE
 	body_worn = TRUE
 

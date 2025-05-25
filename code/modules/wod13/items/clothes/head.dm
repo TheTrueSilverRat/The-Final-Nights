@@ -45,6 +45,7 @@
 	name = "beanie"
 	desc = "A stylish beanie."
 	icon_state = "hat"
+	flags_cover = HEADCOVERSFOREHEAD
 
 /obj/item/clothing/head/vampire/beanie/black
 	name = "black beanie"
@@ -139,6 +140,7 @@
 	desc = "Damn... Provides some kind of protection."
 	icon_state = "skull"
 	armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 
 /obj/item/clothing/head/vampire/helmet
 	name = "police helmet"
@@ -150,7 +152,7 @@
 	dynamic_fhair_suffix = ""
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 20, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, WOUND = 25)
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 	masquerade_violating = TRUE
 
@@ -160,7 +162,7 @@
 	icon_state = "masque"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	masquerade_violating = FALSE
 
@@ -170,7 +172,7 @@
 	icon_state = "spain"
 	flags_inv = HIDEEARS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 20, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, WOUND = 25)
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 	masquerade_violating = FALSE
 
 /obj/item/clothing/head/vampire/army
@@ -178,6 +180,7 @@
 	desc = "Looks dangerous. Provides great protection against blunt force."
 	icon_state = "viet"
 	flags_inv = HIDEEARS|HIDEHAIR
+	flags_cover = HEADCOVERSFOREHEAD
 	clothing_flags = NO_HAT_TRICKS|SNUG_FIT
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
@@ -190,6 +193,7 @@
 	desc = "A thermoplastic hard helmet used to protect the head from injury."
 	icon_state = "hardhat"
 	armor = list(MELEE = 20, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 5, ACID = 0, WOUND = 15)
+	flags_cover = HEADCOVERSFOREHEAD
 
 /obj/item/clothing/head/vampire/eod
 	name = "EOD helmet"
@@ -202,8 +206,8 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	visor_flags_inv = HIDEFACE|HIDESNOUT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 	w_class = WEIGHT_CLASS_BULKY
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 	masquerade_violating = TRUE
@@ -218,8 +222,8 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	visor_flags_inv = HIDEFACE|HIDESNOUT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF | HEADCOVERSFOREHEAD
 	w_class = WEIGHT_CLASS_BULKY
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 

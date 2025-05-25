@@ -7,5 +7,5 @@
 	icon_state = "chaser"
 	inhand_icon_state = "chaser"
 	flags_inv = HIDEFACE | HIDEFACIALHAIR | HIDESNOUT
-	flags_cover = MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSFOREHEAD
 	visor_flags_inv = HIDEFACE | HIDEFACIALHAIR | HIDESNOUT

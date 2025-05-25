@@ -8,7 +8,7 @@
 	inhand_icon_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH | PEPPERPROOF
+	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH | PEPPERPROOF | MASKCOVERSFOREHEAD
 	resistance_flags = NONE
 
 /obj/item/clothing/mask/gas/atmos

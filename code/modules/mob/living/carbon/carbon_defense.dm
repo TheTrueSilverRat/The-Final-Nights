@@ -40,6 +40,12 @@
 	if(check_mask &&(wear_mask?.flags_cover & PEPPERPROOF))
 		return wear_mask
 
+/mob/living/carbon/is_forehead_covered(check_head = TRUE, check_mask = TRUE)
+	if(check_head && head && (head.flags_cover & HEADCOVERSFOREHEAD))
+		return head
+	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSFOREHEAD))
+		return wear_mask
+
 /mob/living/carbon/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
 	if(istype(affecting, /obj/item/bodypart/head))

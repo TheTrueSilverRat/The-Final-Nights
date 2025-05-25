@@ -44,6 +44,8 @@
 	return FALSE
 /mob/living/proc/is_pepper_proof(check_head = TRUE, check_mask = TRUE)
 	return FALSE
+/mob/living/proc/is_forehead_covered(check_head = TRUE, check_mask = TRUE)
+	return FALSE
 /mob/living/proc/on_hit(obj/projectile/P)
 	return BULLET_ACT_HIT
 
