@@ -10,7 +10,6 @@
 /datum/discipline_power/chi_discipline_power/beast_shintai
 	name = "Beast Shintai"
 	desc = "Invoke upon the spirit of the animals"
-	discipline_type = "Shintai"
 	cost_yang = 1
 	activate_sound = 'code/modules/wod13/sounds/beastshintai_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/beastshintai_activate.ogg'
@@ -23,22 +22,38 @@
 	icon_state = "beast_crinos"
 	icon_living = "beast_crinos"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	speed = 1
+	mob_size = MOB_SIZE_HUGE
+	speed = -0.8
 	maxHealth = 575
 	health = 575
+	limb_destroyer = 1
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
 	harm_intent_damage = 5
-	melee_damage_lower = 60
+	melee_damage_lower = 65
 	melee_damage_upper = 70
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
-	a_intent = INTENT_HARM
+	dextrous = TRUE
+	held_items = list(null, null)
+	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	bloodpool = 10
 	maxbloodpool = 10
 	dodging = TRUE
+	var/step_variable
+
+/mob/living/simple_animal/hostile/crinos_beast/Move(NewLoc, direct)
+	if(isturf(loc))
+		step_variable = step_variable+1
+		if(step_variable == 2)
+			step_variable = 0
+			playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_step.ogg', 50, FALSE)
+	..()
+
+
+
 
 //BEAST SHINTAI 1
 /datum/discipline_power/chi_discipline_power/beast_shintai/one
