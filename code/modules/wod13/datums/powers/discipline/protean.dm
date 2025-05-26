@@ -120,9 +120,7 @@
 
 	violates_masquerade = TRUE
 
-	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 20 SECONDS
+	toggled = TRUE
 
 	grouped_powers = list(
 		/datum/discipline_power/protean/feral_claws,
@@ -130,20 +128,27 @@
 		/datum/discipline_power/protean/mist_form
 	)
 
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
+	var/obj/structure/bury_pit/burial_pit
+
+
+/*
+			var/obj/structure/bury_pit/burial_pit = new (get_turf(caster))
+			burial_pit.icon_state = "pit0"
+			caster.forceMove(burial_pit)
+*/
 
 /datum/discipline_power/protean/earth_meld/activate()
 	. = ..()
-	if (!GA)
-		GA = new(owner)
-	owner.drop_all_held_items()
-	GA.Shapeshift(owner)
+	burial_pit = new (get_turf(owner))
+	burial_pit.icon_state = "pit1"
+	owner.forceMove(burial_pit)
 
 /datum/discipline_power/protean/earth_meld/deactivate()
 	. = ..()
-	GA.Restore(GA.myshape)
-	owner.Stun(1.5 SECONDS)
-	owner.do_jitter_animation(30)
+	owner.forceMove(get_turf(owner))
+	if(burial_pit)
+		QDEL_NULL(burial_pit)
+
 
 /mob/living/simple_animal/hostile/gangrel/better
 	maxHealth = 325
