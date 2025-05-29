@@ -131,14 +131,12 @@
 	. = ..()
 	if(!target.quieted)
 		target.quieted = TRUE
-		target.armour_penetration = min(100, target.armour_penetration+30)
 		target.damtype = CLONE
 		target.color = "#72b27c"
 		target.owner = WEAKREF(src.owner)
 		return
 	if(target.quieted)
 		target.quieted = FALSE
-		target.armour_penetration = initial(target.armour_penetration)
 		target.damtype = initial(target.damtype)
 		target.color = initial(target.color)
 		return
