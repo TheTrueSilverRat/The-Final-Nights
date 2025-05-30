@@ -841,7 +841,7 @@
 			caster.dna.species.meleemod += 1
 			caster.dna.species.attack_sound = 'code/modules/wod13/sounds/heavypunch.ogg'
 			tackler = caster.AddComponent(/datum/component/tackler, stamina_cost=0, base_knockdown = 1 SECONDS, range = 2+level_casting, speed = 1, skill_mod = 0, min_distance = 0)
-			caster.potential = 4
+			caster.potential = 5
 			ADD_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
@@ -933,6 +933,7 @@
 	discipline_type = "Demon"
 	activate_sound = 'code/modules/wod13/sounds/demonshintai_activate.ogg'
 	var/current_form = "Samurai"
+	var/datum/component/tackler
 
 /datum/chi_discipline/demon_shintai/post_gain(mob/living/carbon/human/user)
 	var/datum/action/choose_demon_form/demon_form_action = new()
@@ -1066,23 +1067,32 @@
 							caster.remove_movespeed_modifier(/datum/movespeed_modifier/demonform5)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/demonshintai_deactivate.ogg', 50, FALSE)
 		if("Giant")
-			var/mod = level_casting*10
-			var/meleemod = level_casting*0.5
+			var/mod = level_casting*5
+			var/meleemod = level_casting*0.3
+			var/level_range = level_casting + 2
 			caster.remove_overlay(UNICORN_LAYER)
 			var/mutable_appearance/potence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "giant", -UNICORN_LAYER)
+			caster.dna.species.attack_sound = 'code/modules/wod13/sounds/heavypunch.ogg'
 			caster.overlays_standing[UNICORN_LAYER] = potence_overlay
 			caster.apply_overlay(UNICORN_LAYER)
 			caster.dna.species.punchdamagelow += mod
 			caster.dna.species.punchdamagehigh += mod
 			caster.dna.species.meleemod += meleemod
+			caster.potential = level_casting*2
+			tackler = caster.AddComponent(/datum/component/tackler, stamina_cost=0, base_knockdown = 1 SECONDS, range = level_range, speed = 1, skill_mod = 0, min_distance = 0)
 			ADD_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			ADD_TRAIT(caster, TRAIT_CUFFBREAKER, TRAUMA_TRAIT)
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.remove_overlay(UNICORN_LAYER)
+					caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
 					caster.dna.species.punchdamagelow -= mod
 					caster.dna.species.punchdamagehigh -= mod
 					caster.dna.species.meleemod -= meleemod
+					caster.potential = 0
+					qdel(tackler)
 					REMOVE_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+					REMOVE_TRAIT(caster, TRAIT_CUFFBREAKER, TRAUMA_TRAIT)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/demonshintai_deactivate.ogg', 50, FALSE)
 		if("Foul")
 			caster.remove_overlay(UNICORN_LAYER)
