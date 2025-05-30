@@ -472,7 +472,6 @@
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
 	force = 35
-	armour_penetration = 50
 	damtype = BURN
 	block_chance = 0
 	icon_state = "lasombra"
