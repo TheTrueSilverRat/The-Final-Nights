@@ -19,9 +19,8 @@
 ///Recipe for Typhon's Brew
 /datum/crafting_recipe/typhon_brew
 	name = "Thyphon's Brew"
-	list/reqs = list(/datum/reagent/consumable/ethanol/beer = 30)
-	list/blacklist = list(/datum/reagent/consumable/ethanol/beer/setite) //type paths of items explicitly not allowed as an ingredient
-	result = /obj/item/reagent_containers/food/drinks/beer/vampire/setite_beer //type path of item resulting from this craft
+	reqs = list(/obj/item/reagent_containers/food/drinks/beer/vampire = 1, /obj/item/drinkable_bloodpack/vitae = 1)
+	result = /obj/item/reagent_containers/drug/typhon_brew //type path of item resulting from this craft
 	time = 1 SECONDS
 	category = CAT_DRUGS
 	always_available = FALSE
