@@ -105,40 +105,40 @@
 	level = 4
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING | DISC_CHECK_FREE_HAND
 	vitae_cost = 0
-	target_type = TARGET_OBJ
-	range = 1
+	target_type = NONE
 
 	violates_masquerade = TRUE
 
 /datum/discipline_power/quietus/baals_caress/can_activate(atom/target, alert = FALSE)
 	. = ..()
-
-	if (!istype(target, /obj/item/melee/vampirearms))
+	var/obj/item/I = owner.get_active_held_item()
+	if (!istype(I, /obj/item/melee/vampirearms))
 		if (alert)
 			to_chat(owner, span_warning("[src] can only be used on weapons!"))
 		return FALSE
-	var/obj/item/melee/vampirearms/weapon = target
+	var/obj/item/melee/vampirearms/weapon = I
 
 	//ensure the target is a weapon with an edge to use the toxin with
-	if (!weapon.sharpness)
+	if (!I.sharpness)
 		if (alert)
 			to_chat(owner, span_warning("[src] can only be used on bladed weapons!"))
 		return FALSE
 
 	return .
 
-/datum/discipline_power/quietus/baals_caress/activate(obj/item/melee/vampirearms/target)
+/datum/discipline_power/quietus/baals_caress/activate()
 	. = ..()
-	if(!target.quieted)
-		target.quieted = TRUE
-		target.damtype = CLONE
-		target.color = "#72b27c"
-		target.owner = WEAKREF(src.owner)
+	var/obj/item/melee/vampirearms/I = owner.get_active_held_item()
+	if(!I.quieted)
+		I.quieted = TRUE
+		I.damtype = CLONE
+		I.color = "#72b27c"
+		I.owner = WEAKREF(src.owner)
 		return
-	if(target.quieted)
-		target.quieted = FALSE
-		target.damtype = initial(target.damtype)
-		target.color = initial(target.color)
+	if(I.quieted)
+		I.quieted = FALSE
+		I.damtype = initial(I.damtype)
+		I.color = initial(I.color)
 		return
 
 //TASTE OF DEATH
