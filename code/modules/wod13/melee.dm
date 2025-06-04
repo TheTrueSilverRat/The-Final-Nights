@@ -22,7 +22,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(quieted)
+	if(quieted && isliving(A))
 		user.bloodpool -= 1
 
 
@@ -471,8 +471,9 @@
 
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
-	force = 35
+	force = 20
 	damtype = BURN
+	armour_penetration = 0
 	block_chance = 0
 	icon_state = "lasombra"
 	masquerade_violating = TRUE
