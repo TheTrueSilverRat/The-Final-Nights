@@ -53,8 +53,6 @@
 		var/obj/shapeshift_holder/S = locate() in M
 		if(S)
 			M = Restore(M)
-			if(vampiric == TRUE)
-				M.mind.RemoveSpell(src)
 		else
 			M = Shapeshift(M)
 

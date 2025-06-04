@@ -121,9 +121,8 @@
 	name = "Gangrel Form"
 	desc = "Take on the shape a wolf."
 	charge_max = 50
-	cooldown_min = 5 SECONDS
+	cooldown_min = 20 SECONDS
 	revert_on_death = TRUE
-	vampiric = TRUE
 	die_with_shapeshifted_form = FALSE
 	possible_shapes = list(/mob/living/simple_animal/hostile/bear/wod13,\
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying,\
@@ -143,7 +142,9 @@
 	vitae_cost = 3
 	violates_masquerade = TRUE
 
-	cooldown_length = 20 SECONDS
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 10 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/protean/feral_claws,
@@ -164,14 +165,14 @@
 		owner.mind.AddSpell(GA)
 	GA.cast(list(owner), owner)
 
-/*
+
 /datum/discipline_power/protean/earth_meld/deactivate()
 	. = ..()
 	owner.mind.RemoveSpell(GA)
 	GA.Restore(GA.myshape)
 	owner.Stun(1.5 SECONDS)
 	owner.do_jitter_animation(30)
-*/
+
 /mob/living/simple_animal/hostile/gangrel/better
 	maxHealth = 325
 	health = 325
