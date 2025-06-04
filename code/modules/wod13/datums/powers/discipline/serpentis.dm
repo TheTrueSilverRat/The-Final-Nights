@@ -16,16 +16,6 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/typhon_brew)
 
 
-///Recipe for Typhon's Brew
-/datum/crafting_recipe/typhon_brew
-	name = "Thyphon's Brew"
-	reqs = list(/obj/item/reagent_containers/food/drinks/beer/vampire = 1, /obj/item/drinkable_bloodpack/vitae = 1)
-	result = /obj/item/reagent_containers/drug/typhon_brew//type path of item resulting from this craft
-	time = 1 SECONDS
-	category = CAT_DRUGS
-	always_available = FALSE
-
-
 //THE EYES OF THE SERPENT
 /datum/discipline_power/serpentis/the_eyes_of_the_serpent
 	name = "The Eyes of the Serpent"
