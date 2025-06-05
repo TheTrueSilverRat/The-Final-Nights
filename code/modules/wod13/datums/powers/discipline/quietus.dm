@@ -119,7 +119,7 @@
 	var/obj/item/melee/vampirearms/weapon = I
 
 	//ensure the target is a weapon with an edge to use the toxin with
-	if (!I.sharpness)
+	if (!weapon.sharpness)
 		if (alert)
 			to_chat(owner, span_warning("[src] can only be used on bladed weapons!"))
 		return FALSE
