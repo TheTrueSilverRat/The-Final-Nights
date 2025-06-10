@@ -249,6 +249,8 @@
 	YG.Grant(C)
 	var/datum/action/reanimate_yin/YN = new()
 	YN.Grant(C)
+	var/datum/action/give_yang_chi/GYC = new()
+	GYC.Grant(C)
 
 	//Kuei-jin resist vampire bites better than mortals
 	RegisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_kuei_jin_bitten))
@@ -541,7 +543,8 @@
 	var/heal_level = min(kueijin.mind.dharma.level, 4)
 	kueijin.heal_ordered_damage(20 * heal_level, list(OXY, STAMINA, BRUTE, TOX))
 	kueijin.heal_ordered_damage(5 * heal_level, list(BURN, CLONE))
-	kueijin.blood_volume = min(kueijin.blood_volume + 56, 560)
+	kueijin.bloodpool = min(kueijin.bloodpool + heal_level, kueijin.maxbloodpool)
+	kueijin.blood_volume = min(kueijin.blood_volume + 56, BLOOD_VOLUME_NORMAL)
 	kueijin.yin_chi = max(0, kueijin.yin_chi - 1)
 
 	button.color = "#970000"
@@ -601,11 +604,49 @@
 	var/heal_level = min(kueijin.mind.dharma.level, 4)
 	kueijin.heal_ordered_damage(10 * heal_level, list(OXY, STAMINA, BRUTE, TOX))
 	kueijin.heal_ordered_damage(2.5 * heal_level, list(BURN, CLONE))
-	kueijin.blood_volume = min(kueijin.blood_volume + 28, 560)
+	kueijin.bloodpool = min(kueijin.bloodpool + heal_level, kueijin.maxbloodpool)
+	kueijin.blood_volume = min(kueijin.blood_volume + 28, BLOOD_VOLUME_NORMAL)
 	kueijin.yang_chi = max(0, kueijin.yang_chi - 1)
 
 	button.color = "#970000"
 	animate(button, color = "#ffffff", time = cooldown)
+
+/datum/action/give_yang_chi
+	name = "Give Yang Chi"
+	desc = "Give your yang chi to someone, to heal them."
+	button_icon_state = "vitae"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	vampiric = TRUE
+	var/giving = FALSE
+
+/datum/action/give_yang_chi/Trigger()
+	if(iscathayan(owner))
+		var/mob/living/carbon/human/kueijin = usr
+		if(kueijin.yang_chi < 1)
+			to_chat(kueijin, span_warning("You don't have enough <b>YANG CHI</b> to do that!"))
+			return
+		if(isanimal(kueijin.pulling))
+			var/mob/living/animal = kueijin.pulling
+			animal.bloodpool = min(animal.maxbloodpool, animal.bloodpool+1)
+			kueijin.yang_chi = max(0, kueijin.yang_chi-1)
+			animal.adjustBruteLoss(-25)
+			animal.adjustFireLoss(-25)
+		if(ishuman(kueijin.pulling))
+			var/mob/living/carbon/human/grabbed_victim = kueijin.pulling
+			if(giving)
+				return
+			giving = TRUE
+			kueijin.visible_message(span_warning("[kueijin] tries to feed [grabbed_victim] with their own blood!"), span_notice("You started to feed [grabbed_victim] with your own blood."))
+			if(do_mob(kueijin, grabbed_victim, 3 SECONDS))
+				var/heal_level = min(kueijin.mind.dharma.level, 4)
+				kueijin.yang_chi = max(0, kueijin.yang_chi - 1)
+				grabbed_victim.bloodpool = min(grabbed_victim.maxbloodpool, grabbed_victim.bloodpool+1)
+				grabbed_victim.heal_ordered_damage(20 * heal_level, list(OXY, STAMINA, BRUTE, TOX))
+				grabbed_victim.heal_ordered_damage(5 * heal_level, list(BURN, CLONE))
+				grabbed_victim.bloodpool = min(grabbed_victim.bloodpool + heal_level, grabbed_victim.maxbloodpool)
+				grabbed_victim.blood_volume = min(grabbed_victim.blood_volume + 28, BLOOD_VOLUME_NORMAL)
+				giving = FALSE
+
 
 /datum/action/rebalance
 	name = "Rebalance"
