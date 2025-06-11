@@ -875,6 +875,16 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/hotel)
+"akW" = (
+/obj/structure/table,
+/obj/item/gun/ballistic/automatic/vampire/ar15,
+/obj/item/gun/ballistic/automatic/vampire/ar15,
+/obj/item/ammo_box/vampire/c556,
+/obj/item/ammo_box/vampire/c556,
+/obj/item/ammo_box/magazine/vamp556,
+/obj/item/ammo_box/magazine/vamp556,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/endron_facility/restricted)
 "akY" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
@@ -5871,6 +5881,12 @@
 /obj/item/flashlight,
 /turf/open/floor/plasteel/dark,
 /area/vtm/interior/millennium_tower/f4)
+"byH" = (
+/obj/structure/table,
+/obj/item/gun/ballistic/automatic/vampire/sniper,
+/obj/item/ammo_box/vampire/c50,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/endron_facility/restricted)
 "byO" = (
 /obj/item/lipstick/jade{
 	pixel_x = -5;
@@ -17863,6 +17879,15 @@
 	},
 /turf/open/floor/plating/roofwalk,
 /area/vtm/pacificheights/forest)
+"eLF" = (
+/obj/structure/table,
+/obj/item/gun/ballistic/automatic/vampire/aug,
+/obj/item/gun/ballistic/automatic/vampire/aug,
+/obj/item/ammo_box/vampire/c556,
+/obj/item/ammo_box/magazine/vampaug,
+/obj/item/ammo_box/magazine/vampaug,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/endron_facility/restricted)
 "eLK" = (
 /obj/structure/table,
 /turf/open/floor/plating/vampplating/mono,
@@ -31828,6 +31853,10 @@
 /obj/item/clothing/suit/vampire/vest,
 /obj/item/clothing/suit/vampire/vest,
 /obj/item/clothing/head/vampire/helmet,
+/obj/item/clothing/head/vampire/helmet,
+/obj/item/clothing/head/vampire/helmet,
+/obj/item/clothing/suit/vampire/vest,
+/obj/item/clothing/suit/vampire/vest,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endron_facility/restricted)
 "ixm" = (
@@ -69887,6 +69916,17 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/trujah)
+"ssA" = (
+/obj/structure/table,
+/obj/item/gun/ballistic/shotgun/vampire,
+/obj/item/gun/ballistic/shotgun/vampire,
+/obj/item/ammo_box/vampire/c12g/buck,
+/obj/item/ammo_box/vampire/c12g/buck,
+/obj/item/ammo_box/vampire/c12g/buck,
+/obj/item/ammo_box/vampire/c12g,
+/obj/item/ammo_box/vampire/c12g,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/endron_facility/restricted)
 "ssF" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plating/parquetry,
@@ -85031,6 +85071,9 @@
 /obj/item/melee/classic_baton/vampire,
 /obj/item/melee/classic_baton/vampire,
 /obj/item/melee/classic_baton/vampire,
+/obj/item/storage/box/handcuffs,
+/obj/item/melee/baton/handtaser,
+/obj/item/melee/baton/handtaser,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endron_facility/restricted)
 "wxX" = (
@@ -310841,9 +310884,9 @@ bEx
 gMh
 ixj
 bEx
-xLy
-xLy
-xLy
+byH
+ssA
+eLF
 gMh
 ntq
 ntq
@@ -311099,8 +311142,8 @@ mpq
 fCQ
 bEx
 bEx
-xes
-xLy
+bEx
+akW
 gMh
 ntq
 ntq
