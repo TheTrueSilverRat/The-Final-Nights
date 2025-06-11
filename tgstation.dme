@@ -3673,7 +3673,6 @@
 #include "code\modules\wod13\items\keys\keys_npc.dm"
 #include "code\modules\wod13\items\narcotics\bailer.dm"
 #include "code\modules\wod13\items\narcotics\bong.dm"
-#include "code\modules\wod13\items\narcotics\typhon_brew.dm"
 #include "code\modules\wod13\items\narcotics\meth\cocaine.dm"
 #include "code\modules\wod13\items\narcotics\meth\meth.dm"
 #include "code\modules\wod13\items\narcotics\weed\weed.dm"
