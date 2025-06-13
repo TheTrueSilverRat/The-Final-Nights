@@ -198,56 +198,9 @@
 	foodtype = SANGUINE
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer/typhon = 30)
 
-//I hate Flav for forcing me to add in this entire thing just so vampires can drink the damn beer
-
 /obj/item/reagent_containers/food/drinks/beer/vampire/typhon/attack(mob/living/M, mob/user, def_zone)
-
-	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return FALSE
-
-	if(!canconsume(M, user))
-		return FALSE
-
-	if (!is_drainable())
-		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
-		return FALSE
-
-	if(M == user)
-		user.visible_message("<span class='notice'>[user] swallows a gulp of [src].</span>", \
-			"<span class='notice'>You swallow a gulp of [src].</span>")
-		if(HAS_TRAIT(M, TRAIT_VORACIOUS))
-			M.changeNext_move(CLICK_CD_MELEE * 0.5) //chug! chug! chug!
-
-	else
-		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
-			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_mob(user, M))
-			return
-		if(!reagents || !reagents.total_volume)
-			return // The drink might be empty after the delay, such as by spam-feeding
-		M.visible_message("<span class='danger'>[user] fed [M] the contents of [src].</span>", \
-			"<span class='userdanger'>[user] fed you the contents of [src].</span>")
-		log_combat(user, M, "fed", reagents.log_list())
-
-	SEND_SIGNAL(src, COMSIG_DRINK_DRANK, M, user)
-	var/fraction = min(gulp_size/reagents.total_volume, 1)
+	. = ..()
 	reagents.trans_to(M, gulp_size, transfered_by = user, methods = VAMPIRE)
-	checkLiked(fraction, M)
-
-	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
-	if(iscarbon(M))
-		var/mob/living/carbon/carbon_drinker = M
-		var/list/diseases = carbon_drinker.get_static_viruses()
-		if(LAZYLEN(diseases))
-			var/list/datum/disease/diseases_to_add = list()
-			for(var/d in diseases)
-				var/datum/disease/malady = d
-				if(malady.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
-					diseases_to_add += malady
-			if(LAZYLEN(diseases_to_add))
-				AddComponent(/datum/component/infective, diseases_to_add)
-	return TRUE
 
 /obj/item/reagent_containers/food/drinks/bottle/vampirecola
 	name = "two liter cola bottle"
