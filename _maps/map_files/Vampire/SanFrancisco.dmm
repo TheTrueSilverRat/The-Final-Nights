@@ -17881,11 +17881,14 @@
 /area/vtm/pacificheights/forest)
 "eLF" = (
 /obj/structure/table,
-/obj/item/gun/ballistic/automatic/vampire/aug,
-/obj/item/gun/ballistic/automatic/vampire/aug,
-/obj/item/ammo_box/vampire/c556,
-/obj/item/ammo_box/magazine/vampaug,
-/obj/item/ammo_box/magazine/vampaug,
+/obj/item/gun/ballistic/automatic/vampire/deagle,
+/obj/item/gun/ballistic/automatic/vampire/deagle,
+/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/vampire/c44,
+/obj/item/ammo_box/vampire/c44,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endron_facility/restricted)
 "eLK" = (
@@ -66752,6 +66755,15 @@
 	},
 /turf/open/floor/carpet,
 /area/vtm/interior/millennium_tower/f4)
+"rDI" = (
+/obj/structure/vampdoor/glass/pentex,
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = 14;
+	name = "reinforced shutters"
+	},
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/endron_facility/restricted)
 "rDR" = (
 /obj/item/chair/stool/bar,
 /obj/effect/decal/cleanable/greenglow/ecto,
@@ -85067,7 +85079,6 @@
 "wxT" = (
 /obj/structure/rack,
 /obj/item/storage/box/handcuffs,
-/obj/item/storage/box/teargas,
 /obj/item/melee/classic_baton/vampire,
 /obj/item/melee/classic_baton/vampire,
 /obj/item/melee/classic_baton/vampire,
@@ -311395,7 +311406,7 @@ opy
 rfZ
 uWp
 bEx
-uIF
+rDI
 bEx
 bEx
 cKE
