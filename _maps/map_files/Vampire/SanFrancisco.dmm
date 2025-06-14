@@ -45072,6 +45072,7 @@
 	name = "Armory Access";
 	id = 420
 	},
+/obj/item/paper/crumpled/muddy/fluff/elephant_graveyard/rnd_notes,
 /turf/open/floor/carpet/green,
 /area/vtm/interior/endron_facility/restricted)
 "mai" = (
@@ -65164,10 +65165,6 @@
 	},
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/strip/elysium)
-"riF" = (
-/obj/item/paper/crumpled/muddy/fluff/elephant_graveyard/rnd_notes,
-/turf/open/floor/plating/parquetry/rich,
-/area/vtm/interior/endron_facility/restricted)
 "riJ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -66765,10 +66762,8 @@
 "rDI" = (
 /obj/structure/vampdoor/glass/pentex,
 /obj/effect/turf_decal/siding/thinplating/dark,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = 420;
-	name = "reinforced shutters";
-	max_integrity = 1000s
+/obj/machinery/door/poddoor/shutters/armory{
+	id = 420
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endron_facility/restricted)
@@ -310132,7 +310127,7 @@ tdp
 nrL
 lNG
 iAL
-riF
+iAL
 iAL
 iAL
 iAL
