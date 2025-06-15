@@ -45070,7 +45070,7 @@
 	},
 /obj/machinery/button/door{
 	name = "Armory Access";
-	id = 420
+	id = 80085
 	},
 /obj/item/paper/crumpled/muddy/fluff/elephant_graveyard/rnd_notes,
 /turf/open/floor/carpet/green,
@@ -66763,7 +66763,7 @@
 /obj/structure/vampdoor/glass/pentex,
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/door/poddoor/shutters/armory{
-	id = 420
+	id = 80085
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endron_facility/restricted)
