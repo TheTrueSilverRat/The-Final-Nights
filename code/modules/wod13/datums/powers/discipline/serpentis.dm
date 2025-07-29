@@ -164,6 +164,7 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/cobra
+	vampiric = TRUE
 
 /mob/living/simple_animal/hostile/cobra
 	name = "Cobra Form"

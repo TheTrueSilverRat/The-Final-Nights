@@ -186,6 +186,7 @@
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
 	)
 	var/is_gangrel = FALSE
+	var/vampiric = TRUE
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/cast(list/targets,mob/user = usr)
 	if(src in user.mob_spell_list)
@@ -225,25 +226,6 @@
 		else
 			M = Shapeshift(M)
 
-/datum/action/transform_back
-	name = "Return to Form"
-	desc = "Transform back to your original form."
-	button_icon_state = "protean"
-	button_icon = 'code/modules/wod13/UI/actions.dmi'
-	background_icon_state = "gift"
-	icon_icon = 'code/modules/wod13/UI/actions.dmi'
-	check_flags = AB_CHECK_CONSCIOUS
-
-/datum/action/transform_back/Trigger(trigger_flags)
-	. = ..()
-	var/obj/shapeshift_holder/Shape = locate() in owner
-	if(Shape)
-		. =  Shape.stored
-		Shape.restore()
-	else
-		to_chat(owner, span_warning("You cannot transform back to your original form as you are already in your original form. Unless you believe it is not?"))
-
-
 /datum/discipline_power/protean/shape_of_the_beast
 	name = "Shape of the Beast"
 	desc = "Assume the form of an animal and retain your power."
@@ -256,8 +238,6 @@
 
 	vitae_cost = 2
 
-	cancelable = TRUE
-	duration_length = 999 SCENES
 	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(
@@ -282,12 +262,6 @@
 	if(owner.clan?.name == CLAN_GANGREL)
 		GA.is_gangrel = TRUE
 	GA.cast(list(owner), owner)
-
-/datum/discipline_power/protean/shape_of_the_beast/deactivate()
-	. = ..()
-	GA.Restore(GA.myshape)
-	owner.Stun(1.5 SECONDS)
-	owner.do_jitter_animation(30)
 
 //MIST FORM
 /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist

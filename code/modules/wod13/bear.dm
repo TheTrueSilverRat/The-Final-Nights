@@ -13,7 +13,7 @@
 	response_harm_simple = "punch"
 
 
-	bloodquality = BLOOD_QUALITY_HIGH
+	bloodquality = BLOOD_QUALITY_LOW
 	bloodpool = 20
 	maxbloodpool = 20
 	maxHealth = 850
@@ -26,5 +26,6 @@
 
 
 /mob/living/simple_animal/hostile/bear/wod13/vampire
+	bloodquality = BLOOD_QUALITY_HIGH
 	melee_damage_type = CLONE
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
