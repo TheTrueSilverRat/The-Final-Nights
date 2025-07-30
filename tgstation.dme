@@ -3598,6 +3598,7 @@
 #include "code\modules\vtmb\vampire_clan\old_clan_tzimisce.dm"
 #include "code\modules\vtmb\vampire_clan\salubri.dm"
 #include "code\modules\vtmb\vampire_clan\salubri_warrior.dm"
+#include "code\modules\vtmb\vampire_clan\samedi.dm"
 #include "code\modules\vtmb\vampire_clan\toreador.dm"
 #include "code\modules\vtmb\vampire_clan\tremere.dm"
 #include "code\modules\vtmb\vampire_clan\true_brujah.dm"

@@ -1111,3 +1111,23 @@
 	source = null
 	return ..()
 
+/datum/status_effect/burning_touch
+	id = "putrefaction"
+	status_type = STATUS_EFFECT_MULTIPLE
+	duration = 1 SCENES //3 Minutes
+	alert_type = /atom/movable/screen/alert/status_effect/putrefaction
+
+
+/atom/movable/screen/alert/status_effect/putrefaction
+	name = "Putrefaction"
+	desc = "Your face has aged terribly!!"
+	icon_state = "wounded_soldier"
+
+/datum/status_effect/putrefactionh/on_apply()
+	. = ..()
+	owner.social -= 2
+
+/datum/status_effect/putrefaction/on_remove()
+	. = ..()
+	owner.social += 2
+

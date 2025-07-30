@@ -107,7 +107,7 @@
 			if(CLAN_GIOVANNI)
 				to_chat(owner, span_notice("[target] never considers any action too great for their family."))
 				return
-			if(CLAN_CAPPADOCIAN)
+			if(CLAN_CAPPADOCIAN, CLAN_SAMEDI)
 				to_chat(owner, span_notice("[target] will never escape the appearance of a corpse."))
 				return
 			if(CLAN_KIASYD)

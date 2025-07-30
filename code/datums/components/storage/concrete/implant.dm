@@ -1,11 +1,13 @@
 /datum/component/storage/concrete/implant
-	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 6
-	max_items = 2
+	grid = TRUE
+	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 1000
+	max_items = 1000
+	screen_max_columns = 5
+	screen_max_rows = 5
 	drop_all_on_destroy = TRUE
 	drop_all_on_deconstruct = TRUE
 	silent = TRUE
-	allow_big_nesting = TRUE
 
 /datum/component/storage/concrete/implant/Initialize()
 	. = ..()

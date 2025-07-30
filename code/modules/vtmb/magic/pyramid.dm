@@ -835,6 +835,8 @@
 			message += "Seduction and allure are in the blood. Ah, one of the snakes.\n"
 		if(CLAN_NAGARAJA)
 			message += "This blood has an unsettling hunger to it, cold and stained with death.\n"
+		if(CLAN_SAMEDI)
+			message += "This blood is rotten and putrid. Yet also filled with death. It must be a Corpse Walker.\n"
 		else
 			message += "The blood's origin is hard to trace. Perhaps it is one of the clanless?\n"
 
