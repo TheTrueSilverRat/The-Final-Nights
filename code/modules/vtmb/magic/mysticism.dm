@@ -193,3 +193,14 @@
 	TIMER_COOLDOWN_START(invoker, COOLDOWN_RITUAL_INVOKE, 30 SECONDS)
 	playsound(rune_location, 'sound/magic/voidblink.ogg', 50, FALSE)
 	qdel(src)
+
+
+/obj/abyssrune/abyssal_blade
+	name = "Abyssal Blade"
+	desc = "Imbue a Blade with the Power of the Abyss. \n May Oblivion strike your Enemies Down."
+	icon_state = "rune5"
+	word = "MEMENTO MORI"
+	mystlevel = 3
+
+/obj/abyssrune/abyssal_blade/complete()
+

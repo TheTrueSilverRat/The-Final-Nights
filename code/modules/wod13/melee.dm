@@ -261,6 +261,36 @@
 	. = ..()
 	AddComponent(/datum/component/selling, 1800, "longsword", FALSE)
 
+
+/obj/item/melee/vampirearms/longsword/abyssalblade
+	name = "Abyssal Blade"
+	desc = "A weapon imbued with the hollowed powers of the Abyss. \n To Look upon it is to look upon Oblivion itself."
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "abyssalblade"
+	flags_1 = CONDUCT_1
+	force = 45
+	damtype = CLONE
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 40
+	armour_penetration = 40
+	sharpness = SHARP_EDGED
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	wound_bonus = 5
+	bare_wound_bonus = 25
+	resistance_flags = FIRE_PROOF
+	masquerade_violating = TRUE
+	is_iron = TRUE
+
+/obj/item/melee/vampirearms/longsword/keeper/afterattack(atom/target, mob/living/carbon/user, proximity)
+	. = ..()
+	if(isanimal(target)) //Used so that it still works against mobs
+		var/mob/living/simple_animal/M = target
+		M.apply_damage(60, BRUTE) //Fuck you Mobs
+
+
 /obj/item/melee/vampirearms/longsword/keeper
 	name = "The Brother's Keeper"
 	desc = "The ancient yet classic weapon of times gone, this is a longsword. This exemplar is surprisingly well taken care of, despite its age, to the point that whatever blood or vitae it may have drawn in the past is not visible at all, while still functioning as well as it first did however long ago. Upon the flat side of this blade, a simple well-worn inscription is engraved in Latin. 'In Death, I Rise.'"
