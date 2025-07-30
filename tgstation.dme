@@ -3690,6 +3690,7 @@
 #include "code\modules\wod13\datums\powers\discipline\quietus.dm"
 #include "code\modules\wod13\datums\powers\discipline\serpentis.dm"
 #include "code\modules\wod13\datums\powers\discipline\temporis.dm"
+#include "code\modules\wod13\datums\powers\discipline\thanatosis.dm"
 #include "code\modules\wod13\datums\powers\discipline\thaumaturgy.dm"
 #include "code\modules\wod13\datums\powers\discipline\vicissitude.dm"
 #include "code\modules\wod13\datums\powers\discipline\visceratika.dm"
