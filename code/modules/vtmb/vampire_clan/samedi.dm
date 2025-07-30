@@ -1,20 +1,21 @@
-/datum/vampire_clan/cappadocian
+/datum/vampire_clan/samedi
 	name = CLAN_SAMEDI
-	desc = "A presumed-to-be-extinct Clan of necromancers, the Cappadocians studied death specifically in the physical world. The Giovanni were Embraced into their line to help further their studies into the underworld. They were rewarded with Diablerie and the destruction of their Clan and founder."
+	desc = "A rare bloodline of Corpse Walkers based from their enigmatic founder simply called the Baron."
 	curse = "Extremely rotten dead form. Akin to a walking zombie."
 	clan_disciplines = list(
 		/datum/discipline/obfuscate,
 		/datum/discipline/fortitude,
 		/datum/discipline/necromancy
 	)
+	alt_sprite = "rotten4"
 
 	whitelisted = FALSE
 
-/datum/vampire_clan/cappadocian/on_gain(mob/living/carbon/human/H)
+/datum/vampire_clan/samedi/on_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.rot_body(4)
 
-/datum/vampire_clan/cappadocian/on_join_round(mob/living/carbon/human/H)
+/datum/vampire_clan/samedi/on_join_round(mob/living/carbon/human/H)
 	. = ..()
 
 	// Samedi Automatically Get the stuff to help them disguise themselves
