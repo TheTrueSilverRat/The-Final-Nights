@@ -203,4 +203,6 @@
 	mystlevel = 3
 
 /obj/abyssrune/abyssal_blade/complete()
-
+	var/obj/item/melee/vampirearms/longsword/abyssalblade/blade = new(last_activator)
+	last_activator.put_in_active_hand(blade)
+	qdel(src)

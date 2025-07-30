@@ -19,6 +19,7 @@
 			to_chat(user, "<span class='userdanger'>The acidic ichor sears your hand!</span>")
 			user.apply_damage(20, BURN)
 			user.Paralyze(1)
+			user.dropItemToGround()
 
 
 /obj/item/melee/vampirearms/afterattack(atom/A, mob/living/carbon/human/user, proximity)
@@ -283,6 +284,17 @@
 	resistance_flags = FIRE_PROOF
 	masquerade_violating = TRUE
 	is_iron = TRUE
+
+
+/obj/item/melee/vampirearms/longsword/abyssalblade/pickup(mob/living/user)
+	. = ..()
+	var/mob/living/carbon/human/wielder = user
+	if(wielder.clan != CLAN_LASOMBRA)
+		to_chat(user, span_userdanger("'You Are Not Fit To Wield Me' \n 'BEGONE'"))
+		user.apply_damage(30, CLONE)
+		user.Paralyze(2)
+
+
 
 /obj/item/melee/vampirearms/longsword/keeper/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
