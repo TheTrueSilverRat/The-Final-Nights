@@ -25,7 +25,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/tzimisce_beast
-	vampiric = TRUE
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler
 	name = "Blood Crawler"
@@ -35,7 +34,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/bloodcrawler
-	vampiric = TRUE
 
 /datum/vampire_clan/tzimisce/on_join_round(mob/living/carbon/human/H)
 	. = ..()

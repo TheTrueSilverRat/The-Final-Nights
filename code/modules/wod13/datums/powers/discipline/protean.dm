@@ -186,7 +186,6 @@
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
 	)
 	var/is_gangrel = FALSE
-	var/vampiric = TRUE
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/cast(list/targets,mob/user = usr)
 	if(src in user.mob_spell_list)

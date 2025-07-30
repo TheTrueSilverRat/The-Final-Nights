@@ -1310,7 +1310,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/crinos_beast
-	vampiric = TRUE
 
 /mob/living/simple_animal/hostile/crinos_beast
 	name = "Wolf-like Beast"
@@ -1407,8 +1406,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/smokecrawler
-	vampiric = TRUE
-
 /obj/effect/proc_holder/spell/targeted/shapeshift/hidden_smoke_form
 	name = "Smoke Form"
 	desc = "Take on the shape a Smoke."
@@ -1417,7 +1414,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/smokecrawler/hidden
-	vampiric = TRUE
 
 /mob/living/simple_animal/hostile/smokecrawler
 	name = "Smoke Form"

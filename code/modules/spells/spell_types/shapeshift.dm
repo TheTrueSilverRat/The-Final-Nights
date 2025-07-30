@@ -17,9 +17,7 @@
 	var/die_with_shapeshifted_form = TRUE
 	var/convert_damage = TRUE //If you want to convert the caster's health and blood to the shift, and vice versa.
 	var/convert_damage_type = BRUTE //Since simplemobs don't have advanced damagetypes, what to convert damage back into.
-///START OF TFN STUFF
-	var/vampiric = FALSE //Is this a Vampiric-related ability? kindred stuff
-///END OF TFN STUFF
+
 	var/mob/living/shapeshift_type
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,\
 		/mob/living/simple_animal/pet/dog/corgi,\
@@ -52,15 +50,12 @@
 				shapeshift_type = pick(animal_list)
 			shapeshift_type = animal_list[shapeshift_type]
 
+///START OF TFN MODIFIED STUFF
 		var/obj/shapeshift_holder/S = locate() in M
 		if(S)
 			M = Restore(M)
 		else
-///START OF TFN MODIFIED STUFF
-			if(vampiric)
-				M = Shapeshift(M, vampiric=TRUE)
-			else
-				M = Shapeshift(M, vampiric=FALSE)
+			M = Shapeshift(M)
 
 ///END OF TFN MODIFIED STUFF
 
@@ -77,7 +72,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/targeted/shapeshift/proc/Shapeshift(mob/living/caster, vampiric=FALSE)
+/obj/effect/proc_holder/spell/targeted/shapeshift/proc/Shapeshift(mob/living/caster)
 	var/obj/shapeshift_holder/H = locate() in caster
 	if(H)
 		to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
@@ -92,9 +87,12 @@
 	if(HAS_TRAIT(caster, TRAIT_WARRIOR) && !HAS_TRAIT(shape, TRAIT_WARRIOR))
 		ADD_TRAIT(shape, TRAIT_WARRIOR, ROUNDSTART_TRAIT)
 //TFN MODIFIED STUFF!!!!
-	if(vampiric)
-		var/datum/action/transform_back/restore = new()
-		restore.Grant(shape)
+	var/newgen = caster.generation
+	shape.generation = newgen
+	var/datum/action/transform_back/restore = new()
+	restore.Grant(shape)
+	var/datum/action/transform_blood_heal/heal = new()
+	heal.Grant(shape)
 //END OF TFN MODIFIED STUFF!!!!
 	clothes_req = FALSE
 	human_req = FALSE
@@ -136,24 +134,26 @@
 
 //Simplified Blood Heal for simplified forms
 /datum/action/transform_blood_heal
-	name = "Return to Form"
-	desc = "Transform back to your original form."
-	button_icon_state = "protean"
+	name = "Blood Heal (Simplified for Animals)"
+	desc = "Simplified version of Blood Heal but for Simple Transformations."
+	button_icon_state = "bloodheal"
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
 	background_icon_state = "gift"
 	icon_icon = 'code/modules/wod13/UI/actions.dmi'
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = null
 
 /datum/action/transform_back/Trigger(trigger_flags)
 	. = ..()
-	var/obj/shapeshift_holder/Shape = locate() in owner
-	if(Shape)
-		. =  Shape.stored
-		Shape.restore()
-	else
-		to_chat(owner, span_warning("You cannot transform back to your original form as you are already in your original form. Unless you believe it is not?"))
-
-
+	var/mob/living/C = owner
+	to_chat(C, "<span class='notice'>You activate the [name]...</span>")
+	if(C.stat != DEAD)
+		SEND_SOUND(C, sound('code/modules/wod13/sounds/bloodhealing.ogg', 0, 0, 75))
+		C.bloodpool -= 1
+		C.adjustBruteLoss(-40, TRUE)
+		C.adjustFireLoss(-30, TRUE)
+		C.adjustCloneLoss(-10, TRUE)
+		C.adjustToxLoss(-10, TRUE)
+		C.adjustOxyLoss(-20, TRUE)
 ///END OF TFN MODIFIED STUFF!!!
 
 
