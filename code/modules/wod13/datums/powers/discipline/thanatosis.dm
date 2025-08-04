@@ -43,7 +43,7 @@
 /datum/discipline_power/thanatosis/hag_wrinkles/deactivate()
 	. = ..()
 
-	owner.real_name = initial(real_name)
+	owner.real_name = initial(owner.real_name)
 
 	owner.update_body()
 
@@ -84,6 +84,25 @@
 
 
 //ASHES TO ASHES
+
+
+/mob/living/simple_animal/hostile/bloodcrawler/dust
+	name = "ashes"
+	desc = "Ashes to ashes, dust to dust, and into space."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "ash"
+	icon_living = "ash"
+	speed = 5
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 1
+	melee_damage_upper = 1
+	attack_verb_continuous = "splashes"
+	attack_verb_simple = "splash"
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust
+	shapeshift_type = /mob/living/simple_animal/hostile/bloodcrawler/dust
+
 /datum/discipline_power/thanatosis/ashes_to_ashes
 	name = "Ashes to Ashes"
 	desc = "Turn into ash to hide."
@@ -96,10 +115,23 @@
 
 	violates_masquerade = TRUE
 
+	duration_length = 10 SECONDS
 	cooldown_length = 10 SECONDS
+
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust/DUSTY
 
 /datum/discipline_power/thanatosis/ashes_to_ashes/activate(mob/target)
 	. = ..()
+	if (!DUSTY)
+		DUSTY = new(owner)
+	owner.drop_all_held_items()
+	DUSTY.Shapeshift(owner)
+
+//datum/discipline_power/thanatosis/ashes_to_ashes/deactivate()
+	. = ..()
+	DUSTY.Restore(DUSTY.myshape)
+	owner.Stun(1.5 SECONDS)
+	owner.do_jitter_animation(30)
 
 /datum/discipline_power/thanatosis/withering
 	name = "Withering"
