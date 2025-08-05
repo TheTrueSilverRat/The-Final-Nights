@@ -54,13 +54,14 @@
 
 	level = 2
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
+	target_type = TARGET_LIVING
 	vitae_cost = 1
 
 	effect_sound = 'code/modules/wod13/sounds/necromancy2.ogg'
 
 	violates_masquerade = TRUE
 
-	range = 1
+	range = 5
 	cooldown_length = 5 SECONDS
 
 /datum/discipline_power/thanatosis/putrefaction/activate(mob/living/target)
@@ -69,7 +70,7 @@
 	var/fortitudelevel
 	var/totaldice
 	var/totaldiff
-	for(var/datum/action/discipline/Disc in owner.actions)
+	for(var/datum/action/discipline/Disc in target.actions)
 		if(Disc.discipline.name == "Fortitude")
 			fortitudelevel = Disc.discipline.level
 	totaldice = (owner.get_total_dexterity() + discipline.level)
@@ -93,8 +94,8 @@
 	icon_state = "ash"
 	icon_living = "ash"
 	speed = 5
-	maxHealth = 300
-	health = 300
+	maxHealth = 500
+	health = 500
 	melee_damage_lower = 1
 	melee_damage_upper = 1
 	attack_verb_continuous = "splashes"
@@ -116,7 +117,7 @@
 	violates_masquerade = TRUE
 
 	duration_length = 10 SECONDS
-	cooldown_length = 10 SECONDS
+	cooldown_length = 1 TURNS
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust/DUSTY
 
@@ -127,7 +128,7 @@
 	owner.drop_all_held_items()
 	DUSTY.Shapeshift(owner)
 
-//datum/discipline_power/thanatosis/ashes_to_ashes/deactivate()
+/datum/discipline_power/thanatosis/ashes_to_ashes/deactivate()
 	. = ..()
 	DUSTY.Restore(DUSTY.myshape)
 	owner.Stun(1.5 SECONDS)
@@ -135,11 +136,11 @@
 
 /datum/discipline_power/thanatosis/withering
 	name = "Withering"
-	desc = "Place a chosen target, including yourself, into a corpse-like state."
+	desc = "Wither Bodies into Decay"
 
 	level = 4
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
-	target_type = TARGET_SELF | TARGET_LIVING
+	target_type = TARGET_LIVING
 	range = 5
 	vitae_cost = 1
 
@@ -149,24 +150,44 @@
 	hostile = TRUE
 	violates_masquerade = TRUE
 
-	multi_activate = TRUE
-	cooldown_length = 20 SECONDS
-	duration_length =	 20 SECONDS
+	cooldown_length = 1 TURNS
 
-/datum/discipline_power/thanatosis/cold_of_the_grave/activate(mob/living/target)
+/datum/discipline_power/thanatosis/withering/activate(mob/living/target)
 	. = ..()
+	var/fortitudelevel
+	var/totaldice
+	var/totaldiff
+	for(var/datum/action/discipline/Disc in target.actions)
+		if(Disc.discipline.name == "Fortitude")
+			fortitudelevel = Disc.discipline.level
+	totaldice = (owner.get_total_mentality() + discipline.level)
+	totaldiff = (target.get_total_physique() + fortitudelevel)
+	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+
+	if((mypower >= 1) && (mypower < 3))
+		target.adjustStaminaLoss(60)
+	else if(mypower >= 3)
+		if(iscarbon(target))
+			var/mob/living/carbon/deady = target
+			var/obj/item/bodypart/target_part = pick(deady.bodyparts)
+			var/datum/wound/blunt/critical/crit_wound = new
+			crit_wound.apply_wound(target_part)
+		else
+			target.adjustBruteLoss(200)
+	else
+		to_chat(owner, span_warning("Withering has failed to affect"))
 
 
 //SHAMBLING HORDE
-/datum/discipline_power/thanatosis/shambling_horde
-	name = "Shambling Horde"
-	desc = "Raise savage zombies from corpses, their lethality determined by source material. Attack the living, and rebuild sentient undead."
+/datum/discipline_power/thanatosis/necrosis
+	name = "Necrosis"
+	desc = "A more horrific version of Putrefaction"
 
 	level = 5
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
 	target_type = TARGET_MOB
-	range = 5 //less range than thaum, nerf if 2stronk
-
+	vitae_cost = 2
+	range = 5
 	effect_sound = 'code/modules/wod13/sounds/necromancy5.ogg'
 
 	aggravating = TRUE
@@ -175,5 +196,37 @@
 
 	cooldown_length = 5 SECONDS
 
-/datum/discipline_power/thanatosis/shambling_horde/activate(mob/living/target)
+/datum/discipline_power/thanatosis/necrosis/activate(mob/living/target)
 	. = ..()
+	. = ..()
+	var/fortitudelevel
+	var/totaldice
+	var/totaldiff
+	for(var/datum/action/discipline/Disc in target.actions)
+		if(Disc.discipline.name == "Fortitude")
+			fortitudelevel = Disc.discipline.level
+	totaldice = (owner.get_total_dexterity() + discipline.level)
+	totaldiff = (target.get_total_physique() + fortitudelevel)
+	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+
+
+	if(mypower >=1)
+		target.adjustBruteLoss(30 * mypower)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			switch(mypower)
+				if(2)
+					H.rot_body(1)
+				if(3)
+					H.rot_body(2)
+					H.dexterity -= 1
+				if(4)
+					H.rot_body(3)
+					H.dexterity -= 1
+					H.physique -= 1
+				if(5)
+					H.rot_body(4)
+					H.dexterity -= 1
+					H.physique -= 1
+	else
+		to_chat(owner, span_warning("Necrosis has failed to affect"))
