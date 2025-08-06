@@ -37,14 +37,30 @@
 /datum/discipline_power/thanatosis/hag_wrinkles/activate()
 	. = ..()
 
-	owner.real_name = "Unknown"
+	if((owner.clan == CLAN_CAPPADOCIAN) || (owner.clan == CLAN_SAMEDI))
+		owner.set_body_sprite = ("rotten1")
+	if(HAS_TRAIT_FROM(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT))
+		REMOVE_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
 	owner.update_body()
 
 /datum/discipline_power/thanatosis/hag_wrinkles/deactivate()
 	. = ..()
 
-	owner.real_name = initial(owner.real_name)
+	if(owner.clan == CLAN_SAMEDI)
+		owner.set_body_sprite = ("rotten4")
+		ADD_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
 
+	if(owner.clan == CLAN_CAPPADOCIAN)
+		var/years_undead = H.chronological_age - H.age
+		switch(years_undead)
+			if (-INFINITY to 100)
+				H.rot_body(1)
+			if (100 to 300)
+				H.rot_body(2)
+			if (300 to 500)
+				H.rot_body(3)
+			if (500 to INFINITY)
+				H.rot_body(4)
 	owner.update_body()
 
 //ETHEREAL HORDE
