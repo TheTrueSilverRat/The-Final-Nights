@@ -32,35 +32,37 @@
 
 	toggled = TRUE
 	duration_length = 0 SECONDS
+	var/isuglyornot = FALSE
 
 
 /datum/discipline_power/thanatosis/hag_wrinkles/activate()
 	. = ..()
 
 	if((owner.clan == CLAN_CAPPADOCIAN) || (owner.clan == CLAN_SAMEDI))
-		owner.set_body_sprite = ("rotten1")
-	if(HAS_TRAIT_FROM(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT))
+		owner.set_body_sprite("rotten1")
+	if(HAS_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE))
 		REMOVE_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
+		isuglyornot = TRUE
 	owner.update_body()
 
 /datum/discipline_power/thanatosis/hag_wrinkles/deactivate()
 	. = ..()
-
 	if(owner.clan == CLAN_SAMEDI)
-		owner.set_body_sprite = ("rotten4")
-		ADD_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
-
+		owner.set_body_sprite("rotten4")
 	if(owner.clan == CLAN_CAPPADOCIAN)
-		var/years_undead = H.chronological_age - H.age
+		var/years_undead = owner.chronological_age - owner.age
 		switch(years_undead)
 			if (-INFINITY to 100)
-				H.rot_body(1)
+				owner.rot_body(1)
 			if (100 to 300)
-				H.rot_body(2)
+				owner.rot_body(2)
 			if (300 to 500)
-				H.rot_body(3)
+				owner.rot_body(3)
 			if (500 to INFINITY)
-				H.rot_body(4)
+				owner.rot_body(4)
+
+	if(isuglyornot)
+		ADD_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
 	owner.update_body()
 
 //ETHEREAL HORDE
@@ -201,7 +203,7 @@
 
 	level = 5
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
-	target_type = TARGET_MOB
+	target_type = TARGET_HUMAN
 	vitae_cost = 2
 	range = 5
 	effect_sound = 'code/modules/wod13/sounds/necromancy5.ogg'
@@ -212,8 +214,7 @@
 
 	cooldown_length = 5 SECONDS
 
-/datum/discipline_power/thanatosis/necrosis/activate(mob/living/target)
-	. = ..()
+/datum/discipline_power/thanatosis/necrosis/activate(mob/living/carbon/human/target)
 	. = ..()
 	var/fortitudelevel
 	var/totaldice
@@ -228,21 +229,25 @@
 
 	if(mypower >=1)
 		target.adjustBruteLoss(30 * mypower)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			switch(mypower)
-				if(2)
-					H.rot_body(1)
-				if(3)
-					H.rot_body(2)
-					H.dexterity -= 1
-				if(4)
-					H.rot_body(3)
-					H.dexterity -= 1
-					H.physique -= 1
-				if(5)
-					H.rot_body(4)
-					H.dexterity -= 1
-					H.physique -= 1
+		switch(mypower)
+			if(1)
+				return
+			if(2)
+				target.rot_body(1)
+			if(3)
+				target.rot_body(2)
+				target.dexterity -= 1
+			if(4)
+				target.rot_body(3)
+				target.dexterity -= 1
+				target.physique -= 1
+			if(5)
+				target.rot_body(4)
+				target.dexterity -= 1
+				target.physique -= 1
+			else
+				target.rot_body(4)
+				target.dexterity -= 1
+				target.physique -= 1
 	else
 		to_chat(owner, span_warning("Necrosis has failed to affect"))
