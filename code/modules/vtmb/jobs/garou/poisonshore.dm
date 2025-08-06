@@ -92,7 +92,7 @@
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
 	minimal_masquerade = 5
-	allowed_species = list("Werewolf", "Vampire", "Human")
+	allowed_species = list("Werewolf", "Vampire", "Human", "Ghoul")
 	allowed_tribes = list("Black Spiral Dancers")
 	allowed_bloodlines = list(CLAN_TRUE_BRUJAH, CLAN_DAUGHTERS_OF_CACOPHONY, CLAN_SALUBRI, CLAN_BAALI, CLAN_BRUJAH, CLAN_TREMERE, CLAN_VENTRUE, CLAN_NOSFERATU, CLAN_TOREADOR, CLAN_MALKAVIAN, CLAN_GIOVANNI, CLAN_SETITES, CLAN_TZIMISCE, CLAN_LASOMBRA, CLAN_NONE)
 
@@ -282,7 +282,7 @@
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
 	minimal_masquerade = 3
-	allowed_species = list("Werewolf", "Vampire", "Human")
+	allowed_species = list("Werewolf", "Vampire", "Human", "Ghoul")
 	allowed_tribes = list("Black Spiral Dancers")
 	allowed_bloodlines = list(CLAN_TRUE_BRUJAH, CLAN_DAUGHTERS_OF_CACOPHONY, CLAN_SALUBRI, CLAN_BAALI, CLAN_BRUJAH, CLAN_TREMERE, CLAN_VENTRUE, CLAN_NOSFERATU, CLAN_TOREADOR, CLAN_MALKAVIAN, CLAN_GIOVANNI, CLAN_SETITES, CLAN_TZIMISCE, CLAN_LASOMBRA, CLAN_NONE)
 
