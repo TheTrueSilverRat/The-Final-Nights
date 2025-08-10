@@ -1,0 +1,4 @@
+author: "chazzyjazzy"
+delete-after: True
+changes:
+  - bugfix: "Cappadocian, Nosferatu, Kiasyd, and Gargoyle's slim and fat body models now correctly work and are no longer invisible"
