@@ -500,7 +500,7 @@
 			else
 				if(!HAS_TRAIT(H, TRAIT_FAIR_GLABRO))
 					H.remove_overlay(PROTEAN_LAYER)
-					var/mob/living/simple_animal/werewolf/crinos/crinos = H.transformator.crinos_form?.resolve()
+					var/mob/living/carbon/werewolf/crinos/crinos = H.transformator.crinos_form?.resolve()
 					var/mutable_appearance/glabro_overlay = mutable_appearance('code/modules/wod13/werewolf_abilities.dmi', crinos?.sprite_color, -PROTEAN_LAYER)
 					H.overlays_standing[PROTEAN_LAYER] = glabro_overlay
 					H.apply_overlay(PROTEAN_LAYER)
