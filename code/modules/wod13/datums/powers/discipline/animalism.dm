@@ -115,7 +115,7 @@
 
 //SUMMON BAT
 /datum/discipline_power/animalism/summon_bat
-	name = "Bloodsucker's Communion"
+	name = "The Might of Bears"
 	desc = "Summons a swarm of bats to drain blood from the victim and transfer it to you."
 
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
@@ -139,10 +139,10 @@
 		var/datum/action/beastmaster_deaggro/deaggro = new()
 		deaggro.Grant(owner)
 
-	var/mob/living/simple_animal/hostile/beastmaster/rat/flying/bat = new(get_turf(owner))
-	bat.my_creator = owner
-	owner.beastmaster |= bat
-	bat.beastmaster_owner = owner
+	var/mob/living/simple_animal/hostile/beastmaster/bear/gaoo = new(get_turf(owner))
+	gaoo.my_creator = owner
+	owner.beastmaster |= gaoo
+	gaoo.beastmaster_owner = owner
 
 //RAT SHAPESHIFT
 /obj/effect/proc_holder/spell/targeted/shapeshift/animalism
