@@ -39,7 +39,7 @@
 	. = ..()
 
 	if((owner.clan == CLAN_CAPPADOCIAN) || (owner.clan == CLAN_SAMEDI))
-		owner.set_body_sprite("rotten1")
+		owner.rot_body(1)
 	if(HAS_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE))
 		REMOVE_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
 		isuglyornot = TRUE
@@ -48,7 +48,7 @@
 /datum/discipline_power/thanatosis/hag_wrinkles/deactivate()
 	. = ..()
 	if(owner.clan == CLAN_SAMEDI)
-		owner.set_body_sprite("rotten4")
+		owner.rot_body(4)
 	if(owner.clan == CLAN_CAPPADOCIAN)
 		var/years_undead = owner.chronological_age - owner.age
 		switch(years_undead)
