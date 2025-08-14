@@ -1111,7 +1111,10 @@
 	source = null
 	return ..()
 
-/datum/status_effect/burning_touch
+
+///PUTREFACTION STUFF ROTTY ROTTY
+
+/datum/status_effect/putrefaction
 	id = "putrefaction"
 	status_type = STATUS_EFFECT_MULTIPLE
 	duration = 1 SCENES //3 Minutes
@@ -1130,4 +1133,51 @@
 /datum/status_effect/putrefaction/on_remove()
 	. = ..()
 	owner.social += 2
+
+
+/datum/status_effect/putrefaction/two
+	id = "putrefaction2"
+	status_type = STATUS_EFFECT_MULTIPLE
+	duration = 1 SCENES //3 Minutes
+	alert_type = /atom/movable/screen/alert/status_effect/putrefaction
+
+/datum/status_effect/putrefaction/two/on_apply()
+	. = ..()
+	owner.dexterity -= 1
+
+/datum/status_effect/putrefaction/two/on_remove()
+	. = ..()
+	owner.dexterity += 1
+
+/datum/status_effect/putrefaction/three
+	id = "putrefaction3"
+	status_type = STATUS_EFFECT_MULTIPLE
+	duration = 1 SCENES //3 Minutes
+	alert_type = /atom/movable/screen/alert/status_effect/putrefaction
+
+/datum/status_effect/putrefaction/three/on_apply()
+	. = ..()
+	owner.dexterity -= 1
+	owner.physique -= 1
+
+/datum/status_effect/putrefaction/three/on_remove()
+	. = ..()
+	owner.dexterity += 1
+	owner.physique += 1
+
+/datum/status_effect/putrefaction/four
+	id = "putrefaction4"
+	status_type = STATUS_EFFECT_MULTIPLE
+	duration = 1 SCENES //3 Minutes
+	alert_type = /atom/movable/screen/alert/status_effect/putrefaction
+
+/datum/status_effect/putrefaction/three/on_apply()
+	. = ..()
+	owner.dexterity -= 1
+	owner.physique -= 1
+
+/datum/status_effect/putrefaction/three/on_remove()
+	. = ..()
+	owner.dexterity += 1
+	owner.physique += 1
 

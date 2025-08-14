@@ -3,8 +3,8 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 1000
 	max_items = 1000
-	screen_max_columns = 5
-	screen_max_rows = 5
+	screen_max_columns = 4
+	screen_max_rows = 4
 	drop_all_on_destroy = TRUE
 	drop_all_on_deconstruct = TRUE
 	silent = TRUE

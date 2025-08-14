@@ -6,12 +6,6 @@
 	clan_restricted = TRUE
 	power_type = /datum/discipline_power/thanatosis
 
-/datum/discipline/thanatosis/post_gain()
-	. = ..()
-
-//Gets the funny name
-	var/obj/item/implant/storage/imp = new()
-	imp.implant(owner, owner)
 
 /datum/discipline_power/thanatosis
 	name = "Thanatosis power name"
@@ -30,40 +24,24 @@
 	activate_sound = 'code/modules/wod13/sounds/necromancy1on.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/necromancy1off.ogg'
 
-	toggled = TRUE
-	duration_length = 0 SECONDS
+	cancelable = TRUE
+	duration_length = 2 INGAME_HOURS
 	var/isuglyornot = FALSE
 
 
 /datum/discipline_power/thanatosis/hag_wrinkles/activate()
 	. = ..()
 
-	if((owner.clan == CLAN_CAPPADOCIAN) || (owner.clan == CLAN_SAMEDI))
-		owner.rot_body(1)
-	if(HAS_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE))
-		REMOVE_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
-		isuglyornot = TRUE
-	owner.update_body()
+	var/obj/item/implant/storage/imp = new()
+	imp.implant(owner, owner)
+
 
 /datum/discipline_power/thanatosis/hag_wrinkles/deactivate()
 	. = ..()
-	if(owner.clan == CLAN_SAMEDI)
-		owner.rot_body(4)
-	if(owner.clan == CLAN_CAPPADOCIAN)
-		var/years_undead = owner.chronological_age - owner.age
-		switch(years_undead)
-			if (-INFINITY to 100)
-				owner.rot_body(1)
-			if (100 to 300)
-				owner.rot_body(2)
-			if (300 to 500)
-				owner.rot_body(3)
-			if (500 to INFINITY)
-				owner.rot_body(4)
+	for(var/obj/item/implant/storage/i in owner.implants)
+		i.removed(owner)
 
-	if(isuglyornot)
-		ADD_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_FACE, MAGIC_TRAIT)
-	owner.update_body()
+
 
 //ETHEREAL HORDE
 /datum/discipline_power/thanatosis/putrefaction
@@ -106,14 +84,14 @@
 
 
 /mob/living/simple_animal/hostile/bloodcrawler/dust
-	name = "ashes"
+	name = "ash"
 	desc = "Ashes to ashes, dust to dust, and into space."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	icon_living = "ash"
-	speed = 5
-	maxHealth = 500
-	health = 500
+	speed = -0.5
+	maxHealth = 1000
+	health = 1000
 	melee_damage_lower = 1
 	melee_damage_upper = 1
 	attack_verb_continuous = "splashes"
@@ -134,7 +112,7 @@
 
 	violates_masquerade = TRUE
 
-	duration_length = 10 SECONDS
+	duration_length = 30 SECONDS
 	cooldown_length = 1 TURNS
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust/DUSTY
@@ -179,7 +157,7 @@
 		if(Disc.discipline.name == "Fortitude")
 			fortitudelevel = Disc.discipline.level
 	totaldice = (owner.get_total_mentality() + discipline.level)
-	totaldiff = (target.get_total_physique() + fortitudelevel)
+	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
 	if((mypower >= 1) && (mypower < 3))
@@ -223,7 +201,7 @@
 		if(Disc.discipline.name == "Fortitude")
 			fortitudelevel = Disc.discipline.level
 	totaldice = (owner.get_total_dexterity() + discipline.level)
-	totaldiff = (target.get_total_physique() + fortitudelevel)
+	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
 
@@ -233,20 +211,40 @@
 			if(1)
 				return
 			if(2)
-				target.rot_body(1)
+				target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
 			if(3)
-				target.rot_body(2)
+				target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
+				if(iscarbon(target))
+					for(var/i in target.bodyparts)
+						var/obj/item/bodypart/bodypart = i
+						var/datum/wound/burn/moderate/burnt = new
+						burnt.apply_wound(bodypart)
 				target.dexterity -= 1
 			if(4)
-				target.rot_body(3)
+				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTWO, owner)
+				if(iscarbon(target))
+					for(var/i in target.bodyparts)
+						var/obj/item/bodypart/bodypart = i
+						var/datum/wound/burn/severe/burnt = new
+						burnt.apply_wound(bodypart)
 				target.dexterity -= 1
 				target.physique -= 1
 			if(5)
-				target.rot_body(4)
+				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTHREE, owner)
+				if(iscarbon(target))
+					for(var/i in target.bodyparts)
+						var/obj/item/bodypart/bodypart = i
+						var/datum/wound/burn/critical/burnt = new
+						burnt.apply_wound(bodypart)
 				target.dexterity -= 1
 				target.physique -= 1
 			else
-				target.rot_body(4)
+				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONFOUR, owner)
+				if(iscarbon(target))
+					for(var/i in target.bodyparts)
+						var/obj/item/bodypart/bodypart = i
+						var/datum/wound/burn/critical/burnt = new
+						burnt.apply_wound(bodypart)
 				target.dexterity -= 1
 				target.physique -= 1
 	else

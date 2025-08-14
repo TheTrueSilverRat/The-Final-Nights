@@ -5,3 +5,6 @@
 #define STATUS_EFFECT_DIABLERIE_HIGH /datum/status_effect/diablerie_high
 #define STATUS_EFFECT_BURNING_TOUCH /datum/status_effect/burning_touch
 #define STATUS_EFFECT_PUTREFACTION /datum/status_effect/putrefaction
+#define STATUS_EFFECT_PUTREFACTIONTWO /datum/status_effect/putrefaction/two
+#define STATUS_EFFECT_PUTREFACTIONTHREE /datum/status_effect/putrefaction/three
+#define STATUS_EFFECT_PUTREFACTIONFOUR /datum/status_effect/putrefaction/four
