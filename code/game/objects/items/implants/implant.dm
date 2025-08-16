@@ -92,7 +92,7 @@
 	source.implants -= src
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.Grant(source)
+		A.Remove(source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
