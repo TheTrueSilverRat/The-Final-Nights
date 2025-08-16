@@ -169,19 +169,19 @@
 			for(var/datum/antagonist/A in host.mind.antag_datums)
 				if(A.objectives)
 					dat += "[printobjectives(A.objectives)]<BR>"
-		var/masquerade_level = " is clueless about my presence."
+		var/masquerade_level = " is ignorant to my true nature."
 		switch(host.masquerade)
 			if(4)
-				masquerade_level = " has some thoughts of awareness."
+				masquerade_level = " have some thoughts of awareness."
 			if(3)
-				masquerade_level = " is barely spotting the truth."
+				masquerade_level = " are barely spotting the truth."
 			if(2)
-				masquerade_level = " is starting to know."
+				masquerade_level = " are starting to know."
 			if(1)
 				masquerade_level = " knows me and my true nature."
 			if(0)
-				masquerade_level = " thinks I'm a monster and is hunting me."
-		dat += "West[masquerade_level]<BR>"
+				masquerade_level = " thinks I'm a monster and i hunting me."
+		dat += "The Mundane World [masquerade_level]<BR>"
 		var/dharma = "I'm mindless carrion-eater!"
 		switch(host.mind.dharma?.level)
 			if(1)
