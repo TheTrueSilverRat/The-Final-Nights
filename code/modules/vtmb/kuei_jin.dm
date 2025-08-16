@@ -174,13 +174,13 @@
 			if(4)
 				masquerade_level = " have some thoughts of awareness."
 			if(3)
-				masquerade_level = " are barely spotting the truth."
+				masquerade_level = " is almost uncovering the truth."
 			if(2)
-				masquerade_level = " are starting to know."
+				masquerade_level = " almost certainly knows."
 			if(1)
 				masquerade_level = " knows me and my true nature."
 			if(0)
-				masquerade_level = " thinks I'm a monster and i hunting me."
+				masquerade_level = " thinks I'm a monster and is hunting me down."
 		dat += "The Mundane World [masquerade_level]<BR>"
 		var/dharma = "I'm mindless carrion-eater!"
 		switch(host.mind.dharma?.level)
