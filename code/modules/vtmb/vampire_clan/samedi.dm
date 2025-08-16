@@ -9,7 +9,7 @@
 	)
 	alt_sprite = "rotten4"
 
-	whitelisted = FALSE
+	whitelisted = TRUE
 
 /datum/vampire_clan/samedi/on_gain(mob/living/carbon/human/H)
 	. = ..()
