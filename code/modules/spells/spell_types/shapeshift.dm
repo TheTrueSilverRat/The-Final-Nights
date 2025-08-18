@@ -91,8 +91,6 @@
 	shape.generation = newgen
 	var/datum/action/transform_back/restore = new()
 	restore.Grant(shape)
-	var/datum/action/transform_blood_heal/heal = new()
-	heal.Grant(shape)
 //END OF TFN MODIFIED STUFF!!!!
 	clothes_req = FALSE
 	human_req = FALSE
@@ -132,28 +130,6 @@
 	else
 		to_chat(owner, span_warning("You cannot transform back to your original form as you are already in your original form. Unless you believe it is not?"))
 
-//Simplified Blood Heal for simplified forms
-/datum/action/transform_blood_heal
-	name = "Blood Heal (Simplified for Animals)"
-	desc = "Simplified version of Blood Heal but for Simple Transformations."
-	button_icon_state = "bloodheal"
-	button_icon = 'code/modules/wod13/UI/actions.dmi'
-	background_icon_state = "gift"
-	icon_icon = 'code/modules/wod13/UI/actions.dmi'
-	check_flags = null
-
-/datum/action/transform_back/Trigger(trigger_flags)
-	. = ..()
-	var/mob/living/C = owner
-	to_chat(C, "<span class='notice'>You activate the [name]...</span>")
-	if(C.stat != DEAD)
-		SEND_SOUND(C, sound('code/modules/wod13/sounds/bloodhealing.ogg', 0, 0, 75))
-		C.bloodpool -= 1
-		C.adjustBruteLoss(-40, TRUE)
-		C.adjustFireLoss(-30, TRUE)
-		C.adjustCloneLoss(-10, TRUE)
-		C.adjustToxLoss(-10, TRUE)
-		C.adjustOxyLoss(-20, TRUE)
 ///END OF TFN MODIFIED STUFF!!!
 
 

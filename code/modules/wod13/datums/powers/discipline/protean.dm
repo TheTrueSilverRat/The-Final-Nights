@@ -172,18 +172,24 @@
 	possible_shapes = list(
 		/mob/living/simple_animal/hostile/bear/wod13/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
+		/mob/living/simple_animal/hostile/shapeshift, \
 		/mob/living/simple_animal/pet/dog/corgi, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/gray, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/red, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/white, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/ginger, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/brown
+		/mob/living/simple_animal/hostile/shapeshift/wolf, \
+		/mob/living/simple_animal/hostile/shapeshift/wolf/gray, \
+		/mob/living/simple_animal/hostile/shapeshift/wolf/red, \
+		/mob/living/simple_animal/hostile/shapeshift/wolf/white, \
+		/mob/living/simple_animal/hostile/shapeshift/wolf/ginger, \
+		/mob/living/simple_animal/hostile/shapeshift/wolf/brown, \
+		/mob/living/simple_animal/hostile/shapeshift/dog, \
+		/mob/living/simple_animal/hostile/shapeshift/dog/gray, \
+		/mob/living/simple_animal/hostile/shapeshift/dog/red, \
+		/mob/living/simple_animal/hostile/shapeshift/dog/white, \
+		/mob/living/simple_animal/hostile/shapeshift/dog/ginger, \
+		/mob/living/simple_animal/hostile/shapeshift/dog/brown
 	)
 	var/non_gangrel_shapes = list(
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
+		/mob/living/simple_animal/hostile/shapeshift/wolf
 	)
 	var/is_gangrel = FALSE
 
@@ -269,9 +275,9 @@
 /mob/living/simple_animal/hostile/smokecrawler/mist
 	name = "Mist"
 	desc = "Levitating Spritz of Water."
-	speed = -1
+	speed = 0
 	alpha = 20
-	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 /datum/discipline_power/protean/mist_form
 	name = "Mist Form"

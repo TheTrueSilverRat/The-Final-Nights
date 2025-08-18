@@ -4,6 +4,7 @@
 	icon = 'code/modules/wod13/64x64.dmi'
 	emote_hear = list("roars.")
 	emote_see = list("shakes its head.", "stomps.")
+	attack_sound = 'code/modules/wod13/sounds/werewolf_bite.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 7)
 	response_help_continuous = "pokes"
 	response_help_simple = "poke"
