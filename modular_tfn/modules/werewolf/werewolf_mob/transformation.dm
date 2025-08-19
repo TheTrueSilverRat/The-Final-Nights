@@ -58,6 +58,8 @@
 	transfer_to.setCloneLoss(target_clone_damage)
 	if(HAS_TRAIT(transfer_from, TRAIT_WARRIOR) && !HAS_TRAIT(transfer_to, TRAIT_WARRIOR))
 		ADD_TRAIT(transfer_to, TRAIT_WARRIOR, ROUNDSTART_TRAIT)
+	if(HAS_TRAIT(transfer_from, TRAIT_WYRMTAINTED) && !HAS_TRAIT(transfer_to, TRAIT_WYRMTAINTED))
+		ADD_TRAIT(transfer_to, TRAIT_WYRMTAINTED, ROUNDSTART_TRAIT)
 
 	transfer_from.fire_stacks = transfer_to.fire_stacks
 	transfer_from.on_fire = transfer_to.on_fire
