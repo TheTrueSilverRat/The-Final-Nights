@@ -40253,6 +40253,10 @@
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/clinic)
+"kwk" = (
+/obj/effect/landmark/start/sabbatist,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/sabbat_lair)
 "kwn" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	color = "#574d46";
@@ -91143,10 +91147,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/vtm/interior)
-"xCp" = (
-/obj/effect/landmark/start/sabbatist,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/sabbat_lair)
 "xCr" = (
 /obj/effect/decal/bordur{
 	dir = 6
@@ -102022,7 +102022,7 @@ xfw
 rCB
 hYX
 idX
-xCp
+kwk
 wGV
 reI
 hYX
@@ -102426,7 +102426,7 @@ bef
 rCB
 hYX
 reI
-xCp
+kwk
 wGV
 frZ
 hYX
@@ -102628,8 +102628,8 @@ bef
 rCB
 hYX
 mac
-xCp
-xCp
+kwk
+kwk
 hYX
 hYX
 hYX
