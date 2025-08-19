@@ -20528,6 +20528,11 @@
 	},
 /obj/item/vamp/keys/sabbat,
 /obj/item/vamp/keys/sabbat,
+/obj/item/vamp/keys/sabbat,
+/obj/item/vamp/keys/sabbat,
+/obj/item/vamp/keys/sabbat,
+/obj/item/vamp/keys/sabbat,
+/obj/item/vamp/keys/sabbat,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/sabbat_lair)
 "fsu" = (
@@ -45969,6 +45974,7 @@
 	pixel_y = 15;
 	pixel_x = 7
 	},
+/obj/effect/landmark/start/sabbatist,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/sabbat_lair)
 "lVk" = (
@@ -91137,6 +91143,10 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/vtm/interior)
+"xCp" = (
+/obj/effect/landmark/start/sabbatist,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/sabbat_lair)
 "xCr" = (
 /obj/effect/decal/bordur{
 	dir = 6
@@ -102012,7 +102022,7 @@ xfw
 rCB
 hYX
 idX
-wGV
+xCp
 wGV
 reI
 hYX
@@ -102416,7 +102426,7 @@ bef
 rCB
 hYX
 reI
-wGV
+xCp
 wGV
 frZ
 hYX
@@ -102618,8 +102628,8 @@ bef
 rCB
 hYX
 mac
-wGV
-wGV
+xCp
+xCp
 hYX
 hYX
 hYX
