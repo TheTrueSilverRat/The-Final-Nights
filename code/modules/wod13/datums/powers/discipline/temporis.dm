@@ -83,20 +83,63 @@
 	multiplicative_slowdown = 7.5
 
 //PATIENCE OF THE NORNS
-/datum/discipline_power/temporis/patience_of_the_norns
-	name = "Patience of the Norns"
+/datum/discipline_power/temporis/cowalker
+	name = "Cowalker"
 	desc = "Be in multiple places at once, creating several false images."
 
 	level = 4
-	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
-
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_DIRECT_SEE
+	target_type = TARGET_TURF
+	range = 14
+	activate_sound = null
 	violates_masquerade = TRUE
 
-	cancelable = TRUE
-	duration_length = 10 SECONDS
-	cooldown_length = 15 SECONDS
+	cooldown_length = 2 SECONDS
 
-/datum/discipline_power/temporis/patience_of_the_norns/activate()
+/datum/discipline_power/temporis/cowalker/can_activate(turf/open/target)
+	. = ..()
+
+	var/turf/T = get_turf(target)
+	for(var/mob/living/L in T)
+		if(L.anchored || L.mob_size > MOB_SIZE_TINY && L.density)
+			if(owner)
+				to_chat(owner, span_warning("There's someone on that spot!!") )
+			return FALSE
+	if(T.is_blocked_turf())
+		if(owner)
+			to_chat(owner, span_warning("There's a wall on that spot!!") )
+		return FALSE
+
+	for(var/obj/structure/sus in T)
+		if(owner)
+			to_chat(owner, span_warning("There's a structure blocking our path!!") )
+		return FALSE
+
+
+	return .
+
+/*
+/datum/action/innate/dash/proc/Teleport(mob/user, atom/target)
+	if(!IsAvailable())
+		return
+	var/turf/T = get_turf(target)
+	if(target in view(user.client.view, user))
+		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
+		user.forceMove(T)
+		playsound(T, dash_sound, 25, TRUE)
+		var/obj/spot2 = new phasein(get_turf(user), user.dir)
+		spot1.Beam(spot2,beam_effect,time=2 SECONDS)
+		current_charges--
+		holder.update_action_buttons_icon()
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
+*/
+
+/datum/discipline_power/temporis/cowalker/activate(turf/open/target)
+	. = ..()
+	playsound(get_turf(owner), 'code/modules/wod13/sounds/temporis.ogg', 50, TRUE)
+	owner.forceMove(target)
+
+/*
 	. = ..()
 	var/matrix/initial_matrix = matrix(owner.transform)
 	var/matrix/secondary_matrix = matrix(owner.transform)
@@ -126,6 +169,7 @@
 		animate(temporis_visual, pixel_x = rand(-32,32), pixel_y = rand(-32,32), alpha = 255, time = 1 SECONDS)
 		if(owner.CheckEyewitness(owner, owner, 7, FALSE))
 			owner.AdjustMasquerade(-1)
+*/
 
 /obj/effect/temporis
 	name = "Za Warudo"
@@ -136,6 +180,8 @@
 	. = ..()
 	spawn(0.5 SECONDS)
 		qdel(src)
+
+
 
 //CLOTHO'S GIFT
 /datum/discipline_power/temporis/clothos_gift
