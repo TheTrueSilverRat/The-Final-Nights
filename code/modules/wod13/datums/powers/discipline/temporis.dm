@@ -119,26 +119,34 @@
 
 	return .
 
-/*
-/datum/action/innate/dash/proc/Teleport(mob/user, atom/target)
-	if(!IsAvailable())
-		return
-	var/turf/T = get_turf(target)
-	if(target in view(user.client.view, user))
-		var/obj/spot1 = new phaseout(get_turf(user), user.dir)
-		user.forceMove(T)
-		playsound(T, dash_sound, 25, TRUE)
-		var/obj/spot2 = new phasein(get_turf(user), user.dir)
-		spot1.Beam(spot2,beam_effect,time=2 SECONDS)
-		current_charges--
-		holder.update_action_buttons_icon()
-		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
-*/
-
 /datum/discipline_power/temporis/cowalker/activate(turf/open/target)
 	. = ..()
-	playsound(get_turf(owner), 'code/modules/wod13/sounds/temporis.ogg', 50, TRUE)
+	var/obj/effect/temporis/temporis_visual1
+	temporis_visual1.name = owner.name
+	temporis_visual1.appearance = owner.appearance
+	temporis_visual1.dir = owner.dir
+	var/obj/effect/temporis/temporis_visual1/temporis_visual2
+	var/obj/effect/temporis/temporis_visual1/temporis_visual3
+
+	temporis_visual1 = new(owner.loc)
+	animate(temporis_visual1, time = 3 SECONDS)
+
+
+
 	owner.forceMove(target)
+
+	var/list/available_turfs = list()
+	for(var/turf/open/O in oview(7, owner))
+		if(O)
+			available_turfs += O
+	var/turf/other_visual = pick(available_turfs)
+
+	temporis_visual2 = new(get_turf(other_visual))
+	animate(temporis_visual2, time = 3 SECONDS)
+
+	temporis_visual3 = new(get_turf(target))
+	animate(temporis_visual3, time = 3 SECONDS)
+	playsound(get_turf(owner), 'code/modules/wod13/sounds/temporis.ogg', 50, TRUE)
 
 /*
 	. = ..()
@@ -182,7 +190,13 @@
 	spawn(0.5 SECONDS)
 		qdel(src)
 
+/obj/effect/temporis/cowalker //Specifically used to allow for longer time lasting
+	name = "Now You See Me"
 
+/obj/effect/temporis/Initialize()
+	. = ..()
+	spawn(3 SECONDS)
+		qdel(src)
 
 //CLOTHO'S GIFT
 /datum/discipline_power/temporis/clothos_gift
