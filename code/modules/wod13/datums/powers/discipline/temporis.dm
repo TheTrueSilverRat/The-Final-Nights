@@ -111,9 +111,10 @@
 		return FALSE
 
 	for(var/obj/structure/sus in T)
-		if(owner)
-			to_chat(owner, span_warning("There's a structure blocking our path!!") )
-		return FALSE
+		if(sus.density)
+			if(owner)
+				to_chat(owner, span_warning("There's a structure blocking our path!!") )
+			return FALSE
 
 
 	return .
