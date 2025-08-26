@@ -147,7 +147,7 @@
 		if(Disc.discipline.name == "Fortitude")
 			fortitudelevel = Disc.discipline.level
 	totaldice = (owner.get_total_physique() + fortitudelevel)
-	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = 7, mobs_to_show_output = owner, numerical = TRUE)
+	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = 8, mobs_to_show_output = owner, numerical = TRUE)
 	mypower = clamp(mypower, 1, 5)
 	owner.physiology.armor.melee += (15*mypower)
 	owner.physiology.armor.bullet += (15*mypower)
