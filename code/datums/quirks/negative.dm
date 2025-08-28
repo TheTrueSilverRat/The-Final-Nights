@@ -49,7 +49,7 @@
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
 	medical_record_text = "Patient has permanent blindness."
 	hardcore_value = 15
-	mood_quirk = TRUE
+	mood_quirk = FALSE // TFN EDIT
 
 /datum/quirk/blindness/add()
 	quirk_holder.become_blind(ROUNDSTART_TRAIT)
@@ -110,7 +110,7 @@
 	lose_text = "<span class='notice'>You're able to hear again!</span>"
 	medical_record_text = "Patient's cochlear nerve is incurably damaged."
 	hardcore_value = 12
-	mood_quirk = FALSE
+	mood_quirk = FALSE //TFN EDIT
 
 
 /datum/quirk/depression
