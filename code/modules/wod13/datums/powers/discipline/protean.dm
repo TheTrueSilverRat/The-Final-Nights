@@ -253,7 +253,7 @@
 
 
 /datum/discipline_power/protean/shape_of_the_beast/pre_activation_checks()
-	to_chat(owner, span_warning("You begin transforming"))
+	to_chat(owner, span_warning("You begin transforming..."))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
 		return TRUE
 
