@@ -126,7 +126,7 @@
 
 /datum/discipline_power/protean/earth_meld
 	name = "Earth Meld"
-	desc = "Place yourself on Earth."
+	desc = "Place yourself in the Earth."
 
 	level = 3
 
