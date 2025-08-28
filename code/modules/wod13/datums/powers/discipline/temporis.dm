@@ -90,7 +90,7 @@
 	level = 4
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_DIRECT_SEE
 	target_type = TARGET_TURF
-	range = 14
+	range = 7
 	activate_sound = null
 	violates_masquerade = TRUE
 
