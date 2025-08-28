@@ -49,15 +49,11 @@
 			if(!shapeshift_type) //If you aren't gonna decide I am!
 				shapeshift_type = pick(animal_list)
 			shapeshift_type = animal_list[shapeshift_type]
-
-///START OF TFN MODIFIED STUFF
 		var/obj/shapeshift_holder/S = locate() in M
 		if(S)
 			M = Restore(M)
 		else
 			M = Shapeshift(M)
-
-///END OF TFN MODIFIED STUFF
 
 /**
  * check_menu: Checks if we are allowed to interact with a radial menu
@@ -86,7 +82,7 @@
 	H = new(shape,src,caster)
 	if(HAS_TRAIT(caster, TRAIT_WARRIOR) && !HAS_TRAIT(shape, TRAIT_WARRIOR))
 		ADD_TRAIT(shape, TRAIT_WARRIOR, ROUNDSTART_TRAIT)
-//TFN MODIFIED STUFF!!!!
+//TFN MODIFIED STUFF!!!! PR: Reworking Protean a b̶i̶t̶ lot as well as Transformations boogaloo 2.0
 	var/newgen = caster.generation
 	shape.generation = newgen
 	var/datum/action/transform_back/restore = new()
@@ -107,7 +103,7 @@
 	clothes_req = initial(clothes_req)
 	human_req = initial(human_req)
 
-///TFN MODIFIED STUFF!!
+///TFN MODIFIED STUFF!! Reworking Protean a b̶i̶t̶ lot as well as Transformations boogaloo 2.0
 
 //Abilities for Vampire related Shapeshifting
 

@@ -71,6 +71,13 @@
 	toggled = TRUE
 	duration_length = 2 TURNS
 
+	grouped_powers = list(
+		/datum/discipline_power/protean/earth_meld,
+		/datum/discipline_power/protean/shape_of_the_beast,
+		/datum/discipline_power/protean/mist_form
+	)
+
+
 /datum/discipline_power/protean/feral_claws/activate()
 	. = ..()
 	owner.drop_all_held_items()
@@ -136,6 +143,12 @@
 
 	cancelable = TRUE
 	duration_length = 999 SCENES
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/shape_of_the_beast,
+		/datum/discipline_power/protean/mist_form
+	)
 
 /datum/discipline_power/protean/earth_meld/activate()
 	. = ..()
@@ -246,13 +259,17 @@
 	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/mist_form
 	)
+
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
 
 
 /datum/discipline_power/protean/shape_of_the_beast/pre_activation_checks()
+	. = ..()
 	to_chat(owner, span_warning("You begin transforming..."))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
 		return TRUE
@@ -295,12 +312,16 @@
 	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/shape_of_the_beast
 	)
+
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist/GA
 
 /datum/discipline_power/protean/mist_form/pre_activation_checks()
+	. = ..()
 	to_chat(owner, span_warning("You begin transforming"))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
 		return TRUE
