@@ -152,7 +152,7 @@
 			owner.torpor("Earth Meld")
 			return FALSE
 		if(ROLL_FAILURE)
-			to_chat(owner, "<span class= 'warning'> YOU ARE UNABLE TO DIG YOURSELF OUT</span>")
+			to_chat(owner, span_warning("YOU ARE UNABLE TO DIG YOURSELF OUT"))
 			return FALSE
 		if(ROLL_SUCCESS)
 			owner.forceMove(get_turf(owner))
