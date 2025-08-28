@@ -148,7 +148,7 @@
 	var/meld_check = SSroll.storyteller_roll(owner.morality_path.score, difficulty = 6, mobs_to_show_output = owner, numerical = FALSE)
 	switch(meld_check)
 		if(ROLL_BOTCH)
-			to_chat(owner, "<span class= 'warning'>Mother Earth Calls you to its Warm Embrace</span>")
+			to_chat(owner, span_warning("Mother Earth calls you to its warm embrace..."))
 			owner.torpor("Earth Meld")
 			return FALSE
 		if(ROLL_FAILURE)
