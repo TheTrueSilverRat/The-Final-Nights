@@ -121,16 +121,8 @@
 
 /datum/discipline_power/temporis/cowalker/activate(turf/open/target)
 	. = ..()
-	var/obj/effect/temporis/temporis_visual1
-	temporis_visual1.name = owner.name
-	temporis_visual1.appearance = owner.appearance
-	temporis_visual1.dir = owner.dir
-	var/obj/effect/temporis/temporis_visual1/temporis_visual2
-	var/obj/effect/temporis/temporis_visual1/temporis_visual3
-
-	temporis_visual1 = new(owner.loc)
-	animate(temporis_visual1, time = 3 SECONDS)
-
+	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(celerity_explode))
+	temporis_visual(get_turf(owner))
 
 
 	owner.forceMove(target)
@@ -140,45 +132,20 @@
 		if(O)
 			available_turfs += O
 	var/turf/other_visual = pick(available_turfs)
+	temporis_visual(other_visual)
 
-	temporis_visual2 = new(get_turf(other_visual))
-	animate(temporis_visual2, time = 3 SECONDS)
 
-	temporis_visual3 = new(get_turf(target))
-	animate(temporis_visual3, time = 3 SECONDS)
+	temporis_visual(target)
 	playsound(get_turf(owner), 'code/modules/wod13/sounds/temporis.ogg', 50, TRUE)
 
-/*
-	. = ..()
-	var/matrix/initial_matrix = matrix(owner.transform)
-	var/matrix/secondary_matrix = matrix(owner.transform)
-	var/matrix/tertiary_matrix = matrix(owner.transform)
-	initial_matrix.Translate(1,0)
-	secondary_matrix.Translate(0,1)
-	tertiary_matrix.Translate(1)
-	animate(owner, transform = initial_matrix, time = 1 SECONDS, loop = 0)
-	animate(owner, transform = secondary_matrix, time = 1 SECONDS, loop = 0, ANIMATION_PARALLEL)
-	animate(owner, transform = tertiary_matrix, time = 1 SECONDS, loop = 0, ANIMATION_PARALLEL)
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(temporis_visual))
-	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(celerity_explode))
-
-/datum/discipline_power/temporis/patience_of_the_norns/deactivate()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
-
-/datum/discipline_power/temporis/patience_of_the_norns/proc/temporis_visual(datum/discipline_power/temporis/source, atom/newloc, dir)
-	SIGNAL_HANDLER
+/datum/discipline_power/temporis/cowalker/proc/temporis_visual(turf/source)
 
 	spawn()
-		var/obj/effect/temporis/temporis_visual = new(owner.loc)
+		var/obj/effect/cowalker/temporis_visual = new(source)
 		temporis_visual.name = owner.name
 		temporis_visual.appearance = owner.appearance
 		temporis_visual.dir = owner.dir
-		animate(temporis_visual, pixel_x = rand(-32,32), pixel_y = rand(-32,32), alpha = 255, time = 1 SECONDS)
-		if(owner.CheckEyewitness(owner, owner, 7, FALSE))
-			owner.AdjustMasquerade(-1)
-*/
+		animate(temporis_visual, pixel_x = rand(-32,32), pixel_y = rand(-32,32), alpha = 155, time = 2.5 SECONDS)
 
 /obj/effect/temporis
 	name = "Za Warudo"
@@ -190,12 +157,14 @@
 	spawn(0.5 SECONDS)
 		qdel(src)
 
-/obj/effect/temporis/cowalker //Specifically used to allow for longer time lasting
+/obj/effect/cowalker //Specifically used to allow for longer time lasting
 	name = "Now You See Me"
+	desc = "..."
+	anchored = 1
 
-/obj/effect/temporis/Initialize()
+/obj/effect/cowalker/Initialize()
 	. = ..()
-	spawn(3 SECONDS)
+	spawn(2.5 SECONDS)
 		qdel(src)
 
 //CLOTHO'S GIFT
