@@ -23,18 +23,12 @@
 
 /datum/species/garou/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE) || HAS_TRAIT(src, TRAIT_WYRMTAINTED) || glabro)
+	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE) || HAS_TRAIT(src, TRAIT_WYRMTAINTED) || (glabro && !HAS_TRAIT(H, TRAIT_FAIR_GLABRO)))
 		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
 	if(COOLDOWN_FINISHED(H, bloodpool_restore))
 		COOLDOWN_START(H, bloodpool_restore, GAROU_BP_REGEN)
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
-
-/*
-	if(glabro && !HAS_TRAIT(H, TRAIT_FAIR_GLABRO))
-		if(H.CheckEyewitness(H, H, 3, FALSE))
-			H.adjust_veil(-1,random = -1)
-*/
 
 /mob/living/carbon/werewolf/crinos/Life()
 	. = ..()
