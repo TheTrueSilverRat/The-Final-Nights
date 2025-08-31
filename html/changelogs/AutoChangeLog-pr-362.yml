@@ -1,0 +1,4 @@
+author: "XeonMations"
+delete-after: True
+changes:
+  - refactor: "Refactored the way the masquerade system works to be more RP friendly and more brutal."
