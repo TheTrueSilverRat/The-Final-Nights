@@ -146,6 +146,7 @@
 		temporis_visual.appearance = owner.appearance
 		temporis_visual.dir = owner.dir
 		animate(temporis_visual, pixel_x = rand(-32,32), pixel_y = rand(-32,32), alpha = 155, time = 2.5 SECONDS)
+		SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)
 
 /obj/effect/temporis
 	name = "Za Warudo"
@@ -205,8 +206,7 @@
 		temporis_visual.appearance = owner.appearance
 		temporis_visual.dir = owner.dir
 		animate(temporis_visual, pixel_x = rand(-32,32), pixel_y = rand(-32,32), alpha = 155, time = 0.5 SECONDS)
-		if(owner.CheckEyewitness(owner, owner, 7, FALSE))
-			owner.AdjustMasquerade(-1)
+		SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)
 
 /datum/movespeed_modifier/temporis5
 	multiplicative_slowdown = -2.5

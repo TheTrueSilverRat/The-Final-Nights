@@ -550,7 +550,7 @@
 					weaver_taint--
 				if(istype(wolf,/mob/living/carbon/werewolf))
 					var/mob/living/carbon/werewolf/werewolf = src
-					if(werewolf.wyrm_tainted)
+					if(HAS_TRAIT(werewolf, TRAIT_WYRMTAINTED))
 						wyrm_taint++
 						wyld_taint--
 						weaver_taint--
@@ -607,8 +607,10 @@
 	if(custom_examine_message)
 		. += span_purple(custom_examine_message)
 
-	if(ishuman(user))
-		. += "<a href='byond://?src=[REF(src)];masquerade=1'>Spot a Masquerade violation</a>"
+	if(ishumanbasic(user))
+		. += "<a href='byond://?src=[REF(src)];masquerade=1'>Report a Masquerade violation</a>"
+		. += "---------------"
+		. += "<a href='byond://?src=[REF(src)];reinforcement=1'>Report a Masquerade reinforcement</a>"
 
 	. += flavor_text_creation()
 
@@ -656,7 +658,7 @@
 			. += span_info("<b>Traits:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]")
 	. += "</span>"
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
