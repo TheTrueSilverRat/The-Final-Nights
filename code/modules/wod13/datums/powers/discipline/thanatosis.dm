@@ -26,7 +26,6 @@
 
 	cancelable = TRUE
 	duration_length = 2 INGAME_HOURS
-	var/isuglyornot = FALSE
 
 
 /datum/discipline_power/thanatosis/hag_wrinkles/activate()
