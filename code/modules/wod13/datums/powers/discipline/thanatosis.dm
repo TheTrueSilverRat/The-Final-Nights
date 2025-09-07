@@ -302,9 +302,11 @@
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
 
-	if(mypower >=1)
-		target.adjustBruteLoss(30 * mypower)
-		switch(mypower)
+	if(mypower <= 1)
+		to_chat(owner, span_warning("Necrosis has failed to affect them!"))
+		return
+	target.adjustBruteLoss(30 * mypower)
+	switch(mypower)
 			if(1)
 				return
 			if(2)
