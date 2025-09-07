@@ -114,18 +114,18 @@
 	duration_length = 30 SECONDS
 	cooldown_length = 1 TURNS
 
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust/DUSTY
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/dust/dust_transformation
 
 /datum/discipline_power/thanatosis/ashes_to_ashes/activate(mob/target)
 	. = ..()
-	if (!DUSTY)
-		DUSTY = new(owner)
+	if (!dust_transformation)
+		dust_transformation = new(owner)
 	owner.drop_all_held_items()
-	DUSTY.Shapeshift(owner)
+	dust_transformation.Shapeshift(owner)
 
 /datum/discipline_power/thanatosis/ashes_to_ashes/deactivate()
 	. = ..()
-	DUSTY.Restore(DUSTY.myshape)
+	dust_transformation.Restore(dust_transformation.myshape)
 	owner.Stun(1.5 SECONDS)
 	owner.do_jitter_animation(30)
 
