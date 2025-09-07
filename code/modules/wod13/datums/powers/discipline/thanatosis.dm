@@ -144,9 +144,15 @@
 	var/fortitudelevel
 	var/totaldice
 	var/totaldiff
-	for(var/datum/action/discipline/Disc in target.actions)
-		if(Disc.discipline.name == "Fortitude")
-			fortitudelevel = Disc.discipline.level
+	var/mob/living/carbon/human/vampire = target
+	if(iskindred(vampire))
+		var/datum/species/kindred/clan = vampire.dna.species
+		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
+		if(fortitude_check)
+			to_chat(world, "Fortitude Check worked")
+			fortitudelevel = fortitude_check.level
+
+
 	totaldice = (owner.get_total_dexterity() + discipline.level)
 	totaldiff = (target.get_total_physique() + fortitudelevel)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
@@ -231,9 +237,15 @@
 	var/fortitudelevel
 	var/totaldice
 	var/totaldiff
-	for(var/datum/action/discipline/Disc in target.actions)
-		if(Disc.discipline.name == "Fortitude")
-			fortitudelevel = Disc.discipline.level
+	var/mob/living/carbon/human/vampire = target
+	if(iskindred(vampire))
+		var/datum/species/kindred/clan = vampire.dna.species
+		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
+		if(fortitude_check)
+			to_chat(world, "Fortitude Check worked")
+			fortitudelevel = fortitude_check.level
+
+
 	totaldice = (owner.get_total_mentality() + discipline.level)
 	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
@@ -275,9 +287,16 @@
 	var/fortitudelevel
 	var/totaldice
 	var/totaldiff
-	for(var/datum/action/discipline/Disc in target.actions)
-		if(Disc.discipline.name == "Fortitude")
-			fortitudelevel = Disc.discipline.level
+	var/mob/living/carbon/human/vampire = target
+	if(iskindred(vampire))
+		var/datum/species/kindred/clan = vampire.dna.species
+		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
+		if(fortitude_check)
+			to_chat(world, "Fortitude Check worked")
+			fortitudelevel = fortitude_check.level
+
+
+
 	totaldice = (owner.get_total_dexterity() + discipline.level)
 	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
