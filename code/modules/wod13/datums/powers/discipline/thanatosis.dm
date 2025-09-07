@@ -76,7 +76,7 @@
 		target.adjustBruteLoss(30)
 		target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
 	else
-		to_chat(owner, span_warning("Putrefaction has failed to affect"))
+		to_chat(owner, span_warning("Putrefaction has failed to affect [target]"))
 
 
 //ASHES TO ASHES
@@ -170,7 +170,7 @@
 		else
 			target.adjustBruteLoss(200)
 	else
-		to_chat(owner, span_warning("Withering has failed to affect"))
+		to_chat(owner, span_warning("Withering has failed to affect [target]"))
 
 
 //SHAMBLING HORDE
@@ -247,4 +247,4 @@
 				target.dexterity -= 1
 				target.physique -= 1
 	else
-		to_chat(owner, span_warning("Necrosis has failed to affect"))
+		to_chat(owner, span_warning("Necrosis has failed to affect [target]"))
