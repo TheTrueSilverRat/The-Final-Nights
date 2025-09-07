@@ -314,7 +314,6 @@
 					var/datum/wound/burn/moderate/burnt = new
 					burnt.apply_wound(bodypart)
 			if(ishumanbasic(vampire))
-				to_chat(world, "the human selector worked")
 				target.dexterity -= 1
 		if(4)
 			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTWO, owner)
@@ -324,7 +323,6 @@
 					var/datum/wound/burn/severe/burnt = new
 					burnt.apply_wound(bodypart)
 			if(ishumanbasic(vampire))
-				to_chat(world, "the human selector worked")
 				target.dexterity -= 1
 				target.physique -= 1
 		if(5)
@@ -335,7 +333,6 @@
 					var/datum/wound/burn/critical/burnt = new
 					burnt.apply_wound(bodypart)
 			if(ishumanbasic(vampire))
-				to_chat(world, "the human selector worked")
 				target.dexterity -= 1
 				target.physique -= 1
 		else
@@ -346,6 +343,5 @@
 					var/datum/wound/burn/critical/burnt = new
 					burnt.apply_wound(bodypart)
 			if(ishumanbasic(vampire))
-				to_chat(world, "the human selector worked")
 				target.dexterity -= 1
 				target.physique -= 1
