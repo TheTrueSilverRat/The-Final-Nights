@@ -149,7 +149,6 @@
 		var/datum/species/kindred/clan = vampire.dna.species
 		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
 		if(fortitude_check)
-			to_chat(world, "Fortitude Check worked")
 			fortitudelevel = fortitude_check.level
 
 
@@ -242,7 +241,6 @@
 		var/datum/species/kindred/clan = vampire.dna.species
 		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
 		if(fortitude_check)
-			to_chat(world, "Fortitude Check worked")
 			fortitudelevel = fortitude_check.level
 
 
@@ -292,59 +290,54 @@
 		var/datum/species/kindred/clan = vampire.dna.species
 		var/datum/discipline/fortitude/fortitude_check = clan.get_discipline(/datum/discipline/fortitude)
 		if(fortitude_check)
-			to_chat(world, "Fortitude Check worked")
 			fortitudelevel = fortitude_check.level
-
-
 
 	totaldice = (owner.get_total_dexterity() + discipline.level)
 	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
+	target.adjustBruteLoss(30 * mypower)
 
 	if(mypower <= 1)
-		to_chat(owner, span_warning("Necrosis has failed to affect them!"))
+		to_chat(owner, span_warning("Necrosis has failed to affect [target]!"))
 		return
-	target.adjustBruteLoss(30 * mypower)
 	switch(mypower)
-			if(1)
-				return
-			if(2)
-				target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
-			if(3)
-				target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
-				if(iscarbon(target))
-					for(var/i in target.bodyparts)
-						var/obj/item/bodypart/bodypart = i
-						var/datum/wound/burn/moderate/burnt = new
-						burnt.apply_wound(bodypart)
-				target.dexterity -= 1
-			if(4)
-				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTWO, owner)
-				if(iscarbon(target))
-					for(var/i in target.bodyparts)
-						var/obj/item/bodypart/bodypart = i
-						var/datum/wound/burn/severe/burnt = new
-						burnt.apply_wound(bodypart)
-				target.dexterity -= 1
-				target.physique -= 1
-			if(5)
-				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTHREE, owner)
-				if(iscarbon(target))
-					for(var/i in target.bodyparts)
-						var/obj/item/bodypart/bodypart = i
-						var/datum/wound/burn/critical/burnt = new
-						burnt.apply_wound(bodypart)
-				target.dexterity -= 1
-				target.physique -= 1
-			else
-				target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONFOUR, owner)
-				if(iscarbon(target))
-					for(var/i in target.bodyparts)
-						var/obj/item/bodypart/bodypart = i
-						var/datum/wound/burn/critical/burnt = new
-						burnt.apply_wound(bodypart)
-				target.dexterity -= 1
-				target.physique -= 1
-	else
-		to_chat(owner, span_warning("Necrosis has failed to affect [target]"))
+		if(1)
+			return
+		if(2)
+			target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
+		if(3)
+			target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
+			if(iscarbon(target))
+				for(var/i in target.bodyparts)
+					var/obj/item/bodypart/bodypart = i
+					var/datum/wound/burn/moderate/burnt = new
+					burnt.apply_wound(bodypart)
+			target.dexterity -= 1
+		if(4)
+			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTWO, owner)
+			if(iscarbon(target))
+				for(var/i in target.bodyparts)
+					var/obj/item/bodypart/bodypart = i
+					var/datum/wound/burn/severe/burnt = new
+					burnt.apply_wound(bodypart)
+			target.dexterity -= 1
+			target.physique -= 1
+		if(5)
+			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTHREE, owner)
+			if(iscarbon(target))
+				for(var/i in target.bodyparts)
+					var/obj/item/bodypart/bodypart = i
+					var/datum/wound/burn/critical/burnt = new
+					burnt.apply_wound(bodypart)
+			target.dexterity -= 1
+			target.physique -= 1
+		else
+			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONFOUR, owner)
+			if(iscarbon(target))
+				for(var/i in target.bodyparts)
+					var/obj/item/bodypart/bodypart = i
+					var/datum/wound/burn/critical/burnt = new
+					burnt.apply_wound(bodypart)
+			target.dexterity -= 1
+			target.physique -= 1
