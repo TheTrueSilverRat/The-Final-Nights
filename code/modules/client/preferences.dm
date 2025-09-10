@@ -3141,11 +3141,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/temp_hsv = RGBtoHSV(new_mutantcolor)
 						if(new_mutantcolor == "#000000")
 							skin_tone = "#471c18"
-						else if( ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright, but only if they affect the skin
+						else //if( ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright, but only if they affect the skin
 							skin_tone = sanitize_hexcolor(new_mutantcolor)
-						else
+/*						else
 							to_chat(user, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
-
+*/
 /*
 					var/new_s_tone = tgui_input_list(user, "Choose your character's skin-tone (DO NOT PICK ANY OUTLANDISH COLORS):", "Character Preference", skin_tone) as color|null
 					if(new_s_tone)
