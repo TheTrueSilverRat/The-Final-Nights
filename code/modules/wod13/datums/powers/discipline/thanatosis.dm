@@ -121,7 +121,7 @@
 
 
 
-//ETHEREAL HORDE
+//PUTREFACTION
 /datum/discipline_power/thanatosis/putrefaction
 	name = "Putrefaction"
 	desc = "Rot and Decay at a Touch."
