@@ -46,4 +46,11 @@
 		if("african2")
 			return "vamp11"
 		else
-			return value
+			var/list/existing_color = rgb2num(value) num2hex
+			var/list/darkened_color = list()
+			// Attempting to make the colors more lighter
+			for(var/channel in existing_color)
+				darkened_color += max(channel - 10, 0)
+			var/new_color = rgb(darkened_color[1], darkened_color[2], darkened_color[3])
+			to_chat(world, span_boldannounce("DOUBLE CHECKING TO SHOW I EXIST HERE!!! [new_color]"))
+			return new_color
