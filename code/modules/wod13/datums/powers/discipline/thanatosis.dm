@@ -262,7 +262,7 @@
 		to_chat(owner, span_warning("Withering has failed to affect [target]"))
 
 
-//SHAMBLING HORDE
+//NECROSIS
 /datum/discipline_power/thanatosis/necrosis
 	name = "Necrosis"
 	desc = "A more horrific version of Putrefaction"
