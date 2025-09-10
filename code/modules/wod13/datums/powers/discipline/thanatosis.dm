@@ -213,6 +213,8 @@
 	owner.Stun(1.5 SECONDS)
 	owner.do_jitter_animation(30)
 
+
+//WITHERING
 /datum/discipline_power/thanatosis/withering
 	name = "Withering"
 	desc = "Wither Bodies into Decay"
