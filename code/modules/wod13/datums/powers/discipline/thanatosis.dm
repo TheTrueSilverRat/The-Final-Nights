@@ -91,7 +91,7 @@
 
 
 
-//SHROUDSIGHT
+//HAG'S WRINKLES
 /datum/discipline_power/thanatosis/hag_wrinkles
 	name = "Hag's Wrinkles"
 	desc = "Morph your face to become unknowing."
