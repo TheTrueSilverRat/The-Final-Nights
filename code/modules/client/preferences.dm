@@ -928,9 +928,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<h3>[make_font_cool("SKIN")]</h3>"
 
-//				dat += "<a href='byond://?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a>"
 				dat += "<span style='border: 1px solid #161616; background-color: [skin_tone];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>Change</a>"
-//				dat += "<a href='byond://?_src_=prefs;preference=toggle_random;random_type=[RANDOM_SKIN_TONE]'>[(randomise[RANDOM_SKIN_TONE]) ? "Lock" : "Unlock"]</A>"
 				dat += "<br>"
 
 			var/mutant_colors
