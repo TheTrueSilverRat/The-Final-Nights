@@ -59,11 +59,13 @@
 
 /datum/status_effect/putrefaction/three/on_apply()
 	. = ..()
+	owner.social -= 1
 	owner.dexterity -= 1
 	owner.physique -= 1
 
 /datum/status_effect/putrefaction/three/on_remove()
 	. = ..()
+	owner.social += 1
 	owner.dexterity += 1
 	owner.physique += 1
 
@@ -75,11 +77,13 @@
 
 /datum/status_effect/putrefaction/three/on_apply()
 	. = ..()
+	owner.social -= 2
 	owner.dexterity -= 1
 	owner.physique -= 1
 
 /datum/status_effect/putrefaction/three/on_remove()
 	. = ..()
+	owner.social -=2
 	owner.dexterity += 1
 	owner.physique += 1
 
