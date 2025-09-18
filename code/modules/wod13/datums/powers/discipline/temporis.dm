@@ -230,18 +230,29 @@
 	desc = "..."
 	anchored = 1
 
+/obj/effect/temporis/proc/delete_self() //Exists cause I cant directly put qdel into the addtimer thingy
+	var/me = src
+	to_chat(world, "TEMPORIS 5 PROC FIRED")
+	qdel(me)
+
 /obj/effect/temporis/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(qdel(/obj/effect/temporis)), 0.5 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(delete_self), 0.5 SECONDS))
 
 /obj/effect/cowalker //Specifically used to allow for longer time lasting
 	name = "Now You See Me"
 	desc = "..."
 	anchored = 1
 
+/obj/effect/cowalker/proc/delete_self() //Exists cause I cant directly put qdel into the addtimer thingy
+	var/me = src //triyng to see if I can do this way
+	to_chat(world, "TEMPORIS 4 PROC FIRED")
+	qdel(me)
+
+
 /obj/effect/cowalker/Initialize()
 	. = ..()
-
+	addtimer(CALLBACK(src, PROC_REF(delete_self), 2.5 SECONDS))
 
 //CLOTHO'S GIFT
 /datum/movespeed_modifier/temporis5
