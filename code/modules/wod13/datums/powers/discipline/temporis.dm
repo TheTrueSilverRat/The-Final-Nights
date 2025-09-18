@@ -232,8 +232,7 @@
 
 /obj/effect/temporis/Initialize()
 	. = ..()
-	spawn(0.5 SECONDS)
-		qdel(src)
+	addtimer(CALLBACK(src, PROC_REF(qdel(/obj/effect/temporis)), 0.5 SECONDS))
 
 /obj/effect/cowalker //Specifically used to allow for longer time lasting
 	name = "Now You See Me"
@@ -242,8 +241,7 @@
 
 /obj/effect/cowalker/Initialize()
 	. = ..()
-	spawn(2.5 SECONDS)
-		qdel(src)
+
 
 //CLOTHO'S GIFT
 /datum/movespeed_modifier/temporis5
