@@ -259,9 +259,24 @@
 	else if(mypower >= 3)
 		if(iscarbon(target))
 			var/mob/living/carbon/deady = target
-			var/obj/item/bodypart/target_part = pick(deady.bodyparts)
-			var/datum/wound/blunt/critical/crit_wound = new
-			crit_wound.apply_wound(target_part)
+			var/obj/item/bodypart/target_part = deady.get_bodypart(check_zone(owner.zone_selected))
+			if(ishumanbasic(target))
+				if(target_part.name == "head")
+					target.visible_message(span_danger("[target]'s head withers into a nub and falls off!"), span_userdanger("Your last thoughts was that your head was getting smaller"))
+					var/obj/item/bodypart/head/head = target.get_bodypart(BODY_ZONE_HEAD)
+					head.dismember()
+				if(target_part.name == "chest")
+					target.visible_message(span_danger("[target]'s left arm withers into nothingness!"), span_userdanger("YOUR LEFT ARM WITHERS INTO NOTHING!"))
+					var/obj/item/bodypart/overflow = target.get_bodypart(BODY_ZONE_L_ARM)
+					overflow.dismember(BURN)
+				else
+					target.visible_message(span_danger("[target]'s [target_part.name] withers into nothingness!"), span_userdanger("YOUR <b>[target_part.name]</b> WITHERS INTO NOTHING!"))
+					target_part.dismember(BURN)
+			if(iscoraxcrinos(target) || iscrinos(target) || islupus(target) || iscorax(target))
+				target.adjustBruteLoss(30 * mypower)
+			else
+				var/datum/wound/blunt/critical/crit_wound = new
+				crit_wound.apply_wound(target_part)
 		else
 			target.adjustBruteLoss(200)
 	else
@@ -319,8 +334,6 @@
 					var/obj/item/bodypart/bodypart = i
 					var/datum/wound/burn/moderate/burnt = new
 					burnt.apply_wound(bodypart)
-			if(ishumanbasic(vampire))
-				target.dexterity -= 1
 		if(4)
 			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTWO, owner)
 			if(iscarbon(target))
@@ -328,9 +341,6 @@
 					var/obj/item/bodypart/bodypart = i
 					var/datum/wound/burn/severe/burnt = new
 					burnt.apply_wound(bodypart)
-			if(ishumanbasic(vampire))
-				target.dexterity -= 1
-				target.physique -= 1
 		if(5)
 			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONTHREE, owner)
 			if(iscarbon(target))
@@ -338,9 +348,6 @@
 					var/obj/item/bodypart/bodypart = i
 					var/datum/wound/burn/critical/burnt = new
 					burnt.apply_wound(bodypart)
-			if(ishumanbasic(vampire))
-				target.dexterity -= 1
-				target.physique -= 1
 		else
 			target.apply_status_effect(STATUS_EFFECT_PUTREFACTIONFOUR, owner)
 			if(iscarbon(target))
@@ -348,6 +355,3 @@
 					var/obj/item/bodypart/bodypart = i
 					var/datum/wound/burn/critical/burnt = new
 					burnt.apply_wound(bodypart)
-			if(ishumanbasic(vampire))
-				target.dexterity -= 1
-				target.physique -= 1
