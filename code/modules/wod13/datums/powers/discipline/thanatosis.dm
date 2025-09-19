@@ -75,13 +75,13 @@
 	duration = 1 SCENES //3 Minutes
 	alert_type = /atom/movable/screen/alert/status_effect/putrefaction
 
-/datum/status_effect/putrefaction/three/on_apply()
+/datum/status_effect/putrefaction/four/on_apply()
 	. = ..()
 	owner.social -= 2
 	owner.dexterity -= 1
 	owner.physique -= 1
 
-/datum/status_effect/putrefaction/three/on_remove()
+/datum/status_effect/putrefaction/four/on_remove()
 	. = ..()
 	owner.social -=2
 	owner.dexterity += 1
