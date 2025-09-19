@@ -156,7 +156,7 @@
 			fortitudelevel = fortitude_check.level
 
 
-	totaldice = (owner.get_total_dexterity() + discipline.level)
+	totaldice = (owner.get_total_dexterity())
 	totaldiff = (target.get_total_physique() + fortitudelevel)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
@@ -250,8 +250,8 @@
 			fortitudelevel = fortitude_check.level
 
 
-	totaldice = (owner.get_total_mentality() + discipline.level)
-	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
+	totaldice = (owner.get_total_mentality())
+	totaldiff = (target.get_total_physique() + fortitudelevel)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
 	if((mypower >= 1) && (mypower < 3))
@@ -313,8 +313,8 @@
 		if(fortitude_check)
 			fortitudelevel = fortitude_check.level
 
-	totaldice = (owner.get_total_dexterity() + discipline.level)
-	totaldiff = (target.get_total_physique() + fortitudelevel + 2)
+	totaldice = (owner.get_total_dexterity())
+	totaldiff = (target.get_total_physique() + fortitudelevel)
 	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
 	target.adjustBruteLoss(30 * mypower)
