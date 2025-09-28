@@ -807,7 +807,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "ajd" = (
 /obj/effect/decal/wallpaper/stone/low{
 	pixel_y = 24
@@ -4935,7 +4935,7 @@
 "bhC" = (
 /obj/effect/decal/wallpaper/grey,
 /turf/closed/wall/vampwall/painted,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "bhD" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/toilet{
@@ -17694,7 +17694,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "ejS" = (
 /obj/police_department{
 	dir = 4
@@ -21202,7 +21202,7 @@
 "far" = (
 /obj/weapon_showcase,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "fas" = (
 /obj/effect/decal/cleanable/blood{
 	icon_state = "trails_1-old"
@@ -33262,7 +33262,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "hQJ" = (
 /obj/effect/landmark/start/strip,
 /turf/open/floor/plating/granite/black,
@@ -34986,6 +34986,9 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/baali)
+"ikp" = (
+/turf/closed/wall/vampwall/painted,
+/area/vtm/interior/giovanni/vault)
 "ikt" = (
 /obj/structure/vampipe{
 	icon_state = "piping41"
@@ -35790,7 +35793,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "isF" = (
 /obj/structure/table/wood,
 /obj/item/instrument/recorder,
@@ -37847,6 +37850,9 @@
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/police/upstairs)
+"iSD" = (
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/giovanni/vault)
 "iSE" = (
 /obj/effect/turf_decal/siding/wideplating/corner{
 	color = "#5a2355";
@@ -42507,7 +42513,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "jYB" = (
 /obj/effect/decal/pallet,
 /turf/open/floor/plating/vampwood,
@@ -43083,7 +43089,7 @@
 	color = "#636363"
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "kfs" = (
 /obj/structure/railing/metal/corner{
 	dir = 1
@@ -52678,7 +52684,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "mqW" = (
 /obj/effect/decal/bordur{
 	dir = 8
@@ -65109,7 +65115,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "pjp" = (
 /obj/structure/closet/crate/coffin,
 /turf/open/floor/plating/sidewalk,
@@ -67825,7 +67831,7 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "pQI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/bacotell,
@@ -77800,7 +77806,7 @@
 /obj/item/stack/dollar/thousand,
 /obj/item/stack/dollar/thousand,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "soN" = (
 /obj/effect/turf_decal/siding/wideplating/corner{
 	color = "#004136";
@@ -84385,7 +84391,7 @@
 	color = "#636363"
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "tSb" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8;
@@ -86240,6 +86246,10 @@
 	},
 /turf/open/floor/plating/vampcanalplating,
 /area/vtm/sewer)
+"uok" = (
+/obj/effect/decal/wallpaper/gold/alt,
+/turf/closed/wall/vampwall/painted,
+/area/vtm/interior/giovanni/vault)
 "uom" = (
 /obj/effect/turf_decal/siding/red{
 	color = "#631818"
@@ -88524,6 +88534,10 @@
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/endron_facility/plant)
+"uRs" = (
+/obj/effect/decal/wallpaper/gold,
+/turf/closed/wall/vampwall/painted,
+/area/vtm/interior/giovanni/vault)
 "uRt" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box,
@@ -89729,7 +89743,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "vhq" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/prince,
@@ -92562,7 +92576,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "vTC" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#802d29";
@@ -92884,7 +92898,7 @@
 	pixel_y = 9
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "vYR" = (
 /obj/machinery/light{
 	pixel_y = 32
@@ -96074,7 +96088,7 @@
 	cost = 100
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "wKM" = (
 /obj/structure/flora/rock/jungle,
 /obj/effect/turf_decal/weather/dirt{
@@ -100057,7 +100071,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/bianchiBank)
+/area/vtm/interior/giovanni/vault)
 "xHM" = (
 /obj/effect/decal/bordur/corner{
 	dir = 4
@@ -218011,7 +218025,7 @@ xEp
 xEp
 wmS
 mjT
-oAD
+ikp
 oAD
 oAD
 oAD
@@ -218213,7 +218227,7 @@ rfu
 rfu
 vcO
 mjT
-tIJ
+uok
 mkv
 pRc
 khV
@@ -218415,7 +218429,7 @@ mjT
 mjT
 mjT
 mjT
-tIJ
+uok
 mkv
 oBu
 cMG
@@ -218617,7 +218631,7 @@ mjT
 mjT
 mjT
 mjT
-tIJ
+uok
 mkv
 mkv
 mkv
@@ -218812,14 +218826,14 @@ mjT
 mjT
 mjT
 mjT
-oAD
-oAD
-oAD
-oAD
-oAD
-oAD
-oAD
-tIJ
+ikp
+ikp
+ikp
+ikp
+ikp
+ikp
+ikp
+uok
 mkv
 mkv
 mkv
@@ -219021,7 +219035,7 @@ mqO
 soH
 ejQ
 far
-vAO
+uRs
 kVp
 mkv
 mkv
@@ -219220,10 +219234,10 @@ bhC
 vTz
 isE
 mqO
-mJh
-mJh
-mJh
-tIJ
+iSD
+iSD
+iSD
+uok
 mkv
 mkv
 mkv
@@ -219624,10 +219638,10 @@ bhC
 xHL
 wKD
 mqO
-mJh
-mJh
-mJh
-tIJ
+iSD
+iSD
+iSD
+uok
 kPG
 mkv
 mkv
@@ -219829,7 +219843,7 @@ mqO
 hQy
 vhn
 jYu
-vAO
+uRs
 vJu
 omF
 omF
@@ -220024,14 +220038,14 @@ mjT
 mjT
 mjT
 mjT
-oAD
-oAD
-oAD
-oAD
-oAD
-oAD
-oAD
-oAD
+ikp
+ikp
+ikp
+ikp
+ikp
+ikp
+ikp
+ikp
 oAD
 oAD
 oAD
