@@ -100,6 +100,13 @@
 	yin_chi = 2
 	wall_rating = LOW_WALL_RATING
 
+/area/vtm/interior/giovanni/vault
+	name = "Bianchi Vault"
+	icon_state = "giovanni"
+	upper = FALSE
+	zone_type = "elysium"
+	fire_controled = TRUE
+
 /area/vtm/interior/techshop
 	name = "Nightwolf Techshop"
 	icon_state = "shop"
