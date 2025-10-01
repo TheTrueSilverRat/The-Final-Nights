@@ -50,6 +50,10 @@
 			existing_color += 255 //FOR SOME REASON THERE ISNT AN ALPHA WHEN YOU DO THE REGULAR rg2num.
 
 			var/hue = existing_color[1]
+			if(hue < 0)
+				hue = 0
+			else if(hue > 60)
+				hue = 60
 
 			var/sat = max(existing_color[2] - 20, 0)
 

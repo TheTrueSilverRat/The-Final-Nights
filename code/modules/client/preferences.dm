@@ -758,7 +758,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(generation <= 7)
 						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"][discipline_level > 5 ? "•" : "o"][discipline_level > 6 ? "•" : "o"][discipline_level > 7 ? "•" : "o"][discipline_level > 8 ? "•" : "o"][discipline_level > 9 ? "•" : "o"]([discipline_level])"
 					else
-						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"])"				
+						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"])"
 					if((player_experience >= cost) && (discipline_level != max_discipline_level))
 						dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn ([cost])</a><BR>"
 					else
@@ -3152,10 +3152,58 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								if(new_mutantcolor == "#000000")
 									skin_tone = "#471c18"
 								else
-									skin_tone = sanitize_hexcolor(new_mutantcolor)
+									var/colorization  = sanitize_hexcolor(new_mutantcolor)
+									var/list/existing_color = rgb2num(colorization, COLORSPACE_HSV)
+									existing_color += 255 //FOR SOME REASON THERE ISNT AN ALPHA WHEN YOU DO THE REGULAR rg2num.
+									var/hue = existing_color[1]
+
+									if(hue < 0)
+										to_chat(user, span_notice("Hue too low in degree, defaulting to 0"))
+										hue = 0
+
+									else if(hue > 60)
+										to_chat(user, span_notice("Hue too high in degree, defaulting to 60"))
+										hue = 60
+
+									var/sat = existing_color[2]
+
+									var/val = existing_color[3]
+
+									var/list/conv_color = list(hue, sat, val, 255)
+
+									var/hsv_color = rgb(hue = conv_color[1], saturation = conv_color[2], value = conv_color[3], alpha = conv_color[4], space = COLORSPACE_HSV)
+
+									skin_tone = hsv_color
 
 						else
 							skin_tone = new_s_tone
+
+
+
+
+/* Test stuf
+			var/list/existing_color = rgb2num(value, COLORSPACE_HSV)
+			existing_color += 255 //FOR SOME REASON THERE ISNT AN ALPHA WHEN YOU DO THE REGULAR rg2num.
+
+			var/hue = existing_color[1]
+			if(hue < 0)
+				hue = 0
+			else if(hue > 60)
+				hue =60
+
+			var/sat = max(existing_color[2] - 20, 0)
+
+			var/val = min(existing_color[3], 100)
+
+
+			var/list/conv_color = list(hue, sat, val, 255)
+
+			var/hsv_color = rgb(hue = conv_color[1], saturation = conv_color[2], value = conv_color[3], alpha = conv_color[4], space = COLORSPACE_HSV)
+
+			return hsv_color
+
+
+*/
 
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference",ooccolor) as color|null
