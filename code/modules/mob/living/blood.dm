@@ -44,15 +44,15 @@
 						to_chat(src, "<span class='warning'>You feel terribly bloated.</span>")
 				if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 					if(prob(5))
+						blur_eyes(6)
 						to_chat(src, "<span class='warning'>You feel [word].</span>")
-					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 				if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
+					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 					if(prob(5))
 						blur_eyes(6)
 						to_chat(src, "<span class='warning'>You feel very [word].</span>")
 				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-					adjustOxyLoss(5)
+					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 					if(prob(15))
 						Unconscious(rand(20,60))
 						to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
@@ -79,25 +79,6 @@
 		return
 	if(!iskindred(src))
 		blood_volume = max(blood_volume - amt, 0)
-
-	var/timing = 100
-	if(blood_volume >= BLOOD_VOLUME_SURVIVE)
-		timing = 10
-	if(blood_volume >= BLOOD_VOLUME_BAD)
-		timing = 25
-	if(blood_volume >= BLOOD_VOLUME_OKAY)
-		timing = 50
-	if(blood_volume >= BLOOD_VOLUME_SAFE)
-		timing = 100
-
-	if(iskindred(src))
-		timing = 100
-		if(!bloodpool)
-			return
-
-	if(COOLDOWN_FINISHED(src, bloodpool_restore))
-		COOLDOWN_START(src, bloodpool_restore, timing)
-		bloodpool = max(0, bloodpool-1)
 
 	//Blood loss still happens in locker, floor stays clean
 	if(isturf(loc) && prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD))
