@@ -354,6 +354,7 @@
 */
 
 
+//TFN EDIT START -- Blood Sucking Rework
 	var/visible_blood_volume = blood_volume
 	if(skin_tone == "albino")
 		visible_blood_volume -= 100
@@ -370,6 +371,7 @@
 			msg += . += "[t_He] look[p_s()] incredibly anemic."
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			msg += "[t_He] [t_is] deathly pale."
+//TFN EDIT END - Blood Sucking Rework
 
 	if(is_bleeding())
 		var/list/obj/item/bodypart/bleeding_limbs = list()
