@@ -336,7 +336,7 @@
 			msg += "[t_He] look[p_s()] extremely disgusted.\n"
 
 
-/*
+/* TFN EDIT START -- Blood Sucking Rework
 	if(skin_tone == "albino")
 		apparent_blood_volume -= 3
 	if(HAS_TRAIT(user, TRAIT_COLD_AURA))
@@ -351,7 +351,7 @@
 		msg += "[t_He] look[p_s()] like pale death.\n"
 	else if(bloodpool <= 0)
 		msg += "<span class='deadsay'><b>[t_He] resemble[p_s()] a crushed, empty juice pouch.</b></span>\n"
-*/
+TFN EDIT END - Blood Sucking Rework */
 
 
 //TFN EDIT START -- Blood Sucking Rework

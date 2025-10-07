@@ -28,7 +28,9 @@
 		client.images -= suckbar
 	qdel(suckbar)
 	suckbar_loc = mob
-	if(mob.blood_volume)
+	if(iskindred(mob))
+		suckbar = image('code/modules/wod13/bloodcounter.dmi', suckbar_loc, "[round(14*(mob.bloodpool/mob.maxbloodpool))]", HUD_LAYER)
+	else if(mob.blood_volume)
 		suckbar = image('code/modules/wod13/bloodcounter.dmi', suckbar_loc, "[round(14*(mob.blood_volume/BLOOD_VOLUME_NORMAL))]", HUD_LAYER)
 	suckbar.pixel_z = 40
 	suckbar.plane = ABOVE_HUD_PLANE
