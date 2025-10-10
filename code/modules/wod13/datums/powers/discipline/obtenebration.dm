@@ -20,6 +20,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
 	target_type = TARGET_TURF | TARGET_MOB | TARGET_OBJ | TARGET_SELF
 	range = 7
+	vitae_cost = 1
 
 	multi_activate = TRUE
 	duration_length = 10 SECONDS
@@ -52,6 +53,11 @@
 
 	cooldown_length = 5 SECONDS
 
+/datum/discipline_power/obtenebration/shroud_of_night/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll(owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_OCCULT), 7, FALSE, owner))
+		return TRUE
+	return FALSE
+
 /datum/discipline_power/obtenebration/shroud_of_night/activate(mob/living/target)
 	. = ..()
 	target.Stun(1 SECONDS)
@@ -65,11 +71,17 @@
 
 	level = 3
 	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
-
+	vitae_cost = 1
 	violates_masquerade = TRUE
 
 	toggled = TRUE
 	duration_length = 6 TURNS
+
+
+/datum/discipline_power/obtenebration/arms_of_the_abyss/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll(owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_OCCULT), 7, FALSE, owner))
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/obtenebration/arms_of_the_abyss/activate()
 	. = ..()
@@ -97,6 +109,11 @@
 	duration_length = 15 SECONDS
 	cooldown_length = 10 SECONDS
 
+/datum/discipline_power/obtenebration/black_metamorphosis/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll(owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_COURAGE), 7, FALSE, owner))
+		return TRUE
+	return FALSE
+
 /datum/discipline_power/obtenebration/black_metamorphosis/activate()
 	. = ..()
 	owner.physiology.damage_resistance += 60
@@ -111,24 +128,57 @@
 //TENEBROUS FORM
 /datum/discipline_power/obtenebration/tenebrous_form
 	name = "Tenebrous Form"
-	desc = "Become a shadow and move without your physical form."
+	desc = "Become a shadow and resist all but fire, sunlight, and magic!"
 
 	level = 5
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
-	vitae_cost = 0
+	vitae_cost = 3
+	duration_length = 1 TURNS
+	toggled = TRUE
 
 	violates_masquerade = TRUE
 
 	cooldown_length = 20 SECONDS
-
-	var/obj/effect/proc_holder/spell/targeted/shadowwalk/tenebrous_form_spell
+	var/saved_brute_mod = 1
+	var/saved_clone_mod = 1
+	var/saved_stamina_mod = 1
+	var/saved_brain_mod = 1
 
 /datum/discipline_power/obtenebration/tenebrous_form/activate()
 	. = ..()
-	if (!tenebrous_form_spell)
-		tenebrous_form_spell = new
+	playsound(owner.loc, 'sound/magic/voidblink.ogg', 50, FALSE)
+	saved_brute_mod = owner.physiology.brute_mod
+	owner.physiology.brute_mod = 0
+	saved_clone_mod = owner.physiology.clone_mod
+	owner.physiology.clone_mod = 0
+	saved_stamina_mod = owner.physiology.stamina_mod
+	owner.physiology.stamina_mod = 0
+	saved_brain_mod = owner.physiology.brain_mod
+	owner.physiology.brain_mod = 0
+	animate(owner, color = "#000000", time = 1 SECONDS, loop = 1)
 
-	tenebrous_form_spell.cast(user = owner)
+	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, MAGIC)
+	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, MAGIC)
+	ADD_TRAIT(owner, TRAIT_NOBLEED, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	for(var/obj/stuff in owner.contents)
+		ADD_TRAIT(stuff, TRAIT_NODROP, MAGIC)
+
+/datum/discipline_power/obtenebration/tenebrous_form/deactivate()
+	. = ..()
+	playsound(owner.loc, 'sound/magic/voidblink.ogg', 50, FALSE)
+	owner.physiology.brute_mod = saved_brute_mod
+	owner.physiology.clone_mod = saved_brute_mod
+	owner.physiology.stamina_mod = saved_brute_mod
+	owner.physiology.brain_mod = saved_brute_mod
+	animate(owner, color = initial(owner.color), time = 1 SECONDS, loop = 1)
+
+	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, MAGIC)
+	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, MAGIC)
+	REMOVE_TRAIT(owner, TRAIT_NOBLEED, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	for(var/obj/item/stuff in owner.contents)
+		REMOVE_TRAIT(stuff, TRAIT_NODROP, MAGIC)
 
 /datum/discipline_power/obtenebration/tenebrous_form/post_gain()
 	. = ..()
@@ -165,39 +215,59 @@
 		return
 
 	if(istype(H.get_active_held_item(), /obj/item/mystic_tome))
-		var/list/shit = list()
+		var/list/rituals = list()
 		for(var/i in subtypesof(/obj/abyssrune))
 			var/obj/abyssrune/R = new i(owner)
 			if(R.mystlevel <= level)
-				shit += i
+				rituals += i
 			qdel(R)
-		var/ritual = input(owner, "Choose rune to draw:", "Mysticism") as null|anything in shit
+		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Mysticism", rituals, null)
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - H.mentality), H))
+			if(do_after(H, 3 SECONDS * max(1, 5 - H.st_get_stat(STAT_OCCULT)), H))
 				drawing = FALSE
 				new ritual(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
+				SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 			else
 				drawing = FALSE
 	else
-		var/list/shit = list()
+		var/list/rituals = list()
 		for(var/i in subtypesof(/obj/abyssrune))
 			var/obj/abyssrune/R = new i(owner)
 			if(R.mystlevel <= level)
-				shit += i
+				rituals += i
 			qdel(R)
-		var/ritual = input(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Mysticism") as null|anything in list("???")
+		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Mysticism", list("???"))
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 30*max(1, 5-H.mentality), H))
+			if(do_after(H, 30*max(1, 5-H.st_get_stat(STAT_OCCULT)), H))
 				drawing = FALSE
-				var/rune = pick(shit)
+				var/rune = pick(rituals)
 				new rune(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
+				SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 			else
 				drawing = FALSE
+
+//SHADOWSTEP
+/datum/discipline_power/obtenebration/shadowstep
+	name = "Shadowstep"
+	desc = "Become one with the shadows and move without your physical form."
+
+	level = 6
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
+	vitae_cost = 0
+
+	violates_masquerade = TRUE
+
+	cooldown_length = 20 SECONDS
+
+	var/obj/effect/proc_holder/spell/targeted/shadowwalk/shadowstep
+
+/datum/discipline_power/obtenebration/shadowstep/activate()
+	. = ..()
+	if (!shadowstep)
+		shadowstep = new
+
+	shadowstep.cast(user = owner)

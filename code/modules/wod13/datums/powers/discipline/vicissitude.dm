@@ -90,7 +90,7 @@
 
 	level = 1
 	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_FREE_HAND | DISC_CHECK_SEE | DISC_CHECK_LYING
-
+	vitae_cost = 1
 	violates_masquerade = TRUE
 
 	cooldown_length = 10 SECONDS
@@ -119,6 +119,11 @@
 	var/impersonating_body_sprite
 
 	var/is_shapeshifted = FALSE
+
+/datum/discipline_power/vicissitude/malleable_visage/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_INTELLIGENCE) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/malleable_visage/activate()
 	. = ..()
@@ -159,7 +164,7 @@
 	impersonating_facialhaircolor = victim.facial_hair_color
 	impersonating_eyecolor = victim.eye_color
 	impersonating_body_mod = victim.base_body_mod
-	impersonating_body_sprite = GET_BODY_SPRITE(victim)
+	impersonating_body_sprite = victim.body_sprite
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/initialize_original()
 	if (is_shapeshifted)
@@ -177,7 +182,7 @@
 	original_facialhaircolor = owner.facial_hair_color
 	original_eyecolor = owner.eye_color
 	original_body_mod = owner.base_body_mod
-	original_body_sprite = GET_BODY_SPRITE(owner)
+	original_body_sprite = owner.body_sprite
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/shapeshift(to_original = FALSE, instant = FALSE)
 	if (!impersonating_dna)
@@ -244,7 +249,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_FREE_HAND
 	target_type = TARGET_MOB
 	range = 1
-
+	vitae_cost = 1
 	effect_sound = 'code/modules/wod13/sounds/vicissitude.ogg'
 	aggravating = TRUE
 	hostile = TRUE
@@ -252,6 +257,11 @@
 
 	cooldown_length = 5 SECONDS
 	grouped_powers = list(/datum/discipline_power/vicissitude/bonecrafting)
+
+/datum/discipline_power/vicissitude/fleshcrafting/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_DEXTERITY) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/fleshcrafting/activate(mob/living/target)
 	. = ..()
@@ -292,7 +302,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_FREE_HAND
 	target_type = TARGET_MOB
 	range = 1
-
+	vitae_cost = 1
 	effect_sound = 'code/modules/wod13/sounds/vicissitude.ogg'
 	aggravating = TRUE
 	hostile = TRUE
@@ -300,6 +310,11 @@
 
 	cooldown_length = 5 SECONDS
 	grouped_powers = list(/datum/discipline_power/vicissitude/fleshcrafting)
+
+/datum/discipline_power/vicissitude/bonecrafting/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_STRENGTH) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/bonecrafting/activate(mob/living/target)
 	. = ..()
@@ -490,8 +505,8 @@
 			user.hairstyle = "Bald"
 			advanced_original_body_mod = user.base_body_mod
 			user.set_body_model(NORMAL_BODY_MODEL)
-			user.physiology.armor.melee += 60
-			user.physiology.armor.bullet += 60
+			user.physiology.armor.melee += 40
+			user.physiology.armor.bullet += 40
 		if ("Centipede legs")
 			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			user.remove_overlay(PROTEAN_LAYER)
@@ -532,8 +547,8 @@
 			user.skin_tone = advanced_original_skin_tone
 			user.hairstyle = advanced_original_hairstyle
 			user.set_body_model(advanced_original_body_mod)
-			user.physiology.armor.melee -= 60
-			user.physiology.armor.bullet -= 60
+			user.physiology.armor.melee -= 40
+			user.physiology.armor.bullet -= 40
 		if ("Centipede legs")
 			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			user.remove_overlay(PROTEAN_LAYER)
