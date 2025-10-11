@@ -258,11 +258,11 @@
 		var/blood_gained = blood_taken * max(1, target.bloodquality-1)
 		owner.bloodpool = min(owner.bloodpool + blood_gained, owner.maxbloodpool)
 	else
-		var/blood_coefficient = (5 / mob.bloodpool)
+		var/blood_coefficient = (5 / target.bloodpool)
 		if(HAS_TRAIT(target, TRAIT_POTENT_BLOOD))
 			blood_coefficient *= 0.5
 		var/blood_taken = clamp(success_count, 0, target.bloodpool)
-		target.blood_volume = max (0, (mob.blood_volume - (blood_taken * (70*blood_coefficient))))
+		target.blood_volume = max (0, (target.blood_volume - (blood_taken * (70*blood_coefficient))))
 
 		var/blood_gained = blood_taken * max(1, target.blood_quality - 1)
 		owner.bloodpool = min(owner.bloodpool + blood_gained, owner.maxbloodpool)
