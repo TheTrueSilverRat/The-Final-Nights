@@ -80,8 +80,6 @@
 		var/mob/living/simple_animal/hostile/hostile = shape
 		hostile.my_creator = caster
 	H = new(shape,src,caster)
-	if(HAS_TRAIT(caster, TRAIT_WARRIOR) && !HAS_TRAIT(shape, TRAIT_WARRIOR))
-		ADD_TRAIT(shape, TRAIT_WARRIOR, ROUNDSTART_TRAIT)
 //TFN MODIFIED STUFF!!!! PR: Reworking Protean a b̶i̶t̶ lot as well as Transformations boogaloo 2.0
 	var/newgen = caster.generation
 	shape.generation = newgen
