@@ -24,7 +24,7 @@
 
 /datum/discipline_power/animalism/summon_rat/activate()
 	. = ..()
-	var/limit = min(2, level) + owner.social + owner.additional_social + owner.more_companions - 1
+	var/limit = min(2, level) + owner.st_get_stat(STAT_LEADERSHIP)
 	if(HAS_TRAIT(owner, TRAIT_ANIMAL_REPULSION))
 		limit = max(1,limit-2)
 	if(length(owner.beastmaster) >= limit)
@@ -59,7 +59,7 @@
 
 /datum/discipline_power/animalism/summon_cat/activate()
 	. = ..()
-	var/limit = min(2, level) + owner.social + owner.additional_social + owner.more_companions - 1
+	var/limit = min(2, level) + owner.st_get_stat(STAT_LEADERSHIP)
 	if(HAS_TRAIT(owner, TRAIT_ANIMAL_REPULSION))
 		limit = max(1,limit-2)
 	if(length(owner.beastmaster) >= limit)
@@ -105,7 +105,7 @@
 
 /datum/discipline_power/animalism/summon_wolf/activate()
 	. = ..()
-	var/limit = min(2, level) + owner.social + owner.additional_social + owner.more_companions - 1
+	var/limit = min(2, level) + owner.st_get_stat(STAT_LEADERSHIP)
 	if(HAS_TRAIT(owner, TRAIT_ANIMAL_REPULSION))
 		limit = max(1,limit-2)
 	if(length(owner.beastmaster) >= limit)
@@ -139,7 +139,7 @@
 
 /datum/discipline_power/animalism/summon_bat/activate()
 	. = ..()
-	var/limit = min(2, level) + owner.social + owner.additional_social + owner.more_companions - 1
+	var/limit = min(2, level) + owner.st_get_stat(STAT_LEADERSHIP)
 	if(HAS_TRAIT(owner, TRAIT_ANIMAL_REPULSION))
 		limit = max(1,limit-2)
 	if(length(owner.beastmaster) >= limit)
@@ -156,7 +156,7 @@
 	owner.beastmaster |= bat
 	bat.beastmaster_owner = owner
 
-//RAT SHAPESHIFT
+//'FLYING' RAT (BAT) SHAPESHIFT
 /obj/effect/proc_holder/spell/targeted/shapeshift/animalism
 	name = "Animalism Form"
 	desc = "Take on the shape a bat."
@@ -166,10 +166,11 @@
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/beastmaster/rat/flying
 
+//SKITTER - Bat Shapeshift
 /datum/discipline_power/animalism/rat_shapeshift
 	name = "Skitter"
 	desc = "Become one of the bats that fly above the city."
-
+	level = 5
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
 
 	violates_masquerade = TRUE
@@ -197,3 +198,27 @@
 	if(owner.stat != DEAD)
 		shapeshift.Restore(shapeshift.myshape)
 		owner.Stun(1.5 SECONDS)
+
+//SONG IN THE DARK
+/datum/discipline_power/animalism/song_in_the_dark
+	name = "Song in the Dark"
+	desc = "Summon huge worms from the deep earth to shift the earth, creating caverns or earthquakes."
+
+	level = 6
+	violates_masquerade = TRUE
+
+	cooldown_length = 30 SECONDS
+
+/datum/discipline_power/animalism/song_in_the_dark/activate()
+	. = ..()
+	for(var/mob/living/L in range(7, owner))
+		if(L != owner)
+			to_chat(L, span_danger("The ground quakes beneath your feet!"))
+			L.Paralyze(100)
+			L.adjustBruteLoss(150)
+			var/obj/structure/flora/rock/giant_rock = new(get_turf(L))
+			QDEL_IN(giant_rock, 200)
+
+/datum/discipline_power/animalism/song_in_the_dark/post_gain()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_ANIMAL_SUCCULENCE, MAGIC_TRAIT)

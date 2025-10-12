@@ -11,6 +11,9 @@
 	activate_sound = 'code/modules/wod13/sounds/celerity_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/celerity_deactivate.ogg'
 
+/datum/discipline/celerity/post_gain()
+	. = ..()
+	owner.st_add_stat_mod(STAT_DEXTERITY, level, "celerity_passive")
 
 /datum/discipline_power/celerity/proc/celerity_visual(datum/discipline_power/celerity/source, atom/newloc, dir)
 	SIGNAL_HANDLER
@@ -26,7 +29,7 @@
 /datum/discipline_power/celerity/proc/temporis_explode(datum/source, datum/discipline_power/power, atom/target)
 	SIGNAL_HANDLER
 
-	if (!istype(power, /datum/discipline_power/temporis/patience_of_the_norns) && !istype(power, /datum/discipline_power/temporis/clothos_gift))
+	if (!istype(power, /datum/discipline_power/temporis/cowalker) && !istype(power, /datum/discipline_power/temporis/clothos_gift))
 		return
 
 	to_chat(owner, "<span class='userdanger'>You try to use Temporis, but your active Celerity accelerates your temporal field out of your control!</span>")
@@ -62,7 +65,8 @@
 		/datum/discipline_power/celerity/two,
 		/datum/discipline_power/celerity/three,
 		/datum/discipline_power/celerity/four,
-		/datum/discipline_power/celerity/five
+		/datum/discipline_power/celerity/five,
+		/datum/discipline_power/celerity/six
 	)
 
 /datum/discipline_power/celerity/one/activate()
@@ -73,7 +77,7 @@
 	//put this out of its misery
 	owner.celerity_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/celerity)
-	owner.dexterity += 1
+	owner.st_add_stat_mod(STAT_DEXTERITY, 1, "celerity")
 
 /datum/discipline_power/celerity/one/deactivate()
 	. = ..()
@@ -82,7 +86,7 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity)
-	owner.dexterity -= 1
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 //CELERITY 2
 /datum/movespeed_modifier/celerity2
@@ -101,7 +105,8 @@
 		/datum/discipline_power/celerity/one,
 		/datum/discipline_power/celerity/three,
 		/datum/discipline_power/celerity/four,
-		/datum/discipline_power/celerity/five
+		/datum/discipline_power/celerity/five,
+		/datum/discipline_power/celerity/six
 	)
 
 /datum/discipline_power/celerity/two/activate()
@@ -111,7 +116,7 @@
 
 	owner.celerity_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/celerity2)
-	owner.dexterity += 2
+	owner.st_add_stat_mod(STAT_DEXTERITY, 2, "celerity")
 
 /datum/discipline_power/celerity/two/deactivate()
 	. = ..()
@@ -120,7 +125,7 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity2)
-	owner.dexterity -= 2
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 //CELERITY 3
 /datum/movespeed_modifier/celerity3
@@ -139,7 +144,8 @@
 		/datum/discipline_power/celerity/one,
 		/datum/discipline_power/celerity/two,
 		/datum/discipline_power/celerity/four,
-		/datum/discipline_power/celerity/five
+		/datum/discipline_power/celerity/five,
+		/datum/discipline_power/celerity/six
 	)
 
 /datum/discipline_power/celerity/three/activate()
@@ -149,7 +155,7 @@
 
 	owner.celerity_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/celerity3)
-	owner.dexterity += 3
+	owner.st_add_stat_mod(STAT_DEXTERITY, 3, "celerity")
 
 /datum/discipline_power/celerity/three/deactivate()
 	. = ..()
@@ -158,7 +164,7 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity3)
-	owner.dexterity -= 3
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 //CELERITY 4
 /datum/movespeed_modifier/celerity4
@@ -177,7 +183,8 @@
 		/datum/discipline_power/celerity/one,
 		/datum/discipline_power/celerity/two,
 		/datum/discipline_power/celerity/three,
-		/datum/discipline_power/celerity/five
+		/datum/discipline_power/celerity/five,
+		/datum/discipline_power/celerity/six
 	)
 
 /datum/discipline_power/celerity/four/activate()
@@ -187,7 +194,7 @@
 
 	owner.celerity_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/celerity4)
-	owner.dexterity += 4
+	owner.st_add_stat_mod(STAT_DEXTERITY, 4, "celerity")
 
 /datum/discipline_power/celerity/four/deactivate()
 	. = ..()
@@ -196,7 +203,7 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity4)
-	owner.dexterity -= 4
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 //CELERITY 5
 /datum/movespeed_modifier/celerity5
@@ -215,7 +222,8 @@
 		/datum/discipline_power/celerity/one,
 		/datum/discipline_power/celerity/two,
 		/datum/discipline_power/celerity/three,
-		/datum/discipline_power/celerity/four
+		/datum/discipline_power/celerity/four,
+		/datum/discipline_power/celerity/six
 	)
 
 /datum/discipline_power/celerity/five/activate()
@@ -225,7 +233,7 @@
 
 	owner.celerity_visual = TRUE
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/celerity5)
-	owner.dexterity += 5
+	owner.st_add_stat_mod(STAT_DEXTERITY, 5, "celerity")
 
 /datum/discipline_power/celerity/five/deactivate()
 	. = ..()
@@ -234,4 +242,53 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity5)
-	owner.dexterity -= 5
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
+
+/datum/discipline_power/celerity/six
+	name = "Flawless Parry"
+	desc = "Make perfect defensive motions at the expense of taking no other action."
+
+	toggled = TRUE
+	duration_length = 2 TURNS
+
+	grouped_powers = list(
+		/datum/discipline_power/celerity/one,
+		/datum/discipline_power/celerity/two,
+		/datum/discipline_power/celerity/three,
+		/datum/discipline_power/celerity/four,
+		/datum/discipline_power/celerity/five
+	)
+
+/datum/discipline_power/celerity/six/activate()
+	. = ..()
+	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(temporis_explode))
+
+	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_PERFECT_DEFENCE, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCK_PROJECTILES, MAGIC_TRAIT)
+
+	owner.status_flags |= GODMODE //Temp fix until hands_block_projectiles gets fixed.
+	owner.st_add_stat_mod(STAT_DEXTERITY, 6, "celerity")
+
+	for(var/obj/stuff in owner.contents) //no disarm
+		ADD_TRAIT(stuff, TRAIT_NODROP, MAGIC)
+
+/datum/discipline_power/celerity/six/deactivate()
+	. = ..()
+	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
+
+	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_PERFECT_DEFENCE, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCK_PROJECTILES, MAGIC_TRAIT)
+
+	owner.status_flags &= ~GODMODE
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
+
+	for(var/obj/stuff in owner.contents)
+		REMOVE_TRAIT(stuff, TRAIT_NODROP, MAGIC)

@@ -111,12 +111,12 @@
 /obj/projectile/beam/beam_rifle/vampire/rubber
 	name = "12g shotgun rubber shot"
 	damage = 5
-	stamina = 25
+	stamina = 50
 
 /obj/projectile/beam/beam_rifle/vampire/incap
 	name = "12g shotgun incapacitation shot"
 	damage = 15
-	stamina = 60
+	stamina = 80
 
 /obj/projectile/beam/beam_rifle/vampire/vamp12g
 	name = "12g shotgun slug"
@@ -126,7 +126,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/hit_person = target
 		if(SSroll.storyteller_roll(
-			dice = hit_person.get_total_physique() + min(hit_person.get_total_dexterity(), hit_person.get_total_athletics()),
+			dice = hit_person.st_get_stat(STAT_STRENGTH) + min(hit_person.st_get_stat(STAT_DEXTERITY), hit_person.st_get_stat(STAT_ATHLETICS)),
 			difficulty = 3 + (!isnull(firer) ? rand(1,2) : 0),
 			mobs_to_show_output = target
 		) == ROLL_FAILURE)
@@ -534,7 +534,7 @@
 	icon_state = "556"
 	base_iconstate = "556"
 
-obj/item/ammo_casing/vampire/c545mm/silver
+/obj/item/ammo_casing/vampire/c545mm/silver
 	name = "5.45mm silver bullet casing"
 	desc = "a 5.45mm silver bullet casing."
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp545mm/silver

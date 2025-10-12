@@ -31,7 +31,7 @@
 /datum/discipline_power/thaumaturgy/activate(atom/target)
 	. = ..()
 	//Thaumaturgy powers have different effects based off the amount of successes. I dont want to copy paste the code, so this is being put here.
-	success_count = SSroll.storyteller_roll(dice = owner.get_total_mentality(), difficulty = (level + 3), numerical = TRUE, mobs_to_show_output = owner, force_chat_result = TRUE)
+	success_count = SSroll.storyteller_roll(dice = owner.st_get_stat(STAT_PERMANENT_WILLPOWER), difficulty = (level + 3), numerical = TRUE, mobs_to_show_output = owner, force_chat_result = TRUE)
 	if(success_count < 0)
 		thaumaturgy_botch_effect()
 		return TRUE
@@ -54,7 +54,7 @@
 			owner.IgniteMob()
 		if(3)
 			to_chat(owner, span_userdanger("You feel slightly less competent!"))
-			owner.mentality = max(owner.mentality - 1, 1)
+			owner.st_add_stat_mod(STAT_TEMPORARY_WILLPOWER, -1, "thaummaturgy_failure")
 
 //------------------------------------------------------------------------------------------------
 
@@ -190,7 +190,7 @@
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate()
 	if(..())
 		return
-	if(owner.generation == LOWEST_GENERATION_LIMIT)
+	if(owner.generation <= 4)
 		to_chat(owner, span_warning("You can't make your blood any more powerful!"))
 		return
 	var/points_to_spend = success_count
@@ -199,7 +199,7 @@
 
 	var/list/generation_choices = list()
 	for(var/i in 1 to points_to_spend)
-		generation_choices += clamp((owner.generation - i), LOWEST_GENERATION_LIMIT, HIGHEST_GENERATION_LIMIT)
+		generation_choices += clamp((owner.generation - i), 4, HIGHEST_GENERATION_LIMIT) //No becoming an Antediluvian.
 	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", uniqueList(generation_choices), null)
 
 	if(!chosen_generation)
@@ -214,8 +214,8 @@
 	if(!set_time)
 		set_time = 1
 
-	chosen_generation = max(LOWEST_GENERATION_LIMIT, chosen_generation) //Lowest im gonna let you go is LOWEST_GENERATION_LIMIT bucko
-	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, set_time)
+	chosen_generation = max(BLOOD_POTENCY_GENERATION, chosen_generation) //Lowest im gonna let you go is BLOOD_POTENCY_GENERATION bucko
+	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, set_time INGAME_HOURS)
 	activated = TRUE
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/deactivate()

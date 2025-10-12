@@ -895,6 +895,10 @@ VENTORY!
 	grid_width = 2 GRID_BOXES
 	grid_height = 5 GRID_BOXES
 
+/obj/item/melee/vampirearms/spear
+	grid_width = 2 GRID_BOXES
+	grid_height = 8 GRID_BOXES
+
 /obj/item/melee/vampirearms/baseball
 	grid_width = 3 GRID_BOXES
 	grid_height = 1 GRID_BOXES
@@ -981,6 +985,14 @@ VENTORY!
 
 /obj/item/gun/ballistic/automatic/vampire/uzi
 	grid_width = 2 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
+/obj/item/gun/ballistic/vampire/mac10
+	grid_width = 2 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
+/obj/item/ammo_box/magazine/vampmac10
+	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
 /obj/item/ammo_box/magazine/vamp9mp5
@@ -1074,6 +1086,14 @@ VENTORY!
 /obj/item/gun/ballistic/shotgun/toy/crossbow/vampire
 	grid_width = 5 GRID_BOXES
 	grid_height = 2 GRID_BOXES
+
+/obj/item/gun/ballistic/automatic/response/px66f
+	grid_width = 4 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
+/obj/item/gun/ballistic/automatic/l6_saw/vamp
+	grid_width = 9 GRID_BOXES
+	grid_height = 4 GRID_BOXES
 
 /obj/item/ammo_box/vampire/arrows
 	grid_width = 2 GRID_BOXES
