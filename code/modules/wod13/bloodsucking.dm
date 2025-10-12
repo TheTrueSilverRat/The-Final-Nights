@@ -84,6 +84,7 @@
 					blood_coefficient = 1
 				if(HAS_TRAIT(mob, TRAIT_POTENT_BLOOD))
 					blood_coefficient *= 0.5 //Potent Blood is twice as valuable
+				if(mob.blood_volume <= BLOOD_VOLUME_SAFE && > BLOOD_VOLUME_BAD)
 				mob.blood_volume = max(0, (mob.blood_volume - (70*blood_coefficient)))
 		else
 			mob.bloodpool = max(0, mob.bloodpool-1)
