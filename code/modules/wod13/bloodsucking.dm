@@ -52,6 +52,15 @@
 		var/mob/living/carbon/human/npc/NPC = mob
 		NPC.danger_source = null
 		mob.Stun(40) //NPCs don't get to resist
+
+	if(mob.blood_volume <= BLOOD_VOLUME_OKAY && !combat_mode)
+		to_chat(src, span_boldwarning("[mob.name] is at the limit of how much blood they can safely take."))
+		stop_sound_channel(CHANNEL_BLOOD)
+		if(client)
+			client.images -= suckbar
+		qdel(suckbar)
+		return
+
 	if(mob.blood_volume <= BLOOD_VOLUME_BAD)
 		to_chat(src, span_warning("You feel only a sliver of <b>BLOOD</b> in your victim."))
 
@@ -80,11 +89,10 @@
 				mob.blood_volume = 0
 			else
 				var/blood_coefficient = (5 / mob.bloodpool) //most animals give less blood; very large animals/misc supernaturals/unusual humans give more
-				if(isghoul(mob)) // ghouls don't give more blood just because of their high bloodpool
-					blood_coefficient = 1
+				if(!isnpc(mob))
+					blood_coefficient *= 0.5 //Inherently Players get drained less. This is gameplay abstractions to incentivize Blooddolls.
 				if(HAS_TRAIT(mob, TRAIT_POTENT_BLOOD))
 					blood_coefficient *= 0.5 //Potent Blood is twice as valuable
-				if(mob.blood_volume <= BLOOD_VOLUME_SAFE && > BLOOD_VOLUME_BAD)
 				mob.blood_volume = max(0, (mob.blood_volume - (70*blood_coefficient)))
 		else
 			mob.bloodpool = max(0, mob.bloodpool-1)

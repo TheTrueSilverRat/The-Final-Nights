@@ -24,9 +24,9 @@
 #define BLOOD_VOLUME_SLIME_SPLIT	1120
 #define BLOOD_VOLUME_NORMAL			560 // Healing effects will bring you back to this level; damage is calculated based on your distance from this point
 #define BLOOD_VOLUME_SAFE			420 // TFN EDIT - Original value 475 - Blood Sucking Rework - Anything less than this and you get message span
-#define BLOOD_VOLUME_OKAY			336 // anything less than this and you start taking oxyloss
-#define BLOOD_VOLUME_BAD			224 // anything less than this and start taking a LOT of oxyloss
-#define BLOOD_VOLUME_SURVIVE		122 // anything less than this just calls death()
+#define BLOOD_VOLUME_OKAY			310 // anything less than this and you start taking oxyloss
+#define BLOOD_VOLUME_BAD			205 // anything less than this and start taking a LOT of oxyloss
+#define BLOOD_VOLUME_SURVIVE		100 // anything less than this just calls death()
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
