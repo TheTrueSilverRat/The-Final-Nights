@@ -1,4 +1,4 @@
-#define COMSIG_MOB_RETURNED_TO_FORM "mob_returned_to_form"
+#define COMSIG_MOB_RETURNED_TO_FORM "mob_returned_to_form" // TFN EDIT ADDITION - Reworking protean
 
 /obj/effect/proc_holder/spell/targeted/shapeshift
 	name = "Shapechange"
