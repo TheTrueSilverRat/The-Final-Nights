@@ -11,8 +11,18 @@
 
 	activate_sound = 'code/modules/wod13/sounds/protean_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/protean_deactivate.ogg'
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
 
+//handles shapeshifting and associated vars
+/datum/discipline_power/protean/post_gain()
+	. = ..()
+	RegisterSignal(owner, COMSIG_MOB_RETURNED_TO_FORM, PROC_REF(on_form_restored))
 
+/datum/discipline_power/protean/proc/on_form_restored()
+	SIGNAL_HANDLER
+	if(GA)
+		if(GA.shapeshift_type)
+			GA.shapeshift_type = null
 
 //EYES OF THE BEAST
 /datum/discipline_power/protean/eyes_of_the_beast
@@ -198,7 +208,19 @@
 		/mob/living/simple_animal/hostile/shapeshift/dog/red, \
 		/mob/living/simple_animal/hostile/shapeshift/dog/white, \
 		/mob/living/simple_animal/hostile/shapeshift/dog/ginger, \
-		/mob/living/simple_animal/hostile/shapeshift/dog/brown
+		/mob/living/simple_animal/hostile/shapeshift/dog/brown, \
+		/mob/living/simple_animal/hostile/shapeshift/bird/flying, \
+		/mob/living/simple_animal/hostile/shapeshift/bird/flying/black, \
+		/mob/living/simple_animal/hostile/shapeshift/bird/flying/white, \
+		/mob/living/simple_animal/hostile/shapeshift/bird/flying/gray, \
+		/mob/living/simple_animal/hostile/shapeshift/bird/flying/red, \
+		/mob/living/simple_animal/hostile/shapeshift/cat, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/gray, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/brown, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/white, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/browntabby, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/graytabby, \
+		/mob/living/simple_animal/hostile/shapeshift/cat/blacktabby
 	)
 	var/non_gangrel_shapes = list(
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying, \
@@ -264,10 +286,6 @@
 		/datum/discipline_power/protean/mist_form
 	)
 
-
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/GA
-
-
 /datum/discipline_power/protean/shape_of_the_beast/pre_activation_checks()
 	. = ..()
 	if(HAS_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING))
@@ -285,8 +303,6 @@
 	if (!GA)
 		GA = new(owner)
 	owner.drop_all_held_items()
-	if(GA.shapeshift_type)
-		GA.shapeshift_type = null
 	if(owner.clan?.name == CLAN_GANGREL)
 		GA.is_gangrel = TRUE
 	GA.cast(list(owner), owner)
@@ -321,9 +337,6 @@
 		/datum/discipline_power/protean/shape_of_the_beast
 	)
 
-
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist/GA
-
 /datum/discipline_power/protean/mist_form/pre_activation_checks()
 	. = ..()
 	if(HAS_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING))
@@ -336,19 +349,14 @@
 		REMOVE_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 		return TRUE
 
-
 /datum/discipline_power/protean/mist_form/activate()
 	. = ..()
 	if (!GA)
-		GA = new(owner)
+		GA = new /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist(owner)
 	owner.drop_all_held_items()
-	GA.Shapeshift(owner)
-
-/datum/discipline_power/protean/mist_form/deactivate()
-	. = ..()
-	GA.Restore(GA.myshape)
-	owner.Stun(1 SECONDS)
-	owner.do_jitter_animation(15)
+	GA.cast(list(owner), owner)
+	if(GA.myshape)
+		ADD_TRAIT(GA.myshape, TRAIT_PACIFISM, MAGIC_TRAIT)
 
 //SHAPE MASTERY
 /datum/discipline_power/protean/shape_mastery

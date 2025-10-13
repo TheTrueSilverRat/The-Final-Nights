@@ -1,3 +1,5 @@
+#define COMSIG_MOB_RETURNED_TO_FORM "mob_returned_to_form"
+
 /obj/effect/proc_holder/spell/targeted/shapeshift
 	name = "Shapechange"
 	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
@@ -121,6 +123,7 @@
 	var/obj/shapeshift_holder/Shape = locate() in owner
 	if(Shape)
 		. =  Shape.stored
+		SEND_SIGNAL(Shape.stored, COMSIG_MOB_RETURNED_TO_FORM)
 		Shape.restore()
 	else
 		to_chat(owner, span_warning("You cannot transform back to your original form as you are already in your original form. Unless you believe it is not?"))
