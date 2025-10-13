@@ -250,7 +250,7 @@
 
 	level = 4
 
-	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+	check_flags = DISC_CHECK_CAPABLE
 	vitae_cost = 1
 	violates_masquerade = TRUE
 
@@ -270,8 +270,14 @@
 
 /datum/discipline_power/protean/shape_of_the_beast/pre_activation_checks()
 	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING))
+		to_chat(owner, span_warning("YOU ALREADY ARE TRANSFORMING!"))
+		return FALSE
+	else
+		ADD_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 	to_chat(owner, span_warning("You begin transforming..."))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
+		REMOVE_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 		return TRUE
 
 /datum/discipline_power/protean/shape_of_the_beast/activate()
@@ -307,8 +313,6 @@
 	vitae_cost = 2
 	violates_masquerade = TRUE
 
-	cancelable = TRUE
-	duration_length = 999 SCENES
 	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(
@@ -322,9 +326,16 @@
 
 /datum/discipline_power/protean/mist_form/pre_activation_checks()
 	. = ..()
-	to_chat(owner, span_warning("You begin transforming"))
+	if(HAS_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING))
+		to_chat(owner, span_warning("YOU ALREADY ARE TRANSFORMING!"))
+		return FALSE
+	else
+		ADD_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
+	to_chat(owner, span_warning("You begin transforming..."))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
+		REMOVE_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 		return TRUE
+
 
 /datum/discipline_power/protean/mist_form/activate()
 	. = ..()

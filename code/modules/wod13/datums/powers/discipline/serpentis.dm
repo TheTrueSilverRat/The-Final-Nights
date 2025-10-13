@@ -140,7 +140,6 @@
 
 	violates_masquerade = TRUE
 
-	duration_length = 15 SECONDS
 	cooldown_length = 30 SECONDS
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/cobra/BC
@@ -148,8 +147,14 @@
 
 /datum/discipline_power/serpentis/the_form_of_the_cobra/pre_activation_checks()
 	. = ..()
-	to_chat(owner, span_warning("You begin transforming"))
+	if(HAS_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING))
+		to_chat(owner, span_warning("YOU ALREADY ARE TRANSFORMING!"))
+		return FALSE
+	else
+		ADD_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
+	to_chat(owner, span_warning("You begin transforming..."))
 	if (do_after(owner, 6 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE | IGNORE_HELD_ITEM )))
+		REMOVE_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 		return TRUE
 
 /datum/discipline_power/serpentis/the_form_of_the_cobra/activate()
