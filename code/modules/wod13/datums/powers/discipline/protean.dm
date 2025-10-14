@@ -328,7 +328,6 @@
 
 	vitae_cost = 2
 	violates_masquerade = TRUE
-
 	cooldown_length = 20 SECONDS
 
 	grouped_powers = list(

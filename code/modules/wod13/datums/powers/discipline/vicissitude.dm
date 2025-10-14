@@ -610,12 +610,6 @@
 
 	horrid_form_shapeshift.Shapeshift(owner)
 
-/datum/discipline_power/vicissitude/horrid_form/deactivate()
-	. = ..()
-	horrid_form_shapeshift.Restore(horrid_form_shapeshift.myshape)
-	owner.Stun(2 SECONDS)
-	owner.do_jitter_animation(50)
-
 /datum/discipline_power/vicissitude/horrid_form/post_gain()
 	. = ..()
 	if (!owner.mind)
@@ -657,6 +651,8 @@
 
 	bloodform_shapeshift.Shapeshift(owner)
 
+/* deactivate() is no longer necessary with the protean rework for simplemob transforms but this is commented so that the bloodpool restore functionality can be brought back
+// at a later date
 /datum/discipline_power/vicissitude/bloodform/deactivate()
 	. = ..()
 	var/mob/living/simple_animal/hostile/bloodcrawler/bloodform = bloodform_shapeshift.myshape
@@ -664,6 +660,7 @@
 	bloodform_shapeshift.Restore(bloodform_shapeshift.myshape)
 	owner.Stun(1.5 SECONDS)
 	owner.do_jitter_animation(30)
+*/
 
 /datum/discipline_power/vicissitude/bloodform/post_gain()
 	. = ..()

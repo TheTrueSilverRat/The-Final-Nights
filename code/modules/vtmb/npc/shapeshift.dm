@@ -6,7 +6,7 @@
 	health = 200
 	harm_intent_damage = 20
 	melee_damage_lower = 24
-	melee_damage_upper = 42
+	melee_damage_upper = 30
 	melee_damage_type = CLONE
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 	name = "dog"
@@ -174,6 +174,7 @@
 	icon_living = "brown"
 	icon_dead = "brown_rest"
 	speed = -0.8
+	attack_sound = 'code/modules/wod13/sounds/werewolf_bite.ogg'
 
 /mob/living/simple_animal/hostile/shapeshift/bird/flying/black
 	name = "A black bird"
@@ -210,6 +211,7 @@
 	icon_state = "cat1"
 	icon_living = "cat1"
 	icon_dead = "cat1_dead"
+	attack_sound = 'code/modules/wod13/sounds/cat.ogg'
 
 /mob/living/simple_animal/hostile/shapeshift/cat/gray
 	name = "gray cat"

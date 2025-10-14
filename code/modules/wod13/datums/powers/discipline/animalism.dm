@@ -174,7 +174,6 @@
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
 
 	violates_masquerade = TRUE
-
 	cooldown_length = 8 SECONDS
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/animalism/shapeshift
@@ -191,19 +190,11 @@
 		REMOVE_TRAIT(owner, TRAIT_CURRENTLY_TRANSFORMING, DISCIPLINE_TRAIT)
 		return TRUE
 
-
-
 /datum/discipline_power/animalism/rat_shapeshift/activate()
 	. = ..()
 	if(!shapeshift)
 		shapeshift = new(owner)
 	shapeshift.Shapeshift(owner)
-
-/datum/discipline_power/animalism/rat_shapeshift/deactivate()
-	. = ..()
-	if(owner.stat != DEAD)
-		shapeshift.Restore(shapeshift.myshape)
-		owner.Stun(1.5 SECONDS)
 
 //SONG IN THE DARK
 /datum/discipline_power/animalism/song_in_the_dark
