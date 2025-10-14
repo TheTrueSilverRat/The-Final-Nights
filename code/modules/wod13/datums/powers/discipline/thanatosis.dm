@@ -28,14 +28,13 @@
 	desc = "Your face has aged terribly!!"
 	icon_state = "wounded_soldier"
 
-/datum/status_effect/putrefactionh/on_apply()
+/datum/status_effect/putrefaction/on_apply()
 	. = ..()
-	owner.social -= 2
+	owner.st_decrease_stat_score(STAT_APPEARANCE, 2)
 
 /datum/status_effect/putrefaction/on_remove()
 	. = ..()
-	owner.social += 2
-
+	owner.st_increase_stat_score(STAT_APPEARANCE, 2)
 
 /datum/status_effect/putrefaction/two
 	id = "putrefaction2"
@@ -45,11 +44,11 @@
 
 /datum/status_effect/putrefaction/two/on_apply()
 	. = ..()
-	owner.dexterity -= 1
+	owner.st_decrease_stat_score(STAT_DEXTERITY, 1)
 
 /datum/status_effect/putrefaction/two/on_remove()
 	. = ..()
-	owner.dexterity += 1
+	owner.st_decrease_stat_score(STAT_DEXTERITY, 1)
 
 /datum/status_effect/putrefaction/three
 	id = "putrefaction3"
@@ -59,15 +58,15 @@
 
 /datum/status_effect/putrefaction/three/on_apply()
 	. = ..()
-	owner.social -= 1
-	owner.dexterity -= 1
-	owner.physique -= 1
+	owner.st_decrease_stat_score(STAT_APPEARANCE, 1)
+	owner.st_decrease_stat_score(STAT_DEXTERITY, 1)
+	owner.st_decrease_stat_score(STAT_STRENGTH, 1)
 
 /datum/status_effect/putrefaction/three/on_remove()
 	. = ..()
-	owner.social += 1
-	owner.dexterity += 1
-	owner.physique += 1
+	owner.st_increase_stat_score(STAT_APPEARANCE, 1)
+	owner.st_increase_stat_score(STAT_DEXTERITY, 1)
+	owner.st_increase_stat_score(STAT_STRENGTH, 1)
 
 /datum/status_effect/putrefaction/four
 	id = "putrefaction4"
@@ -77,23 +76,15 @@
 
 /datum/status_effect/putrefaction/four/on_apply()
 	. = ..()
-	owner.social -= 2
-	owner.dexterity -= 1
-	owner.physique -= 1
+	owner.st_decrease_stat_score(STAT_APPEARANCE, 2)
+	owner.st_decrease_stat_score(STAT_DEXTERITY, 1)
+	owner.st_decrease_stat_score(STAT_STRENGTH, 1)
 
 /datum/status_effect/putrefaction/four/on_remove()
 	. = ..()
-	owner.social -=2
-	owner.dexterity += 1
-	owner.physique += 1
-
-
-
-
-
-//STATUS EFFECTS END
-
-
+	owner.st_increase_stat_score(STAT_APPEARANCE, 2)
+	owner.st_increase_stat_score(STAT_DEXTERITY, 1)
+	owner.st_increase_stat_score(STAT_STRENGTH, 1)
 
 //HAG'S WRINKLES
 /datum/discipline_power/thanatosis/hag_wrinkles
@@ -110,6 +101,13 @@
 	cancelable = TRUE
 	duration_length = 2 INGAME_HOURS
 
+/datum/discipline_power/thanatosis/hag_wrinkles/pre_activation_checks()
+	. = ..()
+	var/dice = owner.st_get_stat(STAT_STAMINA) + owner.st_get_stat(STAT_SUBTERFUGE)
+	if(SSroll.storyteller_roll(dice, 8, FALSE, owner))
+		return TRUE
+	else
+		return FALSE
 
 /datum/discipline_power/thanatosis/hag_wrinkles/activate()
 	. = ..()
@@ -122,8 +120,6 @@
 	. = ..()
 	for(var/obj/item/implant/storage/i in owner.implants)
 		i.removed(owner)
-
-
 
 //PUTREFACTION
 /datum/discipline_power/thanatosis/putrefaction
@@ -141,10 +137,10 @@
 
 	range = 1
 	cooldown_length = 5 SECONDS
+	var/successes
 
-/datum/discipline_power/thanatosis/putrefaction/activate(mob/living/target)
+/datum/discipline_power/thanatosis/putrefaction/pre_activation_checks(mob/living/target)
 	. = ..()
-
 	var/fortitudelevel
 	var/totaldice
 	var/totaldiff
@@ -156,27 +152,31 @@
 			fortitudelevel = fortitude_check.level
 
 
-	totaldice = (owner.get_total_dexterity())
-	totaldiff = (target.get_total_physique() + fortitudelevel)
-	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+	totaldice = (owner.st_get_stat(STAT_DEXTERITY) + owner.st_get_stat(STAT_MEDICINE))
+	totaldiff = (target.st_get_stat(STAT_STAMINA) + fortitudelevel)
+	successes = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
-	if(mypower >= 1)
-		target.adjustBruteLoss(30)
-		target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
+	if(successes > 0)
+		return TRUE
 	else
-		to_chat(owner, span_warning("Putrefaction has failed to affect [target]"))
+		to_chat(owner, span_warning("Putrefaction has failed to affect [target]!"))
+		return FALSE
+
+/datum/discipline_power/thanatosis/putrefaction/activate(mob/living/target)
+	. = ..()
+	target.adjustBruteLoss(successes * 25)
+	target.apply_status_effect(STATUS_EFFECT_PUTREFACTION, owner)
+
 
 
 //ASHES TO ASHES
-
-
 /mob/living/simple_animal/hostile/bloodcrawler/dust
 	name = "ash"
 	desc = "Ashes to ashes, dust to dust, and into space."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	icon_living = "ash"
-	speed = -0.5
+	speed = 2 //'the character cannot move'
 	maxHealth = 1000
 	health = 1000
 	melee_damage_lower = 1
@@ -227,7 +227,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_FREE_HAND | DISC_CHECK_IMMOBILE
 	target_type = TARGET_LIVING
 	range = 1
-	vitae_cost = 1
+	willpower_cost = 1
 
 	effect_sound = 'code/modules/wod13/sounds/necromancy4.ogg'
 
@@ -236,8 +236,9 @@
 	violates_masquerade = TRUE
 
 	cooldown_length = 1 TURNS
+	var/successes
 
-/datum/discipline_power/thanatosis/withering/activate(mob/living/target)
+/datum/discipline_power/thanatosis/withering/pre_activation_checks(mob/living/target)
 	. = ..()
 	var/fortitudelevel
 	var/totaldice
@@ -250,13 +251,21 @@
 			fortitudelevel = fortitude_check.level
 
 
-	totaldice = (owner.get_total_mentality())
-	totaldiff = (target.get_total_physique() + fortitudelevel)
-	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+	totaldice = (owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_MEDICINE))
+	totaldiff = (target.st_get_stat(STAT_STAMINA) + fortitudelevel)
+	successes = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+	if(successes > 0)
+		return TRUE
+	else
+		to_chat(owner, span_warning("Withering has failed to affect [target]"))
+		return FALSE
 
-	if((mypower >= 1) && (mypower < 3))
+/datum/discipline_power/thanatosis/withering/activate(mob/living/target)
+	. = ..()
+
+	if((successes >= 1) && (successes < 3))
 		target.adjustStaminaLoss(60)
-	else if(mypower >= 3)
+	else if(successes >= 3)
 		if(iscarbon(target))
 			var/mob/living/carbon/deady = target
 			var/obj/item/bodypart/target_part = deady.get_bodypart(check_zone(owner.zone_selected))
@@ -273,15 +282,12 @@
 					target.visible_message(span_danger("[target]'s [target_part.name] withers into nothingness!"), span_userdanger("YOUR <b>[target_part.name]</b> WITHERS INTO NOTHING!"))
 					target_part.dismember(BURN)
 			if(iscoraxcrinos(target) || iscrinos(target) || islupus(target) || iscorax(target))
-				target.adjustBruteLoss(30 * mypower)
+				target.adjustBruteLoss(30 * successes)
 			else
 				var/datum/wound/blunt/critical/crit_wound = new
 				crit_wound.apply_wound(target_part)
 		else
 			target.adjustBruteLoss(200)
-	else
-		to_chat(owner, span_warning("Withering has failed to affect [target]"))
-
 
 //NECROSIS
 /datum/discipline_power/thanatosis/necrosis
@@ -300,8 +306,9 @@
 	violates_masquerade = TRUE
 
 	cooldown_length = 5 SECONDS
+	var/successes
 
-/datum/discipline_power/thanatosis/necrosis/activate(mob/living/carbon/human/target)
+/datum/discipline_power/thanatosis/necrosis/pre_activation_checks(mob/living/carbon/human/target)
 	. = ..()
 	var/fortitudelevel
 	var/totaldice
@@ -313,16 +320,23 @@
 		if(fortitude_check)
 			fortitudelevel = fortitude_check.level
 
-	totaldice = (owner.get_total_dexterity())
-	totaldiff = (target.get_total_physique() + fortitudelevel)
-	var/mypower = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
+	totaldice = (owner.st_get_stat(STAT_DEXTERITY) + owner.st_get_stat(STAT_MEDICINE))
+	totaldiff = (target.st_get_stat(STAT_STAMINA) + fortitudelevel)
+	successes = SSroll.storyteller_roll(totaldice, difficulty = totaldiff, mobs_to_show_output = owner, numerical = TRUE)
 
-	target.adjustBruteLoss(30 * mypower)
+	if(successes > 0)
+		return TRUE
+	else
+		return FALSE
 
-	if(mypower <= 1)
+/datum/discipline_power/thanatosis/necrosis/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.adjustBruteLoss(30 * successes)
+
+	if(successes <= 1)
 		to_chat(owner, span_warning("Necrosis has failed to affect [target]!"))
 		return
-	switch(mypower)
+	switch(successes)
 		if(1)
 			return
 		if(2)
