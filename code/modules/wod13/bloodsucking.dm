@@ -53,7 +53,7 @@
 		NPC.danger_source = null
 		mob.Stun(40) //NPCs don't get to resist
 
-	if(mob.blood_volume <= BLOOD_VOLUME_OKAY && !combat_mode)
+	if(mob.blood_volume <= BLOOD_VOLUME_SAFE && !combat_mode)
 		to_chat(src, span_boldwarning("[mob.name] is at the limit of how much blood they can safely take."))
 		stop_sound_channel(CHANNEL_BLOOD)
 		if(client)
