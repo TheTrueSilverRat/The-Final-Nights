@@ -335,6 +335,7 @@
 		/datum/discipline_power/protean/earth_meld,
 		/datum/discipline_power/protean/shape_of_the_beast
 	)
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist/GMA
 
 /datum/discipline_power/protean/mist_form/pre_activation_checks()
 	. = ..()
@@ -350,12 +351,12 @@
 
 /datum/discipline_power/protean/mist_form/activate()
 	. = ..()
-	if (!GA)
-		GA = new /obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/mist(owner)
+	if (!GMA)
+		GMA = new(owner)
 	owner.drop_all_held_items()
-	GA.cast(list(owner), owner)
-	if(GA.myshape)
-		ADD_TRAIT(GA.myshape, TRAIT_PACIFISM, MAGIC_TRAIT)
+	GMA.cast(list(owner), owner)
+	if(GMA.myshape)
+		ADD_TRAIT(GMA.myshape, TRAIT_PACIFISM, MAGIC_TRAIT)
 
 //SHAPE MASTERY
 /datum/discipline_power/protean/shape_mastery
