@@ -869,49 +869,64 @@
 	cost_demon = 1
 	discipline_type = "Demon"
 
+
+/datum/chi_discipline/black_wind/post_gain(mob/living/carbon/human/user)
+	. = ..()
+	user.st_add_stat_mod(STAT_DEXTERITY, level, "black_wind_passive")
+
 /datum/chi_discipline/black_wind/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
 	switch(level_casting)
 		if(1)
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity)
 			caster.celerity_visual = TRUE
+			caster.st_add_stat_mod(STAT_DEXTERITY, 1, "black wind")
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/celerity)
 					caster.celerity_visual = FALSE
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "black wind")
 		if(2)
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity2)
 			caster.celerity_visual = TRUE
+			caster.st_add_stat_mod(STAT_DEXTERITY, 2, "black wind")
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/celerity2)
 					caster.celerity_visual = FALSE
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "black wind")
 		if(3)
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity3)
 			caster.celerity_visual = TRUE
+			caster.st_add_stat_mod(STAT_DEXTERITY, 3, "black wind")
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/celerity3)
 					caster.celerity_visual = FALSE
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "black wind")
 		if(4)
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity4)
 			caster.celerity_visual = TRUE
+			caster.st_add_stat_mod(STAT_DEXTERITY, 4, "black wind")
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/celerity4)
 					caster.celerity_visual = FALSE
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "black wind")
 		if(5)
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity5)
 			caster.celerity_visual = TRUE
+			caster.st_add_stat_mod(STAT_DEXTERITY, 5, "black wind")
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/celerity5)
 					caster.celerity_visual = FALSE
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "black wind")
 
 /datum/chi_discipline/demon_shintai
 	name = "Demon Shintai"
@@ -970,6 +985,31 @@
 
 /datum/chi_discipline/demon_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
+	switch(level_casting)
+		if(1)
+			caster.st_add_stat_mod(STAT_STRENGTH, 1, "demon_shintai_str")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 1, "demon_shintai_dex")
+			caster.st_add_stat_mod(STAT_STAMINA, 1, "demon_shintai_stam")
+		if(2)
+			caster.st_add_stat_mod(STAT_STRENGTH, 2, "demon_shintai_str")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 1, "demon_shintai_dex")
+			caster.st_add_stat_mod(STAT_STAMINA, 1, "demon_shintai_stam")
+		if(3)
+			caster.st_add_stat_mod(STAT_STRENGTH, 2, "demon_shintai_str")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 1, "demon_shintai_dex")
+			caster.st_add_stat_mod(STAT_STAMINA, 2, "demon_shintai_stam")
+		if(4)
+			caster.st_add_stat_mod(STAT_STRENGTH, 3, "demon_shintai_str")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 1, "demon_shintai_dex")
+			caster.st_add_stat_mod(STAT_STAMINA, 2, "demon_shintai_stam")
+		if(5)
+			caster.st_add_stat_mod(STAT_STRENGTH, 3, "demon_shintai_str")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 2, "demon_shintai_dex")
+			caster.st_add_stat_mod(STAT_STAMINA, 2, "demon_shintai_stam")
+	spawn((delay)+caster.discipline_time_plus)
+		caster.st_remove_stat_mod(STAT_STRENGTH, "demon_shintai_str")
+		caster.st_remove_stat_mod(STAT_DEXTERITY, "demon_shintai_dex")
+		caster.st_remove_stat_mod(STAT_STAMINA, "demon_shintai_stam")
 	switch(current_form)
 		if("Samurai")
 			var/mod = 10*level_casting
@@ -1192,10 +1232,11 @@
 
 /datum/chi_discipline/iron_mountain/post_gain(mob/living/carbon/human/user)
 	user.physiology.damage_resistance += (5+(5*level))
+	user.st_add_stat_mod(STAT_STAMINA, level, "passive_iron_mountain")
 
 /datum/chi_discipline/iron_mountain/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/bonus = (5+(5*level))
+	var/bonus = (5+(5*level_casting))
 	caster.physiology.damage_resistance = min(60, (caster.physiology.damage_resistance+bonus) )
 	spawn(delay+caster.discipline_time_plus)
 		if(caster)
