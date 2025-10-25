@@ -102,6 +102,8 @@
 	var/dead_restricted
 	///What rank of this Discipline is currently being casted.
 	var/level_casting = 1
+	///What the previously activated level casted was (To prevent abuse)
+	var/previous_level_casted = 1
 
 	var/discipline_type = "Shintai"		//Either "Shintai", "Chi" or "Demon" arts
 	COOLDOWN_DECLARE(activate)
@@ -1229,19 +1231,21 @@
 	delay = 12 SECONDS
 	cost_demon = 1
 	discipline_type = "Demon"
+	var/bonus //had to bring it up here due to sepearting the functions into individual procs
 
 /datum/chi_discipline/iron_mountain/post_gain(mob/living/carbon/human/user)
 	user.physiology.damage_resistance += (5+(5*level))
 	user.st_add_stat_mod(STAT_STAMINA, level, "passive_iron_mountain")
 
-/datum/chi_discipline/iron_mountain/activate(mob/living/target, mob/living/carbon/human/caster)
+/datum/chi_discipline/iron_mountain/activate(mob/living/carbon/human/caster)
 	..()
-	var/bonus = (5+(5*level_casting))
+	bonus = (5+(5*level_casting))
 	caster.physiology.damage_resistance = min(60, (caster.physiology.damage_resistance+bonus) )
-	spawn(delay+caster.discipline_time_plus)
-		if(caster)
-			caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/ironmountain_deactivate.ogg', 50, FALSE)
-		caster.physiology.damage_resistance = max(0, (caster.physiology.damage_resistance-bonus) )
+	addtimer(CALLBACK(src, PROC_REF(iron_mountain_deactivate), caster), delay+caster.discipline_time_plus SECONDS)
+
+/datum/chi_discipline/iron_mountain/proc/iron_mountain_deactivate(mob/living/carbon/human/caster)
+	caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/ironmountain_deactivate.ogg', 50, FALSE)
+	caster.physiology.damage_resistance = max(0, (caster.physiology.damage_resistance-bonus))
 
 /datum/chi_discipline/kiai
 	name = "Kiai"
