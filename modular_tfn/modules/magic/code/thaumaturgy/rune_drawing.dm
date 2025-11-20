@@ -28,13 +28,12 @@
 		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rune_names)
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - H.get_total_mentality()), H))
+			if(do_after(H, 3 SECONDS * max(1, 5 - H.st_get_stat(STAT_PERMANENT_WILLPOWER)), H))
 				drawing = FALSE
 				var/ritual_type = rune_names[ritual]
 				new ritual_type(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
+				SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 			else
 				drawing = FALSE
 	else
@@ -47,12 +46,11 @@
 		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy", list("???"))
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - H.get_total_mentality()), H))
+			if(do_after(H, 3 SECONDS * max(1, 5 - H.st_get_stat(STAT_PERMANENT_WILLPOWER)), H))
 				drawing = FALSE
 				var/rune = pick(shit)
 				new rune(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
+				SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 			else
 				drawing = FALSE

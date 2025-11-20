@@ -172,8 +172,7 @@
 		caster.playsound_local(caster, activate_sound, 50, FALSE)
 
 	if(violates_masquerade)
-		if(caster.CheckEyewitness(target, caster, 7, TRUE))
-			caster.AdjustMasquerade(-1)
+		SEND_SIGNAL(caster, COMSIG_MASQUERADE_VIOLATION)
 
 	to_chat(caster, "<span class='notice'>You activate [src][(ranged && target) ? " on [target]" : ""].</span>")
 	log_attack("[key_name(caster)] casted level [src.level_casting] of the Discipline [src.name][target == caster ? "." : " on [key_name(target)]"]")
@@ -631,7 +630,7 @@
 
 /datum/chi_discipline/ghost_flame_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/limit = min(2, level) + caster.social + caster.more_companions - 1
+	var/limit = min(2, level) + caster.st_get_stat(STAT_LEADERSHIP)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/random_beast = pick(caster.beastmaster)
 		random_beast.death()
@@ -746,9 +745,7 @@
 	if(firer)
 		chain = firer.Beam(src, icon_state = "arm")
 		if(iscathayan(firer))
-			var/mob/living/carbon/human/H = firer
-			if(H.CheckEyewitness(H, H, 7, FALSE))
-				H.AdjustMasquerade(-1)
+			SEND_SIGNAL(firer, COMSIG_MASQUERADE_VIOLATION)
 	..()
 
 /obj/projectile/flesh_shintai/on_hit(atom/target)
@@ -1145,8 +1142,8 @@
 
 /datum/chi_discipline/hellweaving/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/mypower = caster.get_total_social()
-	var/theirpower = caster.get_total_mentality()
+	var/mypower = (caster.st_get_stat(STAT_PERCEPTION) + caster.st_get_stat(STAT_OCCULT))
+	var/theirpower = caster.st_get_stat(STAT_PERMANENT_WILLPOWER)
 	if(theirpower >= mypower)
 		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to cause flashbacks for!</span>")
 		return
@@ -1237,27 +1234,27 @@
 			sound_gender = 'code/modules/wod13/sounds/kiai_female.ogg'
 	playsound(caster.loc, sound_gender, 100, FALSE)
 	caster.visible_message("<span class='danger'>[caster] SCREAMS!</span>")
-	var/mypower = caster.get_total_social()
-	var/theirpower = target.get_total_mentality()
+	var/mypower = caster.st_get_stat(STAT_CHARISMA)
+	var/theirpower = target.st_get_stat(STAT_PERMANENT_WILLPOWER)
 	var/total_power = 1 //The proportion of your Social to their Mentality. Higher social means higher total_power and higher effect. If this is 1 or more, our social is at least as high as their mentality
 	switch(level_casting)
 		if(1)
-			caster.physique += 2
-			caster.dexterity += 2
-			caster.athletics += 2
+			caster.st_add_stat_mod(STAT_STRENGTH, 2, "kiai")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 2, "kiai")
+			caster.st_add_stat_mod(STAT_ATHLETICS, 2, "kiai")
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/kiai)
 			ADD_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 			caster.do_jitter_animation(1 SECONDS)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
-					caster.physique -= 2
-					caster.dexterity -= 2
-					caster.athletics -= 2
+					caster.st_remove_stat_mod(STAT_STRENGTH, "kiai")
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "kiai")
+					caster.st_remove_stat_mod(STAT_ATHLETICS, "kiai")
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/kiai)
 					REMOVE_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 		if(2)
 			for(var/mob/living/carbon/hearer in ohearers(2, caster))
-				total_power = mypower / hearer.get_total_mentality()
+				total_power = mypower / hearer.st_get_stat(STAT_PERMANENT_WILLPOWER)
 				step_away(hearer, caster)
 				hearer.apply_effect(total_power * 2, EFFECT_EYE_BLUR)
 				if(total_power >= 1)
@@ -1271,7 +1268,7 @@
 				target.do_jitter_animation(1 SECONDS)
 				new /datum/hallucination/fire(target, TRUE)
 		if(4)
-			var/target_phys = target.get_total_physique()
+			var/target_phys = target.st_get_stat(STAT_STRENGTH)
 			target.add_splatter_floor(get_turf(target))
 			target.add_splatter_floor(get_turf(get_step(target, caster.dir)))
 			switch(SSroll.storyteller_roll(mypower, target_phys + 3))
@@ -1284,7 +1281,7 @@
 					target.visible_message("<span class='danger'>Bleeding wounds open up on [target]!</span>", "<span class='userdanger'>[caster]'s scream tears at your flesh!</span>")
 		if(5)
 			for(var/mob/living/carbon/hearer in ohearers(5, caster))
-				theirpower = hearer.get_total_mentality()
+				theirpower = hearer.st_get_stat(STAT_PERMANENT_WILLPOWER)
 				total_power = (mypower - 2) / theirpower //same as dot 3, but your power is treated as 2 points lower for determining the effects)
 				step_away(hearer, caster)
 				if(total_power > 1)
@@ -1341,7 +1338,7 @@
 	..()
 	if(!wolflike_shapeshift)
 		wolflike_shapeshift = new(caster)
-	var/limit = min(2, level) + caster.social + caster.more_companions - 1
+	var/limit = min(2, level) + caster.st_get_stat(STAT_LEADERSHIP)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/random_beast = pick(caster.beastmaster)
 		random_beast.death()
@@ -1408,7 +1405,6 @@
 	revert_on_death = TRUE
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/smokecrawler
-
 /obj/effect/proc_holder/spell/targeted/shapeshift/hidden_smoke_form
 	name = "Smoke Form"
 	desc = "Take on the shape a Smoke."
@@ -1444,6 +1440,8 @@
 	minbodytemp = 0
 	bloodpool = 0
 	maxbloodpool = 0
+	is_flying_animal = TRUE
+	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 /mob/living/simple_animal/hostile/smokecrawler/hidden
 	alpha = 10
@@ -1558,8 +1556,7 @@
 		..()
 		return
 	human_target.electrocute_act(50, src, siemens_coeff = 1, flags = NONE)
-	if(user.CheckEyewitness(user, user, 7, FALSE))
-		user.AdjustMasquerade(-1)
+	SEND_SIGNAL(user, COMSIG_MASQUERADE_VIOLATION)
 	return ..()
 
 /obj/item/gun/magic/hook/storm_shintai
@@ -1601,9 +1598,7 @@
 	if(firer)
 		chain = firer.Beam(src, icon_state="lightning[rand(1,12)]")
 		if(iscathayan(firer))
-			var/mob/living/carbon/human/H = firer
-			if(H.CheckEyewitness(H, H, 7, FALSE))
-				H.AdjustMasquerade(-1)
+			SEND_SIGNAL(firer, COMSIG_MASQUERADE_VIOLATION)
 	..()
 
 /obj/projectile/storm_shintai/on_hit(atom/target)
@@ -1710,9 +1705,9 @@
 			caster.dna.species.punchdamagehigh += 5
 			caster.physiology.armor.melee += 15
 			caster.physiology.armor.bullet += 15
-			caster.dexterity += 2
-			caster.athletics += 2
-			caster.lockpicking += 2
+			caster.st_add_stat_mod(STAT_DEXTERITY, 2, "equilibrium")
+			caster.st_add_stat_mod(STAT_ATHLETICS, 2, "equilibrium")
+			caster.st_add_stat_mod(STAT_LARCENY, 2, "equilibrium")
 			ADD_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 			caster.do_jitter_animation(1 SECONDS)
 			spawn(delay+caster.discipline_time_plus)
@@ -1720,9 +1715,9 @@
 					caster.dna.species.punchdamagehigh -= 5
 					caster.physiology.armor.melee -= 15
 					caster.physiology.armor.bullet -= 15
-					caster.dexterity -= 2
-					caster.athletics -= 2
-					caster.lockpicking -= 2
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "equilibrium")
+					caster.st_remove_stat_mod(STAT_ATHLETICS, "equilibrium")
+					caster.st_remove_stat_mod(STAT_LARCENY, "equilibrium")
 					REMOVE_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 		if(2)
 			caster.yin_chi += 1
@@ -1773,9 +1768,9 @@
 				affected_mob.dna.species.punchdamagehigh += 5
 				affected_mob.physiology.armor.melee += 15
 				affected_mob.physiology.armor.bullet += 15
-				affected_mob.dexterity += 2
-				affected_mob.athletics += 2
-				affected_mob.lockpicking += 2
+				affected_mob.st_add_stat_mod(STAT_DEXTERITY, 2, "equilibrium")
+				affected_mob.st_add_stat_mod(STAT_ATHLETICS, 2, "equilibrium")
+				affected_mob.st_add_stat_mod(STAT_LARCENY, 2, "equilibrium")
 				ADD_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 				var/obj/effect/celerity/celerity_effect = new(get_turf(affected_mob))
 				celerity_effect.appearance = affected_mob.appearance
@@ -1789,9 +1784,9 @@
 						affected_mob.dna.species.punchdamagehigh -= 5
 						affected_mob.physiology.armor.melee -= 15
 						affected_mob.physiology.armor.bullet -= 15
-						affected_mob.dexterity -= 2
-						affected_mob.athletics -= 2
-						affected_mob.lockpicking -= 2
+						affected_mob.st_remove_stat_mod(STAT_DEXTERITY, "equilibrium")
+						affected_mob.st_remove_stat_mod(STAT_ATHLETICS, "equilibrium")
+						affected_mob.st_remove_stat_mod(STAT_LARCENY, "equilibrium")
 						REMOVE_TRAIT(affected_mob, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 		if(4)
 			for(var/mob/living/affected_mob in oviewers(5, caster))
@@ -2083,8 +2078,7 @@
 		door_item.throw_at(throw_target, rand(2, 4), 4, src)
 		qdel(target)
 	if(isliving(target))
-		if(user.CheckEyewitness(user, user, 7, FALSE))
-			user.AdjustMasquerade(-1)
+		SEND_SIGNAL(user, COMSIG_MASQUERADE_VIOLATION)
 		var/mob/living/target_mob = target
 		target_mob.adjustCloneLoss(20)
 		target_mob.AdjustKnockdown(2 SECONDS)

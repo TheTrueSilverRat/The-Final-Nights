@@ -71,6 +71,15 @@
 
 	var/list/drop_on_death_list = null
 
+
+
+/mob/living/carbon/human/npc/Initialize()
+	. = ..()
+	NPC_wyrm_taint() // Declaring wether this NPC has wyrm taint or not to "Sense Wyrm" users
+	// NPC humans get the area of effect, player humans dont. This is a fucky way of doing this.
+	qdel(GetComponent(/datum/component/violation_observer))
+	AddComponent(/datum/component/violation_observer, TRUE)
+
 /mob/living/carbon/human/npc/LateInitialize()
 	. = ..()
 	if(role_weapons_chances.Find(type))
@@ -81,7 +90,8 @@
 	if(!my_weapon && my_weapon_type)
 		my_weapon = new my_weapon_type(src)
 
-
+	if(!socialrole)
+		AssignSocialRole(pick(/datum/socialrole/usualmale, /datum/socialrole/usualfemale))
 
 	if(my_weapon)
 		has_weapon = TRUE
@@ -95,6 +105,7 @@
 		my_backup_weapon = new my_backup_weapon_type(src)
 		equip_to_appropriate_slot(my_backup_weapon)
 		register_sticky_item(my_backup_weapon)
+
 
 //====================Sticky Item Handling====================
 /mob/living/carbon/human/npc/proc/register_sticky_item(obj/item/my_item)
@@ -340,14 +351,7 @@
 /mob/living/carbon/human/npc/proc/AssignSocialRole(datum/socialrole/S, var/dont_random = FALSE)
 	if(!S)
 		return
-	physique = rand(1, max_stat)
-	social = rand(1, max_stat)
-	mentality = rand(1, max_stat)
-	lockpicking = rand(1, max_stat)
-	blood = rand(1, 2)
-	maxHealth = round(initial(maxHealth)+(initial(maxHealth)/3)*(physique))
-	health = round(initial(health)+(initial(health)/3)*(physique))
-	last_health = health
+
 	socialrole = new S()
 
 	is_criminal = socialrole.is_criminal
