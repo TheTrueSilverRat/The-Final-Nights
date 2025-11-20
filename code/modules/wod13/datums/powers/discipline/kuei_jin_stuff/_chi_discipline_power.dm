@@ -7,11 +7,6 @@
 	/// CHI DISCIPLINES DO NOT COST BLOOD
 	vitae_cost = 0
 
-	///THE CHI COSTS
-	var/cost_yang = 0
-	var/cost_yin = 0
-	var/cost_demon = 0
-
 
 /* Not sure if needed but here just in case
 /datum/discipline_power/chi_discipline_power/New(datum/discipline/chi_discipline/discipline)
